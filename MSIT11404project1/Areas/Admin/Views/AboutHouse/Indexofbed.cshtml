@@ -1,0 +1,200 @@
+﻿@model MSIT11404project1.Areas.Accomodation.ViewModel.AdminBedView
+@{
+    ViewBag.Title = "Indexofbed";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutRooms.cshtml";
+}
+
+@section style{
+    <style>
+        .table {
+        white-space:nowrap;
+        width:70%;
+        font-size:20px;
+        margin:auto;
+        }
+        .table th {
+            font-size:25px;
+            font-weight:600;
+            }
+            .table tbody td {
+            text-align:center;
+            padding-top:5px;
+            }
+        #tabs {
+        padding:15px;
+        width:80%;
+        margin:auto;
+        }
+        .btnedit, .btninsert {
+        width:45px;
+        height:45px;
+        }    
+    </style>
+    }
+ <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">床型種類</a></li>
+            <li><a href="#tabs-2">房源空間</a></li>
+            <li><a href="#tabs-3">房源種類</a></li>
+        </ul>
+        <div id="tabs-1">
+            <table class="table table-bordered">
+
+                <thead>
+                    <tr>
+                        <th>床型編號</th>
+                        <th>種類</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var items in Model.bedentities)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(n => items.BedTypeID)</td>
+                            <td contenteditable="true" data-bkey="@items.BedTypeID">@Html.DisplayFor(n => items.BedDescript)</td>
+                            <td><input type="button" class="btnedit editbed" data-bkey="@items.BedTypeID" /></td>
+
+                        </tr>
+                    }
+                    @using (Html.BeginForm("postBed", "AboutHouse", new { area = "Admin" }, FormMethod.Post, new { id = "formB" }))
+                    {
+                        <tr>
+                            <td>新增新類別</td>
+                            <td>@Html.EditorFor(n => n.bedentity.BedDescript, new { htmlattributes = new { @class = "form-control" } })</td>
+                            <td><input class="btninsert" id="bedinsert" type="button" /></td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+          </div>
+           <div id="tabs-2">
+               <table class="table table-bordered">
+
+                   <thead>
+                       <tr>
+                           <th>空間編號</th>
+                           <th>空間種類</th>
+                       </tr>
+
+                   </thead>
+                   <tbody>
+                       @foreach (var items in Model.houseSpace)
+                       {
+                           <tr>
+                               <td>@Html.DisplayFor(n => items.HouseSpaceID)</td>
+                               <td contenteditable="true" data-hskey="@items.HouseSpaceID">@Html.DisplayFor(n => items.HouseSpaceDescript)</td>
+                               <td><input type="button" class="btnedit ediths" data-hskey="@items.HouseSpaceID" /></td>
+
+                           </tr>
+                       }
+                       @using (Html.BeginForm("postHS", "AboutHouse", new { area = "Admin" }, FormMethod.Post, new { id = "formHS" }))
+                       {
+                           <tr>
+                               <td>新增項目</td>
+                               <td>@Html.EditorFor(n => n.houseSpaceentity.HouseSpaceDescript, new { htmlattributes = new { @class = "form-control" } })</td>
+                               <td><input class="btninsert" id="hsinsert" type="button" /></td>
+                           </tr>
+
+                       }
+                   </tbody>
+               </table>
+         </div>
+
+        <div id="tabs-3">
+            <table class="table table-bordered">
+
+                <thead>
+                    <tr>
+                        <th>空間編號</th>
+                        <th>空間種類</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var items in Model.housesSource)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(n => items.HouseSourceID)</td>
+                            <td contenteditable="true" data-HSkey="@items.HouseSourceID">@Html.DisplayFor(n => items.HouseSource)</td>
+                            <td><input type="button" class="btnedit editHS" data-HSkey="@items.HouseSourceID" /></td>
+
+                        </tr>
+                    }
+                    @using (Html.BeginForm("postHouseSource", "AboutHouse", new { area = "Admin" }, FormMethod.Post, new { id = "formC" }))
+                    {
+                        <tr>
+                            <td>新增項目</td>
+                            <td>@Html.EditorFor(n => n.houseSourcesE.HouseSource, new { htmlattributes = new { @class = "form-control" } })</td>
+                            <td><input class="btninsert" id="HSinsert" type="button" /></td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+@section script{
+    <script>
+        $('#HSinsert').click(function () {
+            $('#formC').submit();
+        })
+        $('.editbHS').click(function () {
+            var databkey = $(this).data("HSkey");
+            var strurl = '@Url.HttpRouteUrl("PutHouse", new {http="",controller="BasicWebapi" })'
+            var tdval = $('td[data-HSkey="' + databkey + '"]').text();
+            var datass = { "HouseSourceID": databkey, "HouseSource": tdval }
+            $.ajax({
+                'url': strurl,
+                'type': 'Put',
+                'data': JSON.stringify(datass),
+                'contentType': 'application/json'
+            }).done(function () {
+
+            })
+        })
+
+        $('#tabs').tabs();
+        $('#bedinsert').click(function () {
+            $('#formB').submit();
+        })
+        $('.editbed').click(function () {
+            var databkey=$(this).data("bkey");
+            var strurl = '@Url.HttpRouteUrl("DefaultApi",new {http="",controller="BasicWebapi" })'
+            var tdval = $('td[data-bkey="'+databkey+'"]').text();
+            var datass = { "BedTypeID":databkey,"BedDescript": tdval }
+            $.ajax({
+                'url': strurl,
+                'type': 'Put',
+                'data':JSON.stringify(datass),
+                'contentType':'application/json'
+            }).done(function () {
+               
+            })
+        })
+
+        $('#hsinsert').click(function () {
+            $('#formHS').submit();
+        })
+
+        $('.ediths').click(function () {
+            var databkey = $(this).data("hskey");
+            var strurl = '@Url.HttpRouteUrl("Puths",new {http="",controller="BasicWebapi" })'
+            var tdval = $('td[data-hskey="' + databkey + '"]').text();
+            var datass = { "HouseSpaceID": databkey, "HouseSpaceDescript": tdval }
+            $.ajax({
+                'url': strurl,
+                'type': 'Put',
+                'data': JSON.stringify(datass),
+                'contentType': 'application/json'
+            }).done(function () {
+               
+            })
+        })
+    </script>
+    
+    }

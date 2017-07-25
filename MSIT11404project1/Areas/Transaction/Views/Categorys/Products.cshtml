@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "產品詳細資料";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<MSIT11404project1.Models.Products>
+@section style{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <style>
+        .namelink {
+            color: black;
+        }
+
+            .namelink:hover {
+                text-decoration: none;
+                color: black;
+            }
+
+        .list-inline {
+            height: 50px;
+        }
+
+
+        .list {
+            height: 400px;
+        }
+
+        .title {
+            font-size: 20px;
+        }
+         .panel-transparent {
+        background: none;
+            }
+    </style>
+}
+
+
+<div class="panel panel-warning THome row">
+    <div class="panel-heading">
+
+        <ul class="list-inline">
+            <li><h3><strong>後臺管理</strong></h3></li>
+            <li>
+                <ol class="breadcrumb panel-transparent">
+                    <li>
+                        @Html.ActionLink("拍賣場首頁", "Index", "Products", new { area = "Transaction" }, null)
+                    </li>
+                    <li>
+                        <a href="@Url.Action(  "Products","Categorys", new { area = "Transaction" })">後臺管理首頁</a>
+                    </li>
+
+                </ol>
+
+            </li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-4">
+            @Html.Action("CategorysIndex")
+            </div>
+
+            <div class="col-md-8">
+                <h3><strong>產品清單</strong></h3>
+                <table class="table tab-content table-condensed  ">
+                    <thead>
+                        <tr>
+                            <th> @Html.DisplayNameFor(p => p.First().CategoryID)</th>
+                            <th> 販賣者</th>
+                            <th> @Html.DisplayNameFor(p => p.First().ProductImage)</th>
+                            <th> @Html.DisplayNameFor(p => p.First().ProductName)</th>
+                            <th>@Html.DisplayNameFor(p => p.First().UnitPrice)</th>
+                            <th>@Html.DisplayNameFor(p => p.First().Date)</th>
+                            <th>購買人數</th>
+                            <th>詳細資料</th>
+                            <th>修改刪除</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        @foreach (var product in Model)
+                        {
+
+                            <tr>
+                                <th> @Html.DisplayFor(c => product.Categorys.CategoryName)</th>
+                                <th> @Html.DisplayFor(p => product.Members.UserName)</th>
+                                <th> <img src="@Url.Action("GetImage","Products", new { id = product.ProductID })" width="64" height="64" /></th>
+                                <th>
+                                    <strong class="strong">   @Html.DisplayFor(c => product.ProductName)</strong>
+                                    @if (product.Quantity == 0)
+                                    {
+                                        <strong class="line-height" style="color:white;background-color:red ">
+                                            已完售
+                                        </strong>
+                                    }
+                                </th>
+                                <th> @Html.DisplayFor(c => product.UnitPrice)</th>
+                                <th>@Html.DisplayFor(p => product.Date)</th>
+                                <th>@product.OrderDetails.Where(p => p.ProductID == product.ProductID).Count()</th>
+                                <th>   @Html.ActionLink("詳細資料", "ProductsDetailed", "Categorys", new { area = "Transaction", id = product.ProductID }, null)</th>
+                                <th>    @Html.ActionLink("修改", "PUpdate", "Categorys", new { area = "Transaction", id = product.ProductID }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })     
+                                        @Html.ActionLink("刪除", "PDelete", "Categorys", new { area = "Transaction", id = product.ProductID }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })</th>
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Model, page => Url.Action("Products", new { page = page, sortBy = Request["sortBy"] }), PagedListRenderOptions.Classic)
+            </div>
+        </div>
+    </div>
+
+
+
+
+@section script{
+    <script>
+
+$(function(){
+    var len = 25; // 超過25個字以"..."取代
+    $(".strong").each(function (i) {
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+});
+
+
+    </script>
+}

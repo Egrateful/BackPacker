@@ -1,0 +1,106 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@using MSIT11404project1.Models
+@model IPagedList<MSIT11404project1.Models.Flights>
+
+@{
+    ViewBag.Title = "機票列表";
+    Layout = "~/Areas/FlightSearch/Views/Shared/_LayoutFlight.cshtml";
+}
+
+<h2>機票列表</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FlightID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Airlines.AirlineCName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FromAirport)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FromAirportCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ToAirport)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ToAirportCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ScheduleDetails.DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ScheduleDetails.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TicketInfo.TicketPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TicketInfo.Stops)
+            </th>
+            <th>更新 | 明細 | 刪除</th>
+           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Airlines.AirlineCName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromAirport)
+                </td>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromAirportCity)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToAirport)
+                </td>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToAirportCity)
+                </td>
+               
+                <th>
+                    @Html.DisplayFor(modelItem => item.ScheduleDetails.DepartureTime)
+                </th>
+                <th>
+                 @Html.DisplayFor(modelItem => item.ScheduleDetails.ArrivalTime)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketInfo.TicketPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketInfo.Stops)
+                </td>
+                <td>
+                    @Html.ActionLink("更新", "FlightEdit", "Flight", new { Area = "Admin" , id = item.FlightID }, "") |
+                    @Html.ActionLink("明細", "FlightList", "Flight", new { Area = "FlightSearch" }, new { id = item.FlightID }) |
+                    @Html.ActionLink("刪除", "FlightDelete", "Flight", new { Area = "Admin" }, new { id = item.FlightID }) 
+                </td>
+            </tr>
+        }
+
+    </table>
+  
+    @Html.PagedListPager(Model, p => Url.Action("FlightList", new { page = p, FromAirportCity = Request.QueryString["FromAirportCity"], ToAirportCity = Request.QueryString["ToAirportCity"], DepartureDate = Request.QueryString["DepartureDate"], ReturnDate = Request.QueryString["ReturnDate"] }))
+</div>

@@ -1,0 +1,168 @@
+﻿@model IEnumerable<MSIT11404project1.Models.Travels>
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Areas/Travel/Views/Shared/_LayoutTravel.cshtml";
+
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <style>
+        a[name='travellink'] {
+            color: black;
+        }
+
+        #travelHome {
+        }
+
+            #travelHome > h5 {
+                font-weight: bold;
+                font-size: 3em;
+            }
+
+            #travelHome > div > a {
+                font-size: 2em;
+                color: black;
+                margin: 30px;
+                background-color: transparent;
+                border-color: black;
+                border-width: 3px;
+            }
+
+        #showTravels {
+            background-color: #8cb6b4;
+        }
+
+            #showTravels > div > h1 {
+                color: black;
+            }
+
+        .traveldiv {
+            border: 1px solid gray;
+            border-radius: 20px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            height: 350px;
+        }
+
+            .traveldiv:hover {
+                cursor: pointer;
+            }
+    </style>
+}
+<div class="row">
+    <div class="col-lg-2 col-sm-2 col-xs-2"></div>
+    <div id="travelHome" class="col-lg-8 col-sm-8 col-xs-8">
+        <h5 class="text-center">接下來去哪？</h5>
+        <h2 class="text-center">旅行的意義 由自己定義！</h2>
+        <div class="text-center">
+            <img class="text-center" src='@Url.Content("~/img/TravelHomePage3.png")' />
+            @*<img class="text-center" src="~/img/TravelHomePage.jpg" />*@
+        </div>
+        <div class="text-center row">
+            <a href="#title" class="btn ">查看行程 <span class="glyphicon glyphicon-list-alt"></span></a>
+            <a id="checkTravelbtn"  class="btn ">我的行程 <span class="glyphicon glyphicon-user"></span></a>
+            <a id="createTravelbtn"   class="btn ">建立行程 <span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
+    </div>
+    <div class="col-lg-2 col-sm-2 col-xs-2"></div>
+</div>
+<div id="showTravels" class="row">
+    <div class="col-lg-2 col-sm-2 col-xs-2"></div>
+    <div class="col-lg-8 col-sm-8 col-xs-8">
+        <div id="allTravels" class="row">
+            <h1 id="title">參考行程</h1>
+            @{
+                foreach (var t in Model)
+                {
+                    <a href="@Url.Action("TravelDetail", "Travel", new { Area = "Travel", id = t.TravelID }) " name="travellink">
+                        <div class="col-lg-3 ">
+                            <div class="traveldiv">
+                                <div class="thumbnail" style="margin:5px">
+                                    @Html.HiddenFor(id => t.TravelID)
+                                    <img src="@t.TitleImage" style="height:150px" />
+                                </div>
+                                <div style="margin:5px">
+                                    <h3>@t.Name</h3>
+                                    <div class="row">
+                                        <p class="col-lg-8">出發日期:@t.StartDate.ToShortDateString() </p>
+                                        <p style="text-align:right" class="col-lg-4">@t.DuringDay 天 </p>
+                                    </div>
+                                    @*<p>出發日期:@t.StartDate.ToShortDateString() </p>*@
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <p style="text-align:left">@t.ViewCount 次瀏覽</p>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <p style="text-align:right">@t.Message.Count() 則留言</p>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @{
+                                                if (t.Members.UserPhoto != null)
+                                                {
+                                                    <img style="border-radius:50%;width:50px;height:50px" src="@string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(t.Members.UserPhoto))" />
+                                                }
+                                                else
+                                                {
+                                                    <img style="border-radius:50%;width:50px;height:50px" src="~/Areas/Blog/PicForBlog/DFHeadPic.png" />
+                                                }
+                                            }
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 style="text-align:right">@t.Members.UserName</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-sm-2 col-xs-2"></div>
+</div>
+
+@section script{
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/jquery-cookie-master/src/jquery.cookie.js"></script>
+    <script>
+        $(document).ready(function () {
+            var createTravelbtn  =  $('#createTravelbtn');
+            createTravelbtn.click(function(){
+                if ($.cookie('MemberID') == undefined)
+                {
+                    if (confirm('請先登入會員，方可建立自己的專屬行程') == true)
+                    {
+                         createTravelbtn.attr('href','@Url.Action("Login", "Member",new { Area="Member"})');
+                    }
+                }
+                else
+                {
+                    createTravelbtn.attr('href', '@Url.Action("Create","Travel",new {Area="Travel"})' + '/' + $.cookie('MemberID'));
+                }
+            })
+
+            var checkTravelbtn = $('#checkTravelbtn');
+            checkTravelbtn.click(function () {
+                if ($.cookie('MemberID') == undefined) {
+
+                    if (confirm('請先登入會員，方可查看自己的行程') == true)
+                    {
+                        checkTravelbtn.attr('href', '@Url.Action("Login", "Member",new { Area="Member"})');
+                    }
+                }
+                else
+                {
+                    checkTravelbtn.attr('href', '@Url.Action("UserTravels", "Travel",new {Area="Travel" })' + '/' + $.cookie('MemberID'));
+                }
+            })
+
+
+        })
+    </script>
+}

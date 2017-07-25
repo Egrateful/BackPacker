@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MSIT11404project1.Models.Msg>
+@{
+    ViewBag.Title = "GetMsg";
+}
+
+<h2>留言</h2>
+    @foreach (var item in Model)
+    {
+        @item.Msg1
+        @item.BlogUser.Name
+        @item.CreateTime
+    }
+<form action="PoMsg" method="post">
+    <input type="hidden" value="@ViewBag.docid" name="DocID" />
+    <textarea name="Msg1"></textarea>
+    <input type="submit" />
+</form>
+
+

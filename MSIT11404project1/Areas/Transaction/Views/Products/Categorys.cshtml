@@ -1,0 +1,15 @@
+﻿@model  IEnumerable<MSIT11404project1.Models.Categorys>
+<div class="list-group">
+    @Html.ActionLink("全部商品","Index", "Products", new { id = 0 }, new { @class = "list-group-item" })
+
+
+    @foreach (var category in Model)
+    {
+
+        <a  class = "list-group-item" href="@Url.Action("Index", "Products", new { id = category.CategoryID })">@category.CategoryName</a>
+
+
+        @*@Html.ActionLink(category.CategoryName, "Index", "Products", new { id = category.CategoryID }, new { @class = "list-group-item" })*@
+    }
+</div>
+

@@ -1,0 +1,174 @@
+﻿@{
+    ViewBag.Title = "工作列表";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@model IEnumerable<MSIT11404project1.Models.JobList>
+
+@{
+    ViewBag.Title = "工作清單";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section Style{
+    <style>
+        th {
+            width: 100px;
+        }
+
+        .job {
+            width: 550px;
+            padding: 5px;
+            margin: 10px;
+            border: solid #808080 1px;
+            border-radius: 5px;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        h3 {
+            width: 110px;
+            padding: 5px;
+            margin: 10px;
+            border: solid #808080 1px;
+            border-radius: 5px;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+}
+
+<h2>工作清單</h2>
+
+@foreach (var item in Model)
+{
+    <table class="table dl-horizontal job col-md-3">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyId)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyId)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JobTitle)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JobDescription)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDescription)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Contacts)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contacts)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EducationalBackground)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.EducationalBackground)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <td>
+                @{
+                    if (item.Photo != null)
+                    {
+                        <img src="@string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(item.Photo))" width="300" height="180" />
+                    }
+                }
+            </td>
+            <th></th>
+        </tr>
+    </table>
+}

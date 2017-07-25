@@ -1,0 +1,98 @@
+﻿@model MSIT11404project1.Areas.Accomodation.ViewModel.basicviewmodel
+@{
+    ViewBag.Title = "BasicInfoTwo";
+    Layout = "~/Areas/Accomodation/Views/Shared/belandlord.cshtml";
+}
+
+@section style{
+    <style>
+        .form-group {
+        margin-top:10px;
+        }
+            .uiforcontrol > label {
+            
+            font-size:20px;
+            font-weight:600;
+            line-height:25px;
+            }
+        .uiforcontrol {
+        margin-top:15px;
+        }
+        .button1>input {
+        width:100px;
+        font-size:20px;
+        }
+    </style>
+    }
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="divforhead row" style="margin-top:100px">
+                <div class="col-lg-3">
+                    <img src='@Url.Content("~/img/signse.png")' style="height:250px;width:150px"/>
+                </div>
+                <div class="col-lg-9">
+                    <label style="font-size:45px;font-weight:700">房源空間的描述</label>
+                </div>
+            </div>
+            @using (Html.BeginForm("GetSecond", "LandLord", FormMethod.Post))
+            {
+                <div>
+                    <div class="uiforcontrol">
+                        <label>為您的房源取個名字吧!</label>
+                        @Html.EditorFor(n => n.housesentity.HouseName, new { htmlattributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="uiforcontrol">
+                        <label>請問可以住進幾人呢?</label>
+                        @Html.EditorFor(n => n.housesentity.PeopleAllowed, new { htmlattributes = new { min = "1", @class = "form-control" } })
+                    </div>
+                    <div class="uiforcontrol">
+                        <label>有幾間浴室呢?</label>
+                        @Html.EditorFor(n => n.housesentity.BathroomNum, new { htmlattributes = new { min = "0", @class = "form-control" } })
+                    </div>
+
+                    <div class="uiforcontrol">
+                        <label>您是否與房客同住呢?</label>
+                        @Html.EditorFor(n => n.housesentity.IsOwnerHome)
+                    </div>
+
+                    <div class="uiforcontrol">
+                        <label>總共有幾間房間?</label>
+                        @Html.EditorFor(n => n.housesentity.BedroomNum, new { htmlattributes = new { @class = "form-control" } })
+                    </div> 
+                </div>
+                <div class="form-group button1" style="text-align:right">
+                    @{                        
+                                <img src="@Url.Content("~/img/save.png")" id="saveing" style="width:55px;height:55px;border-radius:5px;cursor:pointer;margin-top:45px" />
+                                                    
+                    }
+                </div>
+
+
+
+
+
+
+            }
+
+        </div>
+        <div class="col-lg-4">
+            <div class="divforimg" style="text-align:center">
+                <img src="@Url.Content("~/img/shower.png")" style="margin-top:150px" />
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section script{
+    <script>
+        //$('.houses').effect('slide', 1000, "");
+        $('#saveing').click(function () {
+            $('form').submit();
+        })
+        var width = $('.button1').css('width');
+        $('.uiforcontrol').controlgroup({ "direction": "vertical" }).css('width',width);
+        
+    </script>
+    }

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MSIT11404project1.Models.HouseQuality>
+@{
+    ViewBag.Title = "aboutbadcomment";
+    Layout = "~/Areas/Accomodation/Views/Shared/ForUser.cshtml";
+}
+
+@section style{
+    <style>
+        .table {
+        white-space:nowrap;
+        width:100%;
+        }
+            .table th {
+            font-weight:700;
+            font-size:25px;
+            }
+            .table td {
+            font-size:20px;
+            }
+    </style>
+    }
+@{ 
+    if (Model.Count()!=0)
+    {
+       
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>檢舉房源</th>
+                    <th>房東帳號</th>
+                    <th>檢舉日期</th>
+                    <th>檢舉內容</th>
+                    <th>審核狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var items in Model.Where(n=>n.Score==-1).ToList()) {
+                    <tr>
+                        <td><a href="@Url.Action("housedetails","JustForUser",new {area="Accomodation",id=items.HouseKey})">@Html.DisplayFor(n => items.HouseMain.HouseName)</a></td>
+                        
+                        <td>@Html.DisplayFor(n=>items.HouseMain.Members.Email)</td>
+                        <td>@Html.DisplayFor(n=>items.CreateDate)</td>
+                        <td>@Html.DisplayFor(n=>items.Messages)</td>
+                        <td style="color:red">
+                            @{
+                            if (items.IsChecked == null)
+                            {
+                                <text>正在審核</text>
+                            }
+                            else if (items.IsChecked == false)
+                            {
+                                <text>您的檢舉已被駁回</text>
+                            }
+                            else
+                            {
+                                <text>已通知房東並要求其改善</text>
+                            }
+                            }
+
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table> 
+
+                                }
+    
+    else {
+        <h1>你沒有檢舉房東的紀錄喔!</h1>
+    }
+
+}
+
+
+
+
+@section script{
+    <script>
+
+    </script>
+    }

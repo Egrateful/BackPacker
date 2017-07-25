@@ -1,0 +1,68 @@
+﻿@model  IEnumerable<MSIT11404project1.Areas.Blog.BlogViewModel.DocTver>
+@{
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+@section style{
+    <link href="~/Areas/Blog/hover-min.css" rel="stylesheet" />
+    <style>
+        .picdiv {
+            background: no-repeat center center;
+            background-size: cover;
+            height: 100%;
+        }
+
+        .docss {
+            height: 230px;
+            margin-bottom: 35px;
+            background-color: white;
+            border: 2px rgba(128, 128, 128, 0.7) solid;
+            color:black;
+        }
+            .docss:hover {
+            border: 2px #ffffff solid;
+            }
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .hvr-grow {
+        }
+
+        .text-norawp {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+}
+
+<h1 style="text-shadow:8px 8px 2px #808080"><b>搜尋結果</b></h1>
+<div style="margin:0 auto; width:90%">
+    <h3 style="text-shadow:8px 8px 2px #808080">總共有    @Model.Count() 筆 符合搜尋</h3>
+    <div class="row">
+        @foreach (var item in Model.OrderByDescending(p => p.DocCT))
+        {
+            <a href="@Url.Action("BlogOne",new { id=item.theTDoc.DocID})">
+                <div class="docss hvr-grow row col-lg-5" style="margin:10px 90px 10px 0;background-color:rgba(255, 255, 255, 0.70)">
+                    <div class="picdiv col-lg-5" style="background-image:url(@Url.Action("GetImage",new { id=item.theTDoc.DocID})"></div>
+                    <div class="col-lg-7">
+                        <h3 class="text-norawp" style="overflow:hidden;width:100%">@item.theTDoc.Title  </h3>
+                        <h4>地點：@item.theTDoc.PlaceForBlog.PlaceName</h4>
+                        <h4>分類：@item.theTDoc.Mood.MoodName</h4>
+                        <hr />
+                        <img src="@Url.Action("GetHeadPic",new { id=item.theTDoc.Members.MemberID})" class="img-circle" /><span>@item.theTDoc.Members.UserName</span>
+                        <span>@item.DocCT</span>
+                        <div>
+                            <span class="text-left"> 人氣：@item.theTDoc.Good  </span> <span class="text-right">  留言：@item.theTDoc.Msg.Count</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
+

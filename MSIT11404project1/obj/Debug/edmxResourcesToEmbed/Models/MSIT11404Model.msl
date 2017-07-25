@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MSIT11404Model1StoreContainer" CdmEntityContainer="MSIT11404Entities1">
+    <EntitySetMapping Name="BedDtails">
+      <EntityTypeMapping TypeName="MSIT11404Model1.BedDtails">
+        <MappingFragment StoreEntitySet="BedDtails">
+          <ScalarProperty Name="Ispublic" ColumnName="Ispublic" />
+          <ScalarProperty Name="RoomPrice" ColumnName="RoomPrice" />
+          <ScalarProperty Name="SpaceIntro" ColumnName="SpaceIntro" />
+          <ScalarProperty Name="HouseKey" ColumnName="HouseKey" />
+          <ScalarProperty Name="BedInSpaceID" ColumnName="BedInSpaceID" />
+          <ScalarProperty Name="BedCount" ColumnName="BedCount" />
+          <ScalarProperty Name="BedTypeID" ColumnName="BedTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BedType">
+      <EntityTypeMapping TypeName="MSIT11404Model1.BedType">
+        <MappingFragment StoreEntitySet="BedType">
+          <ScalarProperty Name="BedDescript" ColumnName="BedDescript" />
+          <ScalarProperty Name="BedTypeID" ColumnName="BedTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Booking">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+          <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
+          <ScalarProperty Name="Createdate" ColumnName="Createdate" />
+          <ScalarProperty Name="IsConfirm" ColumnName="IsConfirm" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="BedInSpaceID" ColumnName="BedInSpaceID" />
+          <ScalarProperty Name="HouseKeyID" ColumnName="HouseKeyID" />
+          <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Calendar">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Calendar">
+        <MappingFragment StoreEntitySet="Calendar">
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="BedInSpaceID" ColumnName="BedInSpaceID" />
+          <ScalarProperty Name="HouseKeyID" ColumnName="HouseKeyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseSourceType">
+      <EntityTypeMapping TypeName="MSIT11404Model1.HouseSourceType">
+        <MappingFragment StoreEntitySet="HouseSourceType">
+          <ScalarProperty Name="HouseSource" ColumnName="HouseSource" />
+          <ScalarProperty Name="HouseSourceID" ColumnName="HouseSourceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseSpace">
+      <EntityTypeMapping TypeName="MSIT11404Model1.HouseSpace">
+        <MappingFragment StoreEntitySet="HouseSpace">
+          <ScalarProperty Name="HouseSpaceDescript" ColumnName="HouseSpaceDescript" />
+          <ScalarProperty Name="HouseSpaceID" ColumnName="HouseSpaceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageForRoom">
+      <EntityTypeMapping TypeName="MSIT11404Model1.ImageForRoom">
+        <MappingFragment StoreEntitySet="ImageForRoom">
+          <ScalarProperty Name="Descript" ColumnName="Descript" />
+          <ScalarProperty Name="ImageByte" ColumnName="ImageByte" />
+          <ScalarProperty Name="HouseKey" ColumnName="HouseKey" />
+          <ScalarProperty Name="ImageKey" ColumnName="ImageKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doc">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Doc">
+        <MappingFragment StoreEntitySet="Doc">
+          <ScalarProperty Name="MoodID" ColumnName="MoodID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="Good" ColumnName="Good" />
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Article" ColumnName="Article" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Nid" ColumnName="Nid" />
+          <ScalarProperty Name="DocID" ColumnName="DocID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mood">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Mood">
+        <MappingFragment StoreEntitySet="Mood">
+          <ScalarProperty Name="MoodName" ColumnName="MoodName" />
+          <ScalarProperty Name="MoodID" ColumnName="MoodID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Msg">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Msg">
+        <MappingFragment StoreEntitySet="Msg">
+          <ScalarProperty Name="Nid" ColumnName="Nid" />
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Msg1" ColumnName="Msg" />
+          <ScalarProperty Name="DocID" ColumnName="DocID" />
+          <ScalarProperty Name="MsgID" ColumnName="MsgID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pic">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Pic">
+        <MappingFragment StoreEntitySet="Pic">
+          <ScalarProperty Name="IsCover" ColumnName="IsCover" />
+          <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+          <ScalarProperty Name="TakeTime" ColumnName="TakeTime" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="PhotoName" ColumnName="PhotoName" />
+          <ScalarProperty Name="DocID" ColumnName="DocID" />
+          <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlaceForBlog">
+      <EntityTypeMapping TypeName="MSIT11404Model1.PlaceForBlog">
+        <MappingFragment StoreEntitySet="PlaceForBlog">
+          <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Cities">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="CityContinent" ColumnName="CityContinent" />
+          <ScalarProperty Name="CityCountry" ColumnName="CityCountry" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hotels">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Hotels">
+        <MappingFragment StoreEntitySet="Hotels">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+          <ScalarProperty Name="ServiceInfo" ColumnName="ServiceInfo" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ImageWebSite" ColumnName="ImageWebSite" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AvgPrice" ColumnName="AvgPrice" />
+          <ScalarProperty Name="ArrivalWay" ColumnName="ArrivalWay" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Places">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Places">
+        <MappingFragment StoreEntitySet="Places">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Notice" ColumnName="Notice" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ImageWebSite" ColumnName="ImageWebSite" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ArrivalWay" ColumnName="ArrivalWay" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Restaurants">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Restaurants">
+        <MappingFragment StoreEntitySet="Restaurants">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ImageWebSite" ColumnName="ImageWebSite" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AvgPrice" ColumnName="AvgPrice" />
+          <ScalarProperty Name="ArrivalWay" ColumnName="ArrivalWay" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoginRecord">
+      <EntityTypeMapping TypeName="MSIT11404Model1.LoginRecord">
+        <MappingFragment StoreEntitySet="LoginRecord">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="LogoutTime" ColumnName="LogoutTime" />
+          <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Members">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="IsAdminitrator" ColumnName="IsAdminitrator" />
+          <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="OfficialID" ColumnName="OfficialID" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseMain">
+      <EntityTypeMapping TypeName="MSIT11404Model1.HouseMain">
+        <MappingFragment StoreEntitySet="HouseMain">
+          <ScalarProperty Name="IsFreeze" ColumnName="IsFreeze" />
+          <ScalarProperty Name="HouseName" ColumnName="HouseName" />
+          <ScalarProperty Name="BadComment" ColumnName="BadComment" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="BedAvailableNum" ColumnName="BedAvailableNum" />
+          <ScalarProperty Name="PeopleAllowed" ColumnName="PeopleAllowed" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsOwnerHome" ColumnName="IsOwnerHome" />
+          <ScalarProperty Name="BedroomNum" ColumnName="BedroomNum" />
+          <ScalarProperty Name="BathroomNum" ColumnName="BathroomNum" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="HouseSpaceTypeID" ColumnName="HouseSpaceTypeID" />
+          <ScalarProperty Name="HouseSourceID" ColumnName="HouseSourceID" />
+          <ScalarProperty Name="HouseKey" ColumnName="HouseKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseQuality">
+      <EntityTypeMapping TypeName="MSIT11404Model1.HouseQuality">
+        <MappingFragment StoreEntitySet="HouseQuality">
+          <ScalarProperty Name="IsChecked" ColumnName="IsChecked" />
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Messages" ColumnName="Messages" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="HouseKey" ColumnName="HouseKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Message">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Message">
+        <MappingFragment StoreEntitySet="Message">
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="TravelID" ColumnName="TravelID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Travels">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Travels">
+        <MappingFragment StoreEntitySet="Travels">
+          <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="TitleImage" ColumnName="TitleImage" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DuringDay" ColumnName="DuringDay" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TravelID" ColumnName="TravelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Carts">
+        <MappingFragment StoreEntitySet="Carts">
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="CartID" ColumnName="CartID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categorys">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Categorys">
+        <MappingFragment StoreEntitySet="Categorys">
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductContent" ColumnName="ProductContent" />
+          <ScalarProperty Name="ByteImge" ColumnName="ByteImge" />
+          <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Airlines">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Airlines">
+        <MappingFragment StoreEntitySet="Airlines">
+          <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="CallSign" ColumnName="CallSign" />
+          <ScalarProperty Name="AirlineName" ColumnName="AirlineName" />
+          <ScalarProperty Name="AirlineCName" ColumnName="AirlineCName" />
+          <ScalarProperty Name="AirlineID" ColumnName="AirlineID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Flights">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Flights">
+        <MappingFragment StoreEntitySet="Flights">
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="ToAirportCountry" ColumnName="ToAirportCountry" />
+          <ScalarProperty Name="ToAirportCity" ColumnName="ToAirportCity" />
+          <ScalarProperty Name="ToAirportName" ColumnName="ToAirportName" />
+          <ScalarProperty Name="ToAirport" ColumnName="ToAirport" />
+          <ScalarProperty Name="FromAirportCountry" ColumnName="FromAirportCountry" />
+          <ScalarProperty Name="FromAirportCity" ColumnName="FromAirportCity" />
+          <ScalarProperty Name="FromAirportName" ColumnName="FromAirportName" />
+          <ScalarProperty Name="FromAirport" ColumnName="FromAirport" />
+          <ScalarProperty Name="TicketInfoID" ColumnName="TicketInfoID" />
+          <ScalarProperty Name="AirlineID" ColumnName="AirlineID" />
+          <ScalarProperty Name="FlightID" ColumnName="FlightID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScheduleDetails">
+      <EntityTypeMapping TypeName="MSIT11404Model1.ScheduleDetails">
+        <MappingFragment StoreEntitySet="ScheduleDetails">
+          <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
+          <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+          <ScalarProperty Name="FlightNo" ColumnName="FlightNo" />
+          <ScalarProperty Name="TicketInfoID" ColumnName="TicketInfoID" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicketInfo">
+      <EntityTypeMapping TypeName="MSIT11404Model1.TicketInfo">
+        <MappingFragment StoreEntitySet="TicketInfo">
+          <ScalarProperty Name="Stops" ColumnName="Stops" />
+          <ScalarProperty Name="TicketType" ColumnName="TicketType" />
+          <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
+          <ScalarProperty Name="FlightID" ColumnName="FlightID" />
+          <ScalarProperty Name="TicketInfoID" ColumnName="TicketInfoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CartsProducts">
+      <EntityTypeMapping TypeName="MSIT11404Model1.CartsProducts">
+        <MappingFragment StoreEntitySet="CartsProducts">
+          <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="CartID" ColumnName="CartID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetails">
+      <EntityTypeMapping TypeName="MSIT11404Model1.OrderDetails">
+        <MappingFragment StoreEntitySet="OrderDetails">
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderDetailsID" ColumnName="OrderDetailsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="MSIT11404Model1.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Service" ColumnName="Service" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="PurchaserAddress" ColumnName="PurchaserAddress" />
+          <ScalarProperty Name="PurchaserPhon" ColumnName="PurchaserPhon" />
+          <ScalarProperty Name="Purchaser" ColumnName="Purchaser" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

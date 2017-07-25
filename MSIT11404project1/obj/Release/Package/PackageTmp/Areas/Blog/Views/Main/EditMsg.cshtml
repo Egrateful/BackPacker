@@ -1,0 +1,79 @@
+﻿@model IEnumerable <MSIT11404project1.Models.Msg>
+@{
+    ViewBag.Title = "EditMsg";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+@section style{
+    <style>
+        table {
+        font-size:120%;
+            display : inline-block;
+             white-space : nowrap;
+             overflow : hidden;
+              text-overflow : ellipsis;
+        }
+
+
+    </style>
+    
+    }
+<h2><b>管理留言</b></h2>
+<form action="EditMsg" method="post">
+    <input type="hidden" name="NID" value="@ViewBag.MemberID" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="8%">留言狀態</th>
+                <th width="8%">留言者</th>
+                <th width="15%">留言時間</th>
+                <th width="69%">留言內容</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input name="TheMsgID" type="hidden" value="@item.MsgID"/>
+                            
+                            @{if (item.IsShow == true)
+                                {
+                                    <input type="hidden" name="ISIS" value="true" />
+                                    <input  type="button" class="btn btn-success" value="顯示"/>
+                                }
+                                else
+                                {
+                                    <input type="hidden" name="ISIS" value="false" />
+                                    <input  type="button" class="btn btn-danger" value="隱藏"/>
+                                }
+                            }
+                        </td>
+                        <td>@item.Members.UserName</td>
+                        <td>@item.CreateTime</td>
+                        <td>@item.Msg1</td>
+                    </tr>
+                }
+              }
+        </tbody>
+    </table>
+    <div class="text-right">
+        <input type="submit" class="btn btn-primary" style="margin:10px 0 30px 0;" name="submit" id="submit" value="確認" />
+        <a href="@Url.Action("MyBlog")" style="margin:10px 0 30px 0;" class="btn btn-info">取消</a> 
+    </div>
+</form>
+@section script{
+    <script>
+        $("input[type='button']").click(function () {
+            var ISIS=$(this).siblings("input[name='ISIS']")
+            if (ISIS.val()=="true") {
+                ISIS.val("false")
+                $(this).removeClass("btn-success").addClass("btn-danger").val("隱藏")
+            }
+            else {
+                ISIS.val("true")
+                $(this).removeClass("btn-danger").addClass("btn-success").val("顯示")
+            }
+        })
+    </script>
+    }

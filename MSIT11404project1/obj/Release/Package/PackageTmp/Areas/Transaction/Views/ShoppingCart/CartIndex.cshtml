@@ -1,0 +1,92 @@
+﻿@model  IEnumerable<MSIT11404project1.Models.CartsProducts>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+@section style{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <style>
+  
+        .list-inline {
+            height: 50px;
+        }
+    </style>
+}
+<div class="panel panel-warning THome">
+    <div class="panel-heading">
+
+            <ul class="list-inline ">
+            <li><h3><strong>購物車</strong></h3></li>
+            <li>@Html.Action("MenuLink", "Products")</li>
+            <li>
+                @Html.ActionLink("價位排序", "Index", new { sortBy = ViewBag.SortUnitCost }, new { @class = "label label-default" })
+            </li>
+        </ul>
+
+    </div>
+    <div class="panel-body">
+        <div class="col-md-2">
+            <h1>@ViewBag.m</h1>
+           @Html.Action("ListLink", "Products")
+        </div>
+        <div class="col-md-10">
+            @using (Html.BeginForm("CartIndex", "ShoppingCart", new { area = "Transaction" }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+            {
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(p => p.Products.ProductImage)</th>
+                            <th>@Html.DisplayNameFor(p => p.ProductID)</th>
+                            <th>@Html.DisplayNameFor(p => p.Products.UnitPrice)</th>
+                            <th>可購買量</th>
+                            <th>@Html.DisplayNameFor(p => p.Quantity)</th>
+                            <th>@Html.DisplayNameFor(p => p.Subtotal)</th>
+                            <th>詳細資料</th>
+                            <th>刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var shoppingcarts in Model)
+                        {
+                            <tr>
+                                <th><img src="@Url.Action("GetImage", "Products", new { id = shoppingcarts.ProductID })" width="60" height="60" /></th>
+                                <th>@Html.DisplayFor(p => shoppingcarts.Products.ProductName)</th>
+                                <th>@Html.DisplayFor(p => shoppingcarts.Products.UnitPrice)</th>
+                                <th>@Html.DisplayFor(p => shoppingcarts.Products.Quantity)</th>
+                                <th> @Html.DisplayFor(p => shoppingcarts.Quantity)</th>
+                                <th>@Html.DisplayFor(p => shoppingcarts.Subtotal)</th>
+                                <th> @Html.ActionLink("修改購買數量", "CartIDetailes", "ShoppingCart", new { area = "Transaction", id = shoppingcarts.ProductID }, null)</th>
+                                <th>@Html.ActionLink("刪除", "Delete", "ShoppingCart", new { area = "Transaction", id = shoppingcarts.ProductID }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })</th>
+                            </tr>
+                                                        }
+
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>
+                                總金額:@ViewBag.all
+                            </th>
+                            <th>
+                                @Html.ActionLink("結帳", "OrderIndex", "Order", new { area = "Transaction",id=Request.Cookies["MemberID"].Value }, new { @class = "btn btn-info glyphicon glyphicon-usd" })
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                                                        }
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+
+    </script>
+}

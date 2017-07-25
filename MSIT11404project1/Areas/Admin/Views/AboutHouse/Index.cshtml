@@ -1,0 +1,119 @@
+﻿@model IPagedList<MSIT11404project1.Models.HouseMain>
+@using MSIT11404project1.Models
+@using PagedList.Mvc
+@using PagedList
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutRooms.cshtml";
+}
+@section style{
+<style>
+    .btndelete,.btnedit,.btninsert {
+    height:60px;
+    width:60px;
+    }
+    tbody tr:hover {
+        background-color:burlywood;
+        
+    }
+    tbody tr {
+    text-align:center;
+    
+    }
+    tbody td {
+    padding-top:20px;
+    font-size:15px;
+    flex:auto;
+    }
+    .table {
+    flex:inherit;
+    }
+    
+</style>
+}
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().MemberID )</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().HouseName)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().HouseSpaceTypeID )</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().HouseSourceID)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().Country)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().State)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().Adress)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().BathroomNum)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().BedroomNum)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().BedAvailableNum)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().PeopleAllowed)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().Price)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().IsOwnerHome)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().IsActive)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().CreateDate)</th>
+                <th>@Html.DisplayNameFor(m=>m.FirstOrDefault().BadComment)</th>
+             
+                <th>更新</th>
+                <th>刪除</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mm in Model)
+        {
+                <tr>
+                    <td>@Html.DisplayFor(m => mm.MemberID)</td>
+                    <td>@Html.DisplayFor(m=>mm.HouseName)</td>
+                    <td>
+                        @{
+                    string a = "";
+                    MSIT11404Entities1 db = new MSIT11404Entities1();
+                    if (mm.HouseSpaceTypeID != null) { a = db.HouseSpace.Find(mm.HouseSpaceTypeID).HouseSpaceDescript; }
+
+
+                    }
+                    @Html.Label(a)
+                </td>
+                <td>
+                    @{
+                        string b = "";
+
+                        if (mm.HouseSourceID != null)
+                        {
+                            b = db.HouseSourceType.Find(mm.HouseSourceID).HouseSource;
+                        }
+                    }
+                    @Html.Label(b)
+                </td>
+                <td>@Html.DisplayFor(m => mm.Country)</td>
+                <td>@Html.DisplayFor(m => mm.State)</td>
+                <td>@Html.DisplayFor(m => mm.Adress)</td>
+                <td>@Html.DisplayFor(m => mm.BathroomNum)</td>
+                <td>@Html.DisplayFor(m => mm.BedroomNum)</td>
+                <td>@Html.DisplayFor(m => mm.BedAvailableNum)</td>
+                <td>@Html.DisplayFor(m => mm.PeopleAllowed)</td>
+                <td>@Html.DisplayFor(m => mm.Price)</td>
+
+
+                <td>@Html.DisplayFor(m => mm.IsOwnerHome)</td>
+                <td>@Html.DisplayFor(m => mm.IsActive)</td>
+                <td>@Html.DisplayFor(m=>mm.CreateDate)</td>
+                <td>@Html.DisplayFor(m=>mm.BadComment)</td>
+                
+                <td><a href="@Url.Action("Edit2","AboutHouse",new {area="Admin",id=mm.HouseKey,page=Convert.ToInt32( Request.QueryString["page"])<1?1: Convert.ToInt32(Request.QueryString["page"]) })"><input type="button" class="btnedit"></a></td>
+                <td><a href="@Url.Action("Delete","AboutHouse",new {area="Admin",id=mm.HouseKey })"><input type="button" class="btndelete" /></a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @Html.PagedListPager(Model,page=>Url.Action("Index", new {page}))
+</div>
+<div>
+    <a href="@Url.Action("Insert","AboutHouse",new {area ="Admin" })"><input type="button"  class="btninsert"/></a>
+    
+</div>
+
+
+@section script{
+<script>
+
+</script>}

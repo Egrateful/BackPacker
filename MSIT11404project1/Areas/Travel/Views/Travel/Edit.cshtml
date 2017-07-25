@@ -1,0 +1,657 @@
+﻿@model MSIT11404project1.Models.Travels
+@{
+    //ViewBag.Title = "Edit";
+    Layout = "~/Areas/Travel/Views/Shared/_LayoutTravel.cshtml";
+    //Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <link href="//rubaxa.github.io/Ply/ply.css" rel="stylesheet" type="text/css" />
+    <link href="//fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css" />
+    <link href="~/Sortable-master/st/app.css" rel="stylesheet" />
+    <style>
+        #travel > li > ul > li, #destination > li, #place > li, #restaurant > li, #hotel > li {
+            cursor: move;
+        }
+    </style>
+}
+@using (Html.BeginForm("Edit", "Travel", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-lg-2" style="overflow-y:auto;max-height:800px">
+            <div id="filter">
+                @Html.HiddenFor(t => Model.TitleImage)
+                @Html.HiddenFor(t => Model.Detail)
+                @Html.HiddenFor(t => Model.TravelID)
+                @Html.HiddenFor(t => Model.Name)
+                @Html.HiddenFor(t => Model.DuringDay)
+                @Html.HiddenFor(t => Model.CreateDate)
+                @Html.EditorFor(t => Model.EndDate, new { htmlAttributes = new { hidden = "hidden" } });
+                @Html.HiddenFor(t => Model.MemberID)
+                <div class="block__list block__list_words">
+                    @Html.EditorFor(t => Model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                    <ul id="daylist"></ul>
+                    <button type="button" id="addDay">Add</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+
+            <div class="row">
+                <div>
+                    <p style="background-color: deepskyblue;font-size:1.2em;font-weight:bold" class="col-lg-10">我的行程</p>
+                </div>
+                <div>
+                    <input type="button" class="col-lg-2 btn btn-primary" id="save" value="儲存" />
+                    @*<a class="col-lg-2 btn btn-primary" id="save">儲存</a>*@
+                </div>
+            </div>
+
+            <div class="row">
+                <ul class="list-group" id="travel" style="overflow-y:auto;max-height:800px"></ul>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <ul class="nav nav-pills" id="navbar">
+                <li role="presentation" ><a  id="placebtn" class="btn btn-default" style="color:black">景點</a></li>
+                <li role="presentation" ><a id="restaurantbtn" class="btn btn-default" style="color:black">餐廳</a></li>
+                <li role="presentation" ><a id="hotelbtn" class="btn btn-default" style="color:black">住宿</a></li>
+                <li><input id="searchcondition" type="text" /></li>
+                <li><input id="search" class="btn btn-default" type="button" value="搜尋" /></li>
+                <li><button type="button"  class="btn btn-default" id="prepage" disabled="disabled"><span class="glyphicon glyphicon-arrow-left"></span></button></li>
+                <li><button type="button"  class="btn btn-default" id="nextpage"><span class="glyphicon glyphicon-arrow-right"></span></button></li>
+            </ul>
+            <div>
+                <ul class="list-group" id="destination" style="overflow-y:auto;max-height:800px"></ul>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@section script{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDupNnhJDl-Ukp8AQgs43TNnjDeSAJ8JWk"></script>
+    @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
+    <script src="~/Scripts/jquery.googlemap.js"></script>
+    <script src="~/Sortable-master/Sortable.js"></script>
+
+
+
+
+
+    <script>
+        var byId = function (id) {
+            return document.getElementById(id);
+        }
+        //自己新增的  如果換位或刪除 會將daylist的名稱顯示好
+        var namechange = function (id) {
+            var temp = byId(id);
+            var j = 1;
+
+            [].forEach.call(byId(id).getElementsByTagName('li'), function (el) {
+                //alert(el.firstChild.textContent);
+                el.firstChild.textContent = 'Day' + j;
+                j++;
+            })
+        }
+
+        //daylist移動  travellist跟著移動
+        var travelChange = function (oldIndex, newIndex, id) {
+            var travellist = $('#' + id + '>li');
+            //暫存拖拉的物件
+            var tempel = document.createElement(travellist[oldIndex].localName);
+            tempel.innerHTML = travellist[oldIndex].innerHTML;
+            tempel.className = travellist[oldIndex].className;
+            //tempel.dataset['index'] = travellist[oldIndex].dataset['index'];
+
+            if (oldIndex < newIndex) {
+                for (var i = oldIndex; i < newIndex; i++) {
+                    travellist[i].innerHTML = travellist[i + 1].innerHTML;
+                    travellist[i].className = travellist[i + 1].className;
+                    //travellist[i].dataset['index'] = travellist[i + 1].dataset['index'];
+                }
+            }
+            else if (oldIndex > newIndex) {
+                for (var i = oldIndex; i > newIndex; i--) {
+                    travellist[i].innerHTML = travellist[i - 1].innerHTML;
+                    travellist[i].className = travellist[i - 1].className;
+                    //travellist[i].dataset['index'] = travellist[i - 1].dataset['index'];
+                }
+            }
+            travellist[newIndex].innerHTML = tempel.innerHTML;
+            travellist[newIndex].className = tempel.className;
+            //travellist[newIndex].dataset['index'] = tempel.dataset['index'];
+
+            var alluls = byId(id).getElementsByClassName('mylist');
+
+            $.each($('#' + id + '>li>h3'), function (i, obj) {
+                obj.innerText = 'Day' + (i + 1);
+            });
+
+            //重新註冊一次sortable
+            [].forEach.call(alluls, function (eachul) {
+                Sortable.create(eachul, {
+                    animation: 150,
+                    group: { name: 'tGroup', pull: true, put: true },
+                    handle: 'a'
+                });
+            })
+            var deletebtns = $('a[name="deletebtns"]');
+
+            $.each(deletebtns, function (index, btn) {
+                $(btn).click(function () {
+                    $(this).parent().parent().parent().remove();
+                });
+            })
+        }
+
+        //取得資料 by json  ->place.restaurant.hotel   list
+        var getData = function (destinations, strurl, obj, type) {
+            //$('#searchcondition').val('');
+            $.getJSON(strurl, function (data) {
+                var docFrag = $(document.createDocumentFragment());
+                if (data.length < 10)
+                {
+                    $('#nextpage').attr('disabled', 'disabled');
+                }
+                else
+                {
+                    $('#nextpage').removeAttr('disabled');
+                }
+
+                $.each(data, function (i, obj) {
+                    var li = $('<li></li>').addClass('list-group-item');
+                    li.attr("data-type", type);
+                    var id;
+                    switch (type) {
+                        case "P":
+                            id = obj['PlaceID'];
+                            break;
+                        case "R":
+                            id = obj['RestaurantID'];
+                            break;
+                        case "H":
+                            id = obj['HotelID'];
+                            break;
+                    }
+                    li.attr("data-id", id);
+                    var div = $('<div></div>').addClass('row');
+
+                    var imgdiv = $('<div></div>').addClass('col-lg-3');
+                    var a = $('<a></a>').attr('style', 'width:75px;height:50px');
+
+                    var img;
+                    if (obj['ImageWebSite'] != null) {
+                        img = $('<img />').attr('src', obj['ImageWebSite']).attr('style', 'width:100%;height:100%');
+                    }
+                    else if (obj['Image'] != null) {
+                        img = $('<img />').attr('src', 'data:image/png;base64,' + obj['Image']).attr('style', 'width:100%;height:100%');
+                    }
+                    else {
+                        img = $('<img />').attr('src', '@Url.Content("~/img/noimage.png")' ).attr('style', 'width:100%;height:100%');
+                    }
+
+                    $(img).click(function () {
+                        var mapstr = 'https://maps.googleapis.com/maps/api/geocode/json?address=+' + obj['Name'] + '&key=AIzaSyDupNnhJDl-Ukp8AQgs43TNnjDeSAJ8JWk';
+                        $.getJSON(mapstr, function (data) {
+                            console.log(data['results'][0]['geometry']['location']);
+                            var maplocation=data['results'][0]['geometry']['location'];
+                            var openmapstr = 'https://www.google.com.tw/maps/place/' + obj['Name'] + '/@("@")' + maplocation['lat'] + ',' + maplocation['lng'];
+                            window.open(openmapstr, '_blank', config = 'height=1000,width=1500');
+                        })
+                    })
+
+                    a.append(img);
+                    imgdiv.append(a);
+
+
+                    var showdiv = $('<div></div>').addClass('col-lg-9');
+
+
+                    var rowdiv = $('<div></div>').addClass('row');
+                    showdiv.append(rowdiv);
+
+                    var divforName = $('<div></div>').addClass('col-lg-6');
+                    var p = $('<h3></h3>').text(obj['Name']);
+
+
+                    divforName.append(p);
+                    rowdiv.append(divforName);
+
+                    if (type == "H")
+                    {
+                        if (obj["HotelID"] >= 5000)
+                        {
+                            var divforownhouse = $('<div></div>').addClass('col-lg-6');
+                            var img = $('<img />').attr('src', '@Url.Content("~/img/stars.png")').attr('style', 'width:100px;height:50px');
+                            divforownhouse.append(img);
+                            rowdiv.append(divforownhouse)
+                        }
+                    }
+
+
+
+
+                    
+
+
+                    div.append([imgdiv, showdiv]);
+                    li.append(div);
+
+
+                    var hiddenAddress = $('<input />').attr('type', 'hidden').val(obj['Address']);
+                    li.append(hiddenAddress);
+
+                    docFrag.append(li);
+                })
+                destinations.appendChild(docFrag[0]);
+            })
+            if ($(obj[0]).attr('id') != 'search') {
+                obj.parent().parent().children('li[role="presentation"]').removeClass().addClass('default');
+                obj.parent().addClass('active');
+            }
+
+        }
+
+        var dateChange = function () {
+            var sd = StartDate.val();
+
+            var sdarr = sd.split('/');
+
+            var duringday = DuringDay.val();
+
+            //var newenddate = new Date(sdarr[0], sdarr[1], parseInt(sdarr[2]) + parseInt(duringday) - 1)
+            EndDate.val(sdarr[0] + '/' + sdarr[1] + '/' + (parseInt(sdarr[2]) + parseInt(duringday) - 1).toString());
+
+
+            //alert(EndDate.val());
+            //alert(StartDate.val());
+        }
+
+
+        //製作新元素
+        var createNewEls = function () {
+            i++;
+            DuringDay.val(i);
+            var el = document.createElement('li');
+            el.innerHTML = 'Day' + i + '<i class="js-remove">✖</i>';
+            dayList.appendChild(el);
+            //dayList.el.appendChild(el);
+
+
+            //要做一個基本樣式 給travelList新增
+
+
+            var travelEl = document.createElement('li');
+            travelEl.className = 'list-group-item';
+            travelEl.innerHTML = '<h3>Day' + i + '</h3>';
+
+            var el_Ul = document.createElement('ul');
+            el_Ul.className = 'list-group mylist';
+            el_Ul.style = 'min-height:60px';
+
+            travelEl.appendChild(el_Ul);
+            byId('travel').appendChild(travelEl);
+
+            Sortable.create(el_Ul, {
+                animation: 150,
+                group: { name: 'tGroup', pull: true, put: true },
+                handle: 'a'
+            })
+            i = dayList.getElementsByTagName('li').length;
+            dateChange();
+        }
+
+
+        var dayList = byId('daylist');
+        //取得天數列表的長度
+        var i = dayList.getElementsByTagName('li').length;
+        var StartDate = $('#StartDate');
+        var EndDate = $('#EndDate');
+        var DuringDay = $('#DuringDay');
+        var destinations = $('#destination')[0];
+        var initialDuringDay = DuringDay.val();
+        var Save = $('#save');
+
+        //用在搜尋
+        var flag;
+
+        $(document).ready(function () {
+            if (pagecount == 0) {
+                $('#prepage').attr('disabled', 'disabled');
+            }
+
+            var detailval = $('#Detail').val();
+            var datestr = StartDate.val().split(' ')[0];
+            StartDate.val(datestr);
+            if (detailval == "new") {
+                for (var j = 0; j < initialDuringDay ; j++) {
+                    createNewEls();
+                }
+            }
+            else {
+                $('#travel').html(detailval);
+                var tempuls = byId('travel').getElementsByClassName('mylist');
+                var itemp = 0;
+                [].forEach.call(tempuls, function (eachul) {
+                    itemp++;
+                    Sortable.create(eachul, {
+                        animation: 150,
+                        group: { name: 'tGroup', pull: true, put: true },
+                        handle: 'a'
+                    });
+                })
+                i = itemp;
+
+                var gmaps = $('div.mymap');
+                $.each(gmaps, function (index, eachgmap) {
+                    var theparnet = $(eachgmap).parent();
+                    $(eachgmap).remove();
+                    var mapdiv = $('<div></div>').attr('style', 'width:250px;height:150px').addClass('col-lg-6 mymap');
+                    theparnet.append(mapdiv);
+                    mapdiv.googleMap({
+                        zoom: 18,
+                    });
+                    mapdiv.addMarker({
+                        address: theparnet.parent().parent().next().val()
+                    });
+                })
+                var inputpays = $('input[name="pays"]');
+
+                $.each(inputpays, function (index, pay) {
+                    $(pay).val($(pay).next().val());
+                })
+
+                var inputtextareas = $('textarea[name="detailareas"]');
+
+                $.each(inputtextareas, function (index, area) {
+                    $(area).text($(area).next().val());
+                })
+
+                var deletebtns = $('a[name="deletebtns"]');
+
+                $.each(deletebtns, function (index, btn) {
+                    $(btn).click(function () {
+                        $(this).parent().parent().parent().remove();
+                    });
+                })
+
+                for (var d = 1; d <= i; d++) {
+                    var el = document.createElement('li');
+
+                    el.innerHTML = 'Day' + d + '<i class="js-remove">✖</i>';
+                    dayList.appendChild(el);
+                }
+            }
+
+            StartDate.datepicker({
+                dateFormat: "yy/m/d"
+            }).on("change", dateChange);
+
+
+
+
+            //新增1天
+            byId('addDay').onclick = function () {
+                //i++;
+                createNewEls();
+            }
+
+            // 修改過的 Editable list  -> dayList 用來顯示日期
+            Sortable.create(dayList, {
+                animation: 150,
+                filter: '.js-remove',
+                onFilter: function (evt) {
+                    if (i == 1) {
+                        alert("行程不可少於一天");
+                        return;
+                    }
+
+                    var tempid = this.el.id;
+                    var whichday = evt.item.innerText;
+                    var daynum = whichday.substr(3, 1);
+                    var index = daynum - 1;
+                    var deleteli = $('#travel>li:eq(' + index + ')');
+                    deleteli.remove();
+
+                    var lis = $('#travel>li>h3');
+                    $.each(lis, function (i, obj) {
+                        obj.innerText = 'Day' + (i + 1);
+                    })
+
+                    evt.item.parentNode.removeChild(evt.item);
+                    i--;
+                    DuringDay.val(i);
+                    namechange(tempid);
+                    dateChange();
+                },
+                onUpdate: function (evt) {
+                    var tempid = this.el.id;
+                    //day改名
+                    namechange(tempid);
+                    travelChange(evt.oldIndex, evt.newIndex, 'travel');
+                }
+            });
+
+            Sortable.create(destinations, {
+                animation: 150,
+                group: { name: 'tGroup', pull: 'clone', put: false },
+                sort: false,
+                handle: 'a',
+                onClone: function (event) {
+                    var addr = $(event.item.lastChild).val();
+                    //var addDetail = $(event.clone);
+                    var addDetail = $(event.item);
+
+
+                    var detaildiv = $('<div></div>');
+                    //var detailtitle = $('<div>備註</div>')
+
+                    var detailtext = $('<div></div>');
+                    var detailtextarea = $('<textarea></textarea>').addClass('form-control').attr('name', 'detailareas').attr('placeholder', '請輸入備註...').attr('rows', '5').attr('style', 'margin-top:5px;resize:none');
+                    var hiddenareas = $('<input />').attr('type', 'hidden').attr('name', 'hiddenareas');
+
+                    var deletebtns = $('<a></a>').addClass('btn btn-danger form-control').attr('name', 'deletebtns').text('刪除').click(function () {
+                        console.log($(this).parent().parent().parent().remove());
+                    });
+
+
+                    detailtext.append([detailtextarea, hiddenareas, deletebtns]);
+
+                    detaildiv.append(detailtext);
+
+                    addDetail.append(detaildiv);
+
+
+
+
+
+
+
+                    //var addMoney = $(event.clone.firstChild.lastChild.firstChild.firstChild);
+                    var addMoney = $(event.item.firstChild.lastChild.firstChild.firstChild);
+
+                    var paylabel = $('<label>預算</label>').addClass('control-label').attr('style', 'font-size:1.2em');
+
+                    var paytext = $('<input />').attr('type', 'text').attr('name', 'pays').addClass('form-control').val(0);
+
+                    var payhidden = $('<input />').attr('type', 'hidden').attr('name', 'hiddenpays').addClass('form-control');
+
+
+                    addMoney.append([paylabel, paytext, payhidden]);
+
+
+                    var addGoogleMap = $(event.item.firstChild.lastChild.firstChild);
+
+                    var mapdiv = $('<div></div>').attr('style', 'width:250px;height:150px').addClass('col-lg-6 mymap');
+                    addGoogleMap.append(mapdiv);
+                    mapdiv.googleMap({
+                        zoom: 18
+                    });
+                    mapdiv.addMarker({
+                        address: addr
+                    });
+
+                }
+            });
+
+            var pagecount = 0;
+
+            $('#prepage').click(function ()
+            {
+                destinations.innerHTML = "";
+                var searchby = $('#searchcondition').val();
+                if (searchby == "")
+                    searchby = "all";
+                var strurl;
+                if (pagecount > 0)
+                {
+                    $('#prepage').removeAttr('disabled');
+                    pagecount--;
+                    if (pagecount == 0) {
+                        $('#prepage').attr('disabled', 'disabled');
+                    }
+                }
+                switch (flag) {
+                    case 0:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "PlaceApi" })' + '/' + searchby + '?page=' + pagecount +'&x=""&y=""';
+                        getData(destinations, strurl, $(this), "P");
+                        break;
+                    case 1:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "RestApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "R");
+                        break;
+                    case 2:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "HotelApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "H");
+                        break;
+                    default:
+                        alert('請選擇要搜尋的種類');
+                        break;
+                }
+
+            })
+            var nextbtnflag = 0;
+            $('#nextpage').click(function () {
+
+                destinations.innerHTML = "";
+                var searchby = $('#searchcondition').val();
+                if (searchby == "")
+                    searchby = "all";
+                var strurl;
+                pagecount++;
+                if (pagecount > 0) {
+                    $('#prepage').removeAttr('disabled');
+                }
+                var strurl;
+                switch (flag) {
+                    case 0:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "PlaceApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "P");
+                        break;
+                    case 1:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "RestApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "R");
+                        break;
+                    case 2:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "HotelApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "H");
+                        break;
+                    default:
+                        alert('請選擇要搜尋的種類');
+                        break;
+                }
+
+            })
+            var pbtn = $('#placebtn');
+            var rbtn = $('#restaurantbtn');
+            var hbtn = $('#hotelbtn');
+
+
+            $('#placebtn').click(function () {
+                destinations.innerHTML = "";
+                flag = 0;
+                pbtn.removeClass();
+                rbtn.removeClass();
+                hbtn.removeClass();
+                rbtn.addClass('btn btn-default')
+                hbtn.addClass('btn btn-default')
+                pbtn.addClass('btn btn-info');
+
+
+            })
+            $('#restaurantbtn').click(function () {
+                destinations.innerHTML = "";
+                flag = 1;
+                pbtn.removeClass();
+                rbtn.removeClass();
+                hbtn.removeClass();
+                rbtn.addClass('btn btn-info')
+                hbtn.addClass('btn btn-default')
+                pbtn.addClass('btn btn-default');
+            })
+
+            $('#hotelbtn').click(function () {
+                destinations.innerHTML = "";
+                flag = 2;
+                pbtn.removeClass();
+                rbtn.removeClass();
+                hbtn.removeClass();
+                rbtn.addClass('btn btn-default')
+                hbtn.addClass('btn btn-info')
+                pbtn.addClass('btn btn-default');
+            })
+
+            $('#search').click(function () {
+                $('#prepage').attr('disabled', 'disabled');
+                pagecount = 0;
+                var searchby = $(this).parent().prev().children().first().val();
+                if (searchby == "")
+                    searchby = "all";
+                destinations.innerHTML = "";
+                var strurl;
+                switch (flag) {
+                    case 0:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "PlaceApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "P");
+                        break;
+                    case 1:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "RestApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "R");
+                        break;
+                    case 2:
+                        strurl = '@Url.RouteUrl("TravelApi", new { httproute = "", controller = "HotelApi" })' + '/' + searchby + '?page=' + pagecount + '&x=""&y=""';
+                        getData(destinations, strurl, $(this), "H");
+                        break;
+                    default:
+                        alert('請選擇要搜尋的種類');
+                        break;
+                }
+            })
+            Save.click(function () {
+
+                var hiddenpays = $('input[name="hiddenpays"]');
+                $.each(hiddenpays, function (i, item) {
+                    $(item).val($(item).prev().val());
+                })
+
+                var hiddenareas = $('input[name="hiddenareas"]');
+                $.each(hiddenareas, function (i, item) {
+                    $(item).val($(item).prev().val());
+                })
+
+                var titleimg = $('#travel').find('img:first');
+                $('#TitleImage').val(titleimg.attr('src'));
+
+                $('#Detail').val($('#travel').html());
+                Save.attr('type', 'submit');
+            })
+
+        })
+
+    </script>
+}
+
+

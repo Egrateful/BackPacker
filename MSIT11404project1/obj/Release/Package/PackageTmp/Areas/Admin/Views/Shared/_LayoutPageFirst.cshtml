@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/OwlCarousel2-2.2.1/dist/assets/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/OwlCarousel2-2.2.1/dist/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+    <link  rel="stylesheet" href="~/Content/AdminPage.css"/>
+</head>
+<body>
+    <div class="page-header">
+        <h1>網站管理</h1>
+        
+    </div>
+    <div>
+       
+        @RenderBody()
+    </div>
+    <div class="backout">
+        <div class="owl-carousel owl-theme">
+
+
+            <div class="item">
+                <a href="@Url.Action("GetAllMember","Member",new {area="Admin" })"><img class="img-circle" src="@Url.Content("~/img/members.png")" /></a>
+                <h1 class="inimgh2">會員</h1>
+
+            </div>
+
+
+            <div class="item">
+                <a href="@Url.Action("Index","Place",new {area="Admin" })"><img class="img-circle" style="width:350px;height:350px" src="@Url.Content("~/img/journy.jpg")" /></a>
+                <h1 class="inimgh2">行程</h1>
+            </div>
+
+
+            <div class="item">
+                <a href="@Url.Action("GetAllFlights","Flight",new {area="Admin" })"><img class="img-circle" style="width:350px;height:350px" src="@Url.Content("~/img/transport.png")" /></a>
+                <h1 class="inimgh2">交通</h1>
+            </div>
+            <div>
+                <a href="@Url.Action("Index","PM",new {area="Blog" })"><img class="img-circle" style="width:350px;height:350px" src="@Url.Content("~/img/diary.png")" /></a>
+                <h1 class="inimgh2">遊記</h1>
+            </div>
+
+            <div class="item">
+                <a href="@Url.Action("Index2","AboutHouse",new {area="Admin"},null)"><img class="img-circle" src="@Url.Content("~/img/acoom.png")" /></a>
+                <h1 class="inimgh2">住宿</h1>
+            </div>
+
+
+            <div class="item">
+                <a><img class="img-circle" style="width:350px;height:350px" src="@Url.Content("~/img/jobbb.jpg")" /></a>
+                <h1 class="inimgh2">工作</h1>
+            </div>
+
+
+
+            <div class="item">
+                <a href="@Url.Action("Products","Categorys",new { Area="Transaction"},null)" ><img class="img-circle" src="@Url.Content("~/img/shopppp.png")" /></a>
+                <h1 class="inimgh2">商城</h1>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/OwlCarousel2-2.2.1/dist/owl.carousel.min.js"></script>
+
+    <script>
+        $('.owl-carousel').owlCarousel({
+            autoWidth:true,
+            autoHeight: true,
+            loop: true,
+            margin: 10,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        })
+    </script>
+</body>
+</html>

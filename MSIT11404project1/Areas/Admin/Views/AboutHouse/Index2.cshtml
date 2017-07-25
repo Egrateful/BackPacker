@@ -1,0 +1,308 @@
+﻿@model MSIT11404project1.Areas.Admin.ViewModel.HouseSearchView
+@using PagedList.Mvc
+@using PagedList
+@using MSIT11404project1.Areas.Accomodation.Models
+@using MSIT11404project1.Models
+@{
+    ViewBag.Title = "Index2";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutRooms.cshtml";
+}
+@section style{
+    <style>
+        .row {
+        margin-bottom:40px;
+        }
+        table {
+        white-space:nowrap;
+        width:100%;
+        
+        }
+        table  th {
+            font-size:23px;
+            font-weight:700;
+            }
+
+        .searchgroup {
+        
+        }
+        table tbody td {
+        font-size:16px;
+        }
+
+        .form-group > p {
+        font-size:18px;
+        font-weight:700;
+        }
+        .radiogroup > input {
+        width:30px;
+        height:30px;
+        margin-right:15px;
+        }
+        .radiogroup > label {
+        font-size:16px;
+        font-weight:700;
+        margin-right:5px;
+        }
+        .btnbtnsearch,.btndelete,.btnedit {
+            width:40px;
+            height:40px;
+        }
+    </style>
+    }
+<div class="searchgroup container">
+    @using (Html.BeginForm("Index2", "AboutHouse", new { area = "Admin" }, FormMethod.Post,new {id="form1" }))
+    {
+        <div class="row">
+           <div class="col-lg-4">
+               <div class="form-group">
+                   <p>會員編號</p>
+                   
+                   @Html.TextBoxFor(n=>n.housesearchm.MemberID,new {@class="form-control" })
+               </div>
+           </div>
+           <div class="col-lg-4">
+               <div class="form-group">
+                   <p>國家</p> 
+                   @Html.TextBoxFor(n=>n.housesearchm.Country,new {@class="form-control" })
+               </div>
+           </div>
+           <div class="col-lg-4">
+               <div class="form-group">
+                   <p>地區</p>
+                   @Html.TextBoxFor(n => n.housesearchm.States, new {@class="form-control" })
+               </div>
+           </div>
+          
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="uicontrol form-group">
+                    @{
+                        MultiSelectList select2 = new MultiSelectList(Model.housespaces, "HouseSpaceID", "HouseSpaceDescript");
+                    }
+                    <p>房源空間</p>
+                    @Html.DropDownListFor(n => n.housesearchm.housetype, select2,"", new { @class = "form-control" })
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 ">
+                @{
+                    MultiSelectList selects = new MultiSelectList(Model.housetypes, "HouseSourceID", "HouseSource");
+
+                }
+                <div class="form-group">
+                    <p>房源種類</p>
+                    @Html.ListBoxFor(n => n.housesearchm.housesoutce, selects, new { @class = "form-control" })
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <p>發布時間</p>
+                    @Html.TextBoxFor(n=>n.housesearchm.FromDate,new {@class="datepicker1 form-control",style="margin-bottom:10px",placeholder="FROM" })
+                    @Html.TextBoxFor(n=>n.housesearchm.EndDate,new {@class="datepicker2 form-control",placeholder="END" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <p>已發布?</p>
+                    <div class="radiogroup">
+                        <label>是</label>@Html.RadioButtonFor(n => n.housesearchm.IsActive, 2)
+                        <label>否</label>@Html.RadioButtonFor(n => n.housesearchm.IsActive, 1)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <p>已被停權?</p>
+                    <div class="radiogroup">
+                        <label>是</label>@Html.RadioButtonFor(n => n.housesearchm.Isfreeze, 2)
+                        <label>否</label>@Html.RadioButtonFor(n => n.housesearchm.Isfreeze, 1)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="submit" class="btn alert-danger" value="搜尋"/>
+        </div>
+        <div class="pagehidden">
+            @Html.EditorFor(n => Model.PageIndex, new { htmlattributes = new { type = "hidden" } })
+        </div>
+                    }
+
+    
+
+
+</div>
+
+<div class="table-responsive container outout">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().MemberID)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().HouseName)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().HouseSpaceTypeID)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().HouseSourceID)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().Country)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().State)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().Adress)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().BathroomNum)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().BedroomNum)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().BedAvailableNum)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().PeopleAllowed)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().Price)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().IsOwnerHome)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().IsActive)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().IsFreeze)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().CreateDate)</th>
+                <th>@Html.DisplayNameFor(m => Model.houseEntities.FirstOrDefault().BadComment)</th>
+               
+                <th>更新</th>
+                <th>刪除</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mm in Model.houseEntities)
+            {
+
+            <tr>
+                @{
+                    if (mm.BadComment != null)
+                    {
+                        HouseQualityRepository repo = new HouseQualityRepository();
+                        if (repo.IsCommentNot(mm.HouseKey))
+                        {
+                        <td style="background-color:white"><img src="@Url.Content("~/img/aaa.gif")" style="width:35px" /> @Html.DisplayFor(n => mm.MemberID)</td>
+                        }
+                        else
+                        {
+                            if (mm.BadComment != 0)
+                            {
+                        <td><span class="glyphicon glyphicon-alert"></span> @Html.DisplayFor(n => mm.MemberID)</td>
+                            }
+                            else
+                            {
+                                <td>@Html.DisplayFor(n => mm.MemberID)</td>
+                            }
+                        }
+
+                    }
+
+                }
+                
+                <td>@Html.DisplayFor(m => mm.HouseName)</td>
+                <td>@Html.DisplayFor(m => mm.HouseSpace.HouseSpaceDescript)</td>
+                <td>@Html.DisplayFor(m => mm.HouseSourceType.HouseSource)</td>
+                <td>@Html.DisplayFor(m => mm.Country)</td>
+                <td>@Html.DisplayFor(m => mm.State)</td>
+                <td>@Html.DisplayFor(m => mm.Adress)</td>
+                <td>@Html.DisplayFor(m => mm.BathroomNum)</td>
+                <td>@Html.DisplayFor(m => mm.BedroomNum)</td>
+                <td>@Html.DisplayFor(m => mm.BedAvailableNum)</td>
+                <td>@Html.DisplayFor(m => mm.PeopleAllowed)</td>
+                <td>@Html.DisplayFor(m => mm.Price)</td>
+
+
+                <td style="text-align:center">@{if (mm.IsOwnerHome == true)
+                    {<text>是</text> }
+                    else
+                    { <text>否</text>
+                        }
+                    }</td>
+                <td style="text-align:center">
+                    @{if (mm.IsActive == true)
+                    {<text>是</text> }
+                    else
+                    { <text>否</text>
+                    }
+                }
+               </td>
+
+                <td style="text-align:center">
+                    @{if (mm.IsFreeze == true)
+                    {<text>是</text> }
+                    else
+                    { <text>否</text>
+                        }
+                        
+                }
+                </td>
+
+                <td>@Html.DisplayFor(m => mm.CreateDate)</td>
+                <td style="text-align:center"><a style="font-weight:700;" href="@Url.Action("Critics","AboutHouse",new {area="Admin",id=mm.HouseKey})" class="bedcomments">@Html.DisplayFor(m => mm.BadComment)</a></td>
+
+                <td><a href="@Url.Action("Edit2","AboutHouse",new {area="Admin",id=mm.HouseKey,page=Convert.ToInt32( Request.QueryString["page"])<1?1: Convert.ToInt32(Request.QueryString["page"]) })"><input type="button" class="btnedit"></a></td>
+                <td><a href="@Url.Action("Delete","AboutHouse",new {area="Admin",id=mm.HouseKey })"><input type="button" class="btndelete" /></a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pagelists">
+        @Html.PagedListPager(Model.houseEntities, page => Url.Action("Index2", "AboutHouse", new { area = "Admin", page }))
+    </div>
+</div>
+@section script{
+
+    <script>
+        var forms = $('#form1');
+        $('.uicontrol').controlgroup();
+        $('.pagination>li>a').each(function (index, ob) {
+            var page = $(this).text();
+            $(this).attr('href', '#').click(function () {
+                postpage(page);
+            })
+        })
+        
+
+        function postpage(page) {
+            $('.pagehidden>input').val(page);
+            
+
+            forms.submit();
+        }
+
+        
+        $(function () {
+            var dateFormat = "mm/dd/yy",
+              from = $('.datepicker1')
+                .datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 2
+                })
+                .on("change", function () {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+              to = $('.datepicker2').datepicker({
+                  defaultDate: "+1w",
+                  changeMonth: true,
+                  numberOfMonths: 2
+              })
+              .on("change", function () {
+                  from.datepicker("option", "maxDate", getDate(this));
+              });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+
+
+
+
+
+    </script>
+    }

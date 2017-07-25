@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css" rel="stylesheet" />    
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    
+    @*<link rel="stylesheet" href="~/Content/main.css" />*@
+    <link href="~/Content/flight-main.css" rel="stylesheet" /> 
+    <link rel="stylesheet" href="https://a1.r9cdn.net/res/css/r9.css?v=3259aa9c202eec3e126d477ff77a2298c533a400" type="text/css" />
+    <link rel="stylesheet" href="https://a1.r9cdn.net/res/css/flight/r9.flight.css?v=6161088f6dcf791c50ed5bad6b667004897d55a8" type="text/css" />
+   
+    @RenderSection("style",required:false)
+</head>
+<body>
+
+    <div class="Headback">
+        <div class="jumbotron" id="Headrow">
+             <div class="container">
+                <div class="col-lg-4">
+                    <span class="logo"></span>
+                    <h1 class="header">BackPackers</h1>
+                    @*<h5>MSIT11404</h5>*@
+                </div>
+
+                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                     <ul class="nav navbar-nav" id="menu1">
+                         <li class="active"><a href="@Url.Action("BlogHome", "Main", new { area = "Blog" })">首頁<span class="sr-only">(current)</span></a></li>
+                         <li><a href="#">買賣</a></li>
+                         <li><a href="@Url.Action("Index", "Travel", new { area = "Travel" })">行程</a></li>
+                         <li><a href="#">職缺</a></li>
+                         <li><a href="@Url.Action("SearchFlight", "Flight", new { area = "FlightSearch" })">找機票</a></li>
+                         <li><a href="@Url.Action("Index", "JustForUser", new { area = "Accomodation" })">落角處</a></li>
+                     </ul>
+
+
+                     <ul class="nav navbar-nav navbar-right">
+                         <li><a href="#">關於BackPackers</a></li>
+                         <li>
+                             <!--       <a href="~/Members/Login">登入 <span class="iconlogin"></span></a> -->
+                             <span class="iconlogin"> </span>
+                         </li>
+                         <li>
+                             @{
+                                 if (Request.Cookies["MemberID"] == null)
+                                 {
+                                     @Html.ActionLink("登入", "Login", "Member", new { Area = "Member" }, "")
+                                 }
+                                 else
+                                 {
+                                     @Html.ActionLink(" 登出", "Logout", "Member", new { Area = "Member" }, "")
+                                 }
+
+                             }
+
+                         </li>
+
+                         @{
+                             if (Request.Cookies["MemberID"] == null)
+                             {
+                                 <li>
+                                     <!--  <a href="#">註冊<span class="iconregist"></span></a> -->
+                                     <span class="iconregist"></span>
+                                 </li>
+                                 <li>
+                                     @Html.ActionLink("註冊", "MemberJoin", "Member", new { Area = "Member" }, "")
+
+
+                                 </li>                                  }  }
+                     </ul>
+                 </div>
+
+
+
+            </div>
+
+
+        </div>
+
+        <div id="News">
+            <span class="spanSign">最新消息:</span>
+            <div id="mask">
+                <ul id="trick01">
+                    <li><a><span class="glyphicon glyphicon-star"></span>News one</a></li>
+                    <li><a><span class="glyphicon glyphicon-star"></span>News Two</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="backgorund container-fluid">
+        <div class="container">
+           
+                @RenderBody()
+          
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="jumbotron">
+            <ul>
+                <li><a>聯絡我們</a></li>
+                <li><a>媒體</a></li>
+            </ul>
+        </div>
+    </footer>
+
+
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>   
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    
+    <script>
+
+        window.onload = function () {
+            
+            $(this).resize(function ()
+            {
+                var pagewidth = $(this).width();
+                if (pagewidth <= 750) {
+                    $('#navbar1').css('background-color', 'black');
+                }
+                else
+                {
+                    $('#navbar1').css('background-color', 'transparent');
+                }
+            })
+            //var selecteffect = $('#effectTypes').val();
+            $('.logo').mouseenter(over);
+            function over()
+            {
+                $(this).effect("slide",500)
+            }
+
+            //alert(document.getElementById("mask").offsetWidth);
+            var movingNews = document.getElementById("trick01");
+            //alert(window.innerWidth);
+            var timeinterval = setInterval(moving1, 10);
+            var min = 0;
+
+            function moving1() {
+                var a = $("#mask").width();
+                if (min < -250) {
+
+                    min = a;
+                    movingNews.style.left = min + 'px';
+                    min - 1;
+                }
+                else {
+
+                    movingNews.style.left = min + 'px';
+                    min -= 1;
+                }
+
+            }
+        }
+
+        $(function () {
+            $("#DepartureDate").datepicker();
+        })
+        
+        $(function () {
+            $("#ReturnDate").datepicker();
+        })
+
+    </script>
+    @RenderSection("script", required: false)
+</body>
+</html>

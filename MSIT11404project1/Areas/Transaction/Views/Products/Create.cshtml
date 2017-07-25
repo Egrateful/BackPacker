@@ -1,0 +1,122 @@
+﻿@model MSIT11404project1.Models.Products
+@{
+    ViewBag.Title = "新增";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+<style>
+    .resize {
+        resize: none;
+    }
+
+            .list-inline{height:50px
+        }
+       
+</style>
+    }
+
+<div class="panel panel-warning THome">
+    <div class="panel-heading">
+
+        <ul class="list-inline">
+            <li><h3><strong>新增產品</strong></h3></li>
+            <li>@Html.Action("MenuLink")</li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-2">
+            <div class="list-group">
+                @Html.Action("ListLink")
+            </div>
+        </div>
+
+        <div class="col-md-10 col-lg-pull-1">
+
+            @using (Html.BeginForm("Create", "Products", new { area = "Transaction" }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+            {
+
+
+                <div class="form-group">
+                    @Html.LabelFor(p => p.CategoryID, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @{
+                            var Categorys = new SelectList(ViewBag.Categorys, "CategoryID", "CategoryName");
+                        }
+                        @Html.DropDownListFor(p => p.CategoryID, Categorys, "請選擇", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(p => p.CategoryID,"", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.ProductName, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(p => p.ProductName, new { htmlAttributes = new { @class = "form-control", placeholder = "ModelName" } })
+                      @Html.ValidationMessageFor(p => p.ProductName,"", new { @class = "text-danger" })
+                          @Html.HiddenFor(p => p.MemberID, new { Value = Request.Cookies["MemberID"].Value.ToString() })
+                        @Html.HiddenFor(p => p.Date)
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(p => p.ProductImage, new { @class = "col-sm-2 control-label", placeholder = "ProductImage" })
+                    <div class="col-sm-5">
+                        <img id="img" width="300" class="img-thumbnail" style="display:none" />
+                        @Html.EditorFor(p => p.ProductImage, new { htmlAttributes = new { type = "file", @class = "form-control", placeholder = "ProductImage" } })
+                    <p class = "text-danger">@ViewBag.Erro</p>
+                     </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Quantity, new { @class = "col-sm-2 control-label", placeholder = "UnitCost" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(p => p.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(p => p.Quantity,"", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(p => p.UnitPrice, new { @class = "col-sm-2 control-label", placeholder = "UnitCost" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(p => p.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(p => p.UnitPrice,"", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(p => p.ProductContent, new { @class = "col-sm-2 control-label", placeholder = "UnitCost" })
+                    <div class="col-sm-10">
+                        @Html.TextAreaFor(p => p.ProductContent, new { cols = "100", rows = "10", wrap = "virtual", @class = "resize form-control" })
+                        @Html.ValidationMessageFor(p => p.ProductContent,"", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">新增產品</button>
+                    </div>
+                </div>
+                
+
+                            }
+        </div>
+    </div>
+</div>
+
+    @section script{
+        <script>
+
+            $("#ProductImage").change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#img').attr('src', e.target.result)
+                        $('#img').css("display", "block");
+                     
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        </script>
+    }

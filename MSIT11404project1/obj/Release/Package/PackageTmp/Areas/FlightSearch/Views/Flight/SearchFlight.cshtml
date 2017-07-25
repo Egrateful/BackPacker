@@ -1,0 +1,1035 @@
+﻿@model MSIT11404project1.Areas.FlightSearch.ViewModel.DisplayFlightViewModel
+
+
+@{
+    ViewBag.Title = "SearchFlight";
+    //Layout = "~/Views/Shared/_LayoutPro.cshtml";
+    Layout = "~/Areas/FlightSearch/Views/Shared/_LayoutFlight.cshtml";
+}
+
+
+@section style{
+    <style>
+        .flight-body {
+            height: 560px;
+            background-repeat: inherit;
+            justify-content: center;
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        @@media (min-width:1100px) {
+            .container-flight {
+                width: 1100px;
+                padding: 0
+            }
+        }
+
+        @@media (max-width:1024px) {
+            .container-flight {
+                width: 940px;
+                padding: 0
+            }
+        }
+
+        .btn, .ficon, img {
+            vertical-align: middle
+        }
+
+        .form-control {
+            text-align: left
+        }
+
+        .form-group dd {
+            position: relative
+        }
+
+
+        .btn, .text-center {
+            text-align: center
+        }
+
+
+        .ui-datepicker {
+            background-color: #fff;
+            box-shadow: 0 0 4px 0 rgba(0,0,0,.4);
+            width: auto;
+            border-radius: 0;
+            border: 1px solid #ccc
+        }
+
+        .ficon, button, select {
+            text-transform: none
+        }
+
+        hr, img {
+            border: 0
+        }
+
+      
+        input[type=checkbox] {
+            padding: 0
+        }
+
+        .col-xs-12, .col-xs-6, .container-fluid {
+            padding-left: 15px;
+            padding-right: 15px
+        }
+
+        .btn, .form-control {
+            background-image: none
+        }
+
+        html {
+            font-size: 62.5%;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased
+        }
+
+        body {
+            color: #333
+        }
+
+        button, input, select {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit
+        }
+
+        a {
+            color: #0283DF
+        }
+
+        figure {
+            margin: 0
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 9px;
+            line-height: 1.1
+        }
+
+        h1 {
+            font-size: 33px
+        }
+
+        h2 {
+            font-size: 27px
+        }
+
+        h3 {
+            font-size: 23px
+        }
+
+        h4 {
+            font-size: 21px
+        }
+
+        h5 {
+            font-size: 14px
+        }
+
+        h6 {
+            font-size: 12px
+        }
+
+        p {
+            margin: 0 0 9px
+        }
+
+        dl, ul {
+            margin-top: 0
+        }
+
+        ul {
+            margin-bottom: 9px;
+            list-style: none
+        }
+
+            ul ul {
+                margin-bottom: 0
+            }
+
+        /*dd {
+            margin-left: 0
+        }*/
+
+        @@media (min-width:768px) {
+            .container-flight {
+                width: 750px
+            }
+        }
+
+        .container-flight:after, .container-flight:before, .row:after, .row:before {
+            display: table;
+            content: " "
+        }
+
+        .container-flight {
+            margin-right: auto;
+            margin-left: auto
+        }
+
+        @@media (min-width:992px) {
+            .container-flight {
+                width: 970px
+            }
+        }
+
+        @@media (min-width:1200px) {
+            .container-flight {
+                width: 1170px
+            }
+        }
+
+       
+        .tab-content > .tab-pane {
+            display: none;
+            visibility: hidden
+        }
+
+        .tab-content > .active {
+            display: block;
+            visibility: visible
+        }
+
+        .navbar-header:after, .navbar-header:before {
+            content: " ";
+            display: table
+        }
+
+        .alert {
+            margin-bottom: 18px;
+            padding: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px
+        }
+
+        .alert-info {
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+            color: #31708f
+        }
+
+       
+        .clearfix:after, .clearfix:before {
+            display: table;
+            content: " "
+        }
+
+       
+        @@-ms-viewport {
+            width: device-width
+        }
+
+         .dropdownArrow {
+            display: inline-block;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid #bbb;
+            z-index: 1000;
+            cursor: pointer
+        }
+
+        
+        #ui-datepicker-div {
+            z-index: 3 !important
+        }
+
+       
+        .container-flight {
+            padding-left: 0;
+            padding-right: 0;
+            /*width: 986px;*/
+            width: 960px;
+            margin: 0 auto
+        }
+
+
+        .top-destination-info {
+            float: right
+        }
+
+        .ctrl-topDestination {
+            display: none
+        }
+
+        .recent-searches-top-destinations {
+            border: 1px solid #d2d2d2;
+            box-shadow: 0 0 1px 0 rgba(0,0,0,.1);
+            width: 670px;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            z-index: 3;
+            top: 45px;
+            overflow: hidden
+        }
+
+            .recent-searches-top-destinations li {
+                list-style: none;
+                font-size: 14px;
+                line-height: 24px
+            }
+
+        .top-destination-title {
+            box-sizing: border-box;
+            overflow: hidden;
+            width: 100%;
+            padding: 5px 10px;
+            background-color: #eaf2f7;
+            font-weight: 700;
+            color: #333;
+            list-style: none
+        }
+
+        .top-destination-item {
+            padding: 6px 10px;
+            border-top: none;
+            border-bottom: 1px dashed #eaf2f7;
+            color: #a9a9a9;
+            list-style: none;
+            background-color: #fff
+        }
+
+        .top-destination-city {
+            color: #333
+        }
+
+            .top-destination-city:after {
+                content: " "
+            }
+
+        .ag-tab-nav > li, .ag-tab-nav > li > a {
+            float: left
+        }
+
+        .top-destination-number-hotels {
+            color: #0283df
+        }
+
+        .ui-datepicker {
+            margin-top: 10px !important;
+            border-style: solid;
+            border-color: #0283DF #F7F7F7;
+            border-width: 1px 1px 2px;
+            padding: 14px;
+            display: none
+        }
+
+            .ui-datepicker:after, .ui-datepicker:before {
+                border-left: 9px solid transparent;
+                border-right: 9px solid transparent;
+                box-shadow: none;
+                margin-left: -9px;
+                position: absolute;
+                content: ""
+            }
+
+            .ui-datepicker:before {
+                border-bottom: 9px solid #0283DF;
+                top: -9px
+            }
+
+            .ui-datepicker:after {
+                border-bottom: 9px solid #fff;
+                top: -8px
+            }
+
+        .submit-progress-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px
+        }
+
+        @@media (-webkit-min-device-pixel-ratio:2),(min-resolution:192dpi) {
+            .submit-progress-spinner {
+                background-size: 16px 16px
+            }
+        }
+
+        .oneline-searchbox {
+            display: block;
+            position: relative;
+            font-size: 0;
+            padding: 0;
+            margin: 0;
+            background-color: rgba(255,255,255,.8)
+        }
+
+         /*.oneline-search-button {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+            background-color: #0283DF;
+            padding: 0;
+            font-weight: 700;
+            font-size: 16px;
+            width: 120px;
+            height: 37px;
+            margin-left: 20px;
+            margin-top: 20px;
+        }*/
+
+         .oneline-search-button {
+            border-radius: 3px;
+            color: #555;
+            padding: 0;
+            font-weight: 700;
+            font-size: 16px;
+            width: 120px;
+            height: 35px;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        @@media screen and (min-width:1100px) {
+            .oneline-searchbox {
+                height: 85px              
+            }
+        }
+
+        @@media screen and (max-width:1100px) {
+            .oneline-searchbox {
+                height: 75px
+            }
+        }
+
+     
+
+        .oneline-searchbox .form-control {
+            padding: 0 0 0 10px;
+            height: 38px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            color: #555
+        }
+
+        .oneline-searchbox .search-button-clicked-label {
+            display: none;
+            line-height: 39px
+        }
+
+        @@media screen and (min-width:1100px) {
+            .oneline-searchbox .oneline-text-editor {
+                width: 340px
+            }
+        }
+
+        @@media screen and (max-width:1100px) {
+            .oneline-searchbox .oneline-text-editor {
+                width: 240px
+            }
+        }
+
+        .oneline-searchbox .oneline-text-editor::-ms-clear {
+            display: none
+        }
+
+        .oneline-searchbox .date-input {
+            width: 160px
+        }
+
+        .oneline-searchbox .oneline-guests {
+            padding-right: 27px;
+            text-overflow: ellipsis
+        }
+
+        @@media screen and (min-width:1100px) {
+            .oneline-searchbox .oneline-guests {
+                width: 248px
+            }
+        }
+
+        @@media screen and (max-width:1100px) {
+            .oneline-searchbox .oneline-guests {
+                width: 200px
+            }
+        }
+
+      
+        .oneline-searchbox .icon-calendar, .oneline-searchbox .icon-dropdown-arrow {
+            position: absolute;
+            top: 5px;
+            right: 5px
+        }
+
+        .oneline-searchbox .icon-clear {
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            opacity: .2
+        }
+
+        .close-autocomplete {
+            visibility: hidden;
+            opacity: .2
+        }
+
+    
+        .ag-tab-nav {
+            margin: 0
+        }
+
+            .ag-tab-nav > li > a {
+                padding: 10px 25px;
+                background-color: #000;
+                background-color: rgba(0,0,0,.6);
+                color: #fff;
+                font-size: 20px
+            }
+
+            .ag-tab-nav > li.active > a {
+                color: #000;
+                background-color: #fff;
+                background-color: rgba(255,255,255,.8);
+                text-decoration: none
+            }
+
+        #hero-banner-tab-nav {
+            margin-top: 20px
+        }
+
+              
+        .flights .flightsType {
+            padding-bottom: 8px;
+            position: relative
+        }
+
+            .flights .flightsType:after {
+                visibility: hidden;
+                display: block;
+                font-size: 0;
+                content: " ";
+                clear: both;
+                height: 0
+            }
+
+            .flights .flightsType .dropdownArrow {
+                display: inline-block;
+                right: -13px;
+                top: 6px;
+                border-top-color: #000
+            }
+
+            .flights .flightsType .flightsTypeDisplayWrapper {
+                min-width: 75px;
+                float: left
+            }
+
+            .flights .flightsType .flightsTypeDisplay {
+                width: 100%;
+                cursor: pointer;
+                min-width: 75px;
+                text-align: right;
+                line-height: 15px
+            }
+
+            .flights .flightsType .flightsTypeSelect {
+                display: block;
+                background-color: #fff;
+                z-index: 1010;
+                position: absolute;
+                left: 0;
+                top: -15px;
+                border: 1px solid #c2c2c2;
+                border-radius: 5px;
+                -webkit-box-shadow: #c2c2c2 0 1px 4px 0;
+                -moz-box-shadow: #c2c2c2 0 1px 4px 0;
+                box-shadow: #c2c2c2 0 1px 4px 0
+            }
+
+                .flights .flightsType .flightsTypeSelect .flightsOption {
+                    line-height: 20px;
+                    display: block;
+                    vertical-align: middle;
+                    height: 20px;
+                    cursor: pointer;
+                    padding: 0 10px 0 20px
+                }
+
+                .flights .flightsType .flightsTypeSelect .flightsOptionHighlighted {
+                    background-color: #d4e4ff
+                }
+
+            .flights .flightsType .selectedOption {
+                padding-left: 9px !important
+            }
+
+                .flights .flightsType .selectedOption:before {
+                    content: '\002714';
+                    float: left;
+                    width: 14px
+                }
+
+        .dropdownArrow {
+            display: inline-block;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid #bbb;
+            z-index: 1000;
+            cursor: pointer
+        }
+
+        
+             .searchTitle {
+                text-align: left;
+                margin-bottom: 10px;
+                font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+                font-style: normal;
+                font-variant: normal;
+                font-size: 24px;
+                font-weight: 200
+            }
+
+             .dropdownContainer {
+                position: relative;
+                display: inline-block
+            }
+
+                 .dropdownContainer .flightsDropdown {
+                    display: inline-block;
+                    font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-variant: normal;
+                    font-weight: normal;
+                    padding-right: 15px;
+                    cursor: pointer;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0
+                }
+
+                 .dropdownContainer .dropdownArrow {
+                    position: absolute;
+                    right: 8px;
+                    top: 13px
+                }
+
+             .flightsDropdownContainer {
+                width: 100%;
+                height: 30px
+            }
+
+                 .flightsDropdownContainer.active .dropdownArrow {
+                    border-bottom: 5px solid #bbb;
+                    border-top: 0
+                }
+
+             /*.searchButton {
+                -webkit-border-radius: 2px;
+                -moz-border-radius: 2px;
+                border-radius: 2px;
+                font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+                font-style: normal;
+                font-variant: normal;
+                font-weight: normal;
+                height: 30px;
+                box-sizing: border-box;
+                background-color: #0283df;
+                color: #000;             
+                word-spacing: .25em;
+                border: none;
+                line-height: 22px;
+                text-align: center;
+                display: inline-block;
+                text-decoration: none;
+                font-size: 13px;
+                padding-top: 4px;
+                cursor: pointer;
+                width: 100%
+            }*/
+
+             
+
+        .search-field-wrapper {
+            padding-bottom: 8px
+        }
+
+        .flights .flightsType .flightsTypeSelect {
+            display: block !important;
+            position: static;
+            top: 0;
+            left: 0;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none
+        }
+
+            .flights .flightsType .flightsTypeSelect .selectedOption:before {
+                display: none
+            }
+
+            .flights .flightsType .flightsTypeSelect .flightsOption {
+                font-family: mallory,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                float: left;
+                height: 30px;
+                line-height: 30px;
+                padding-top: 0;
+                padding-left: 9px !important;
+                padding-right: 9px;
+                margin-right: 5px;
+                border-radius: 4px !important;
+                font-size: 14px;
+                font-weight: 300;
+                background-color: #999;
+                color: #fff
+            }
+
+                .flights .flightsType .flightsTypeSelect .flightsOption.selectedOption {
+                    background-color: #333
+                }
+
+        .search-field-wrapper {
+            width: 14.6%;
+            float: left;
+            margin-right: 1%
+        }
+
+        .flightsDropdownContainer-wrapper {
+            width: 19.6%
+        }
+
+        .flightsDropdown {
+            padding-right: 28px
+        }
+
+        .flightsOneWay .search-field-wrapper {
+            width: 19.6%;
+            float: left;
+            margin-right: 1.2%
+        }
+
+         
+        .flightsSearch-wrapper {
+            margin-top: 15px;
+            float: left;
+            position: static;
+            margin-right: 0
+        }
+
+        .searchButton {
+            height: 36px;
+            line-height: 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 3px;
+            background-color: #0283df;
+            font-family: mallory,"Helvetica Neue",Helvetica,Arial,sans-serif;
+            border: 1px solid #2e6da4
+        }
+
+        .search-field-label {
+            width: 100%;
+            padding-bottom: 6px;
+            margin-top: 10px;
+            margin-left: 20px;
+            color: #333;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-family: mallory,"Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            line-height: 15px
+        }
+
+          .sc-checkbox {
+            width: 100%;
+            display: block;
+            padding-left: 20px;
+            padding-bottom: 10px;
+            margin: 0;
+            color: #333;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-family: mallory,"Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 12px;
+            line-height: 15px;
+            background-color: rgba(255,255,255,.8)
+        }
+
+        .inputBar {
+            border: 2px solid #c2c2c2;
+            -webkit-box-shadow: rgba(128,128,128,0.098) 0 2px 3px 1px inset;
+            -moz-box-shadow: rgba(128,128,128,0.098) 0 2px 3px 1px inset;
+            box-shadow: rgba(128,128,128,0.098) 0 2px 3px 1px inset;
+            background-color: #fff;
+            height: 30px;
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 3px;
+            padding: 5px 9px;
+            font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            transition-duration: .1s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 25px;
+            margin-left: 15px;             
+        }
+
+            .inputBar:focus {
+                border-color: #0283df;
+                outline: 0;
+                -webkit-box-shadow: #c2c2c2 0 1px 4px 0;
+                -moz-box-shadow: #c2c2c2 0 1px 4px 0;
+                box-shadow: #c2c2c2 0 1px 4px 0
+            }
+
+   </style>
+
+
+
+}
+
+@using (Html.BeginForm("SearchFlight", "Flight", new { area = "FlightSearch" }, FormMethod.Post))
+{
+    <div class="flight-body">
+        <div class="container-flight">
+            <ul id="hero-banner-tab-nav" class="ag-tab-nav clearfix ">
+                <li class="active">
+                    <a href="#tab-rflight" data-toggle="tab" data-tab="flight">
+                        <img src="~/img/airplane.png" /> 來回
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#tab-oflight" data-toggle="tab" data-tab="flight">
+                        <img src="~/img/airplane.png" /> 單程
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#tab-mflight" data-toggle="tab" data-tab="flight">
+                        <img src="~/img/airplane.png" /> 多程
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-rflight" class="tab-pane active">
+                    <div class="container-flight">
+                        <div id="oneline-searchbox" class="oneline-searchbox " data-selenium="searchBox">
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">起飛地點：</div>
+                                @Html.EditorFor(model => model.Flights.FirstOrDefault().FromAirportCity, new { htmlAttributes = new { @class = "inputBar", placeholder = "出發地" } })
+
+                            </div>
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">飛往：</div>
+                                @Html.EditorFor(model => model.Flights.FirstOrDefault().ToAirportCity, new { htmlAttributes = new { @class = "inputBar", placeholder = "目的地" } })
+
+                            </div>
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">出發</div>
+                                @Html.EditorFor(model => model.Flights.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "inputBar", placeholder = "出發日期", id = "DepartureDate", type = "text" } })
+
+                            </div>
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">回程</div>
+                                @Html.EditorFor(model => model.Flights.FirstOrDefault().ReturnDate, new { htmlAttributes = new { @class = "inputBar", placeholder = "回程日期", id = "ReturnDate", type = "text" } })
+
+                            </div>
+
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">旅客，客艙等級</div>
+                                <div class="dropdownContainer flightsDropdownContainer">
+                                    <input class="inputBar flightsDropdown" value="1位旅客, 經濟艙" type="text">
+                                    <span class="dropdownArrow"></span>
+                                </div>
+                            </div>
+                            <div class="search-field-wrapper flightsSearch-wrapper">
+                                @*<input type="submit" class="btn btn-warning search-button oneline-search-button" data-selenium="searchButton" value="搜尋航班" />*@
+                                <input type="submit" class="btn btn-warning oneline-search-button" value="搜尋機票" />*
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-oflight" class="tab-pane ">
+                    <div class="container-flight">
+                        <div id="oneline-searchbox" class="oneline-searchbox " data-selenium="searchBox">
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">起飛地點：</div>
+                                @Html.EditorFor(model => model.Flights.FirstOrDefault().FromAirportCity, new { htmlAttributes = new { @class = "inputBar", placeholder = "出發地" } })
+
+                            </div>
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">飛往：</div>
+                                @Html.EditorFor(model => model.Flights.FirstOrDefault().ToAirportCity, new { htmlAttributes = new { @class = "inputBar", placeholder = "目的地" } })
+
+                            </div>
+                            <div class="search-field-wrapper">
+                                <div class="search-field-label">出發</div>
+                                @Html.EditorFor(model => model.Flights.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "inputBar", placeholder = "出發日期", id = "DepartureDate", type = "text" } })
+
+                            </div>
+
+                         
+                                <div class="search-field-wrapper">
+                                    <div class="search-field-label">旅客，客艙等級</div>
+                                    <div class="dropdownContainer flightsDropdownContainer">
+                                        <input class="inputBar flightsDropdown" value="1位旅客, 經濟艙" type="text">
+                                        <span class="dropdownArrow"></span>
+                                    </div>
+                                </div>
+                        
+                                <div class="search-field-wrapper flightsSearch-wrapper">
+                                    <input type="submit" class="btn btn-warning oneline-search-button" data-selenium="searchButton" value="搜尋機票" />
+
+                                </div>
+
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="sc-checkbox prefer-directs">
+                <label>
+                    <input type="checkbox" id="js-prefer-directs" class="visuallyhidden" tabindex="1"> 僅限直達航班
+                </label>
+            </div>
+
+            </div>@*<div class="container-flight">*@
+</div>
+        
+  
+}
+
+
+@section script{
+    <script src="~/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    @*<script async src="https://cdn6.agoda.net/js/mvc/assets/enty.webpack-09163c254b.js" crossorigin="anonymous"></script>*@
+    <script>
+      var agoda = agoda || {};
+    agoda.pageConfig = {
+        pageTypeId: 1,
+        origin: "TW",
+        cid: 1732641,
+        tag: "41460a09-3e65-d173-1233-629e2428d88e",
+        gclid: "Cj0KCQjwvYPKBRCYARIsAGrB_DsHhSuKM74YXuZIUgpxZ6CQkQyLwoECa6AJ2T4WJzkO_muliwFEIEwaAvmHEALw_wcB",
+        aid: 81837,
+        userId: "8a2cd332-5077-4ff9-8f95-b5b0d5519240",
+        languageId: 20,
+        sessionId: 'f5tfo5uibsbk454zz3witpl1',
+        storefrontId: '3',
+        currencyCode: 'TWD',
+        htmlLanguage: "zh-tw",
+        trafficType: "User",
+        cultureInfoName: "zh-TW"
+    };
+
+    agoda.topDestinations = {
+        endPoint: '/api/zh-tw/Recommended/GetTopDestinations',
+        numberOfItems: 8,
+        suggestionMaxItemNumber: 6,
+        isShowingSmartCombo: false,
+
+            headerText: '🚩 精選人氣城市，體驗在地生活',
+    };
+
+
+
+    agoda.zenithClientConfig = {
+        endpoint:
+            '/api/zh-tw/Recommended/_action_',
+        requestData: {
+            searchObjectId: 0,
+            searchType: 0,
+            searchObjectIds: [0]
+        },
+        numberOfItems: 4
+    };
+
+    agoda.menu = {
+        language: {
+            get: '/api/zh-tw/Culture/GetLanguages',
+            set: '/api/zh-tw/Main/SetSelectedLanguage'
+        },
+        currency: {
+            get: '/api/zh-tw/Main/GetCurrencyList',
+            set: '/api/zh-tw/Main/SetSelectedCurency',
+            suggestedCurrencyLabel: '建議幣別',
+            topCurrencyLabel: '常用幣別',
+            allCurrencyLabel: '所有幣別',
+        }
+    };
+
+      @*<script>
+          $(function () {
+              $("#flightDate").datepicker();
+          })
+      </script>*@
+
+       var widgetId = 'flight-widget2';
+        agoda.flightBanner = {
+            widgetId: widgetId,
+            languageCode: 'zh-tw',
+            currencyCode: 'TWD',
+            placement: '',
+
+            cms: {
+                pleaseEnterFromAirport:'請輸入「出發地」機場名稱或代碼。',
+                pleaseEnterToAirport:  '請輸入「目的地」機場名稱或代碼。',
+                pleaseEnterDepartDate: '請選擇「出發日期」。',
+                pleaseEnterReturnDate: '請選擇「回程日期」。只需單程請選「單程機票」。'
+            },
+
+            // skip delay load script because we try to show the flight tab first
+            skipGetScript: false,
+
+            isFlightTab: false,
+            isSendMeasurement: true,
+            isDebugMessage: false
+            };
+
+
+        agoda.initPage = function () {
+            // need to be call after document ready to ensure that all javascript(agoda.experiment script) have been loaded
+            var list = [];
+
+            list = ["LOGIN-2525"];
+
+
+            var param = {
+                experimentList: list
+            };
+            agoda.experiment.init(param);
+
+            urgencyMessage.initHome();
+
+            var wysiwyp = {};
+            wysiwyp.page = 'home-desktop';
+            wysiwyp.currentPriceView = 1;
+
+            agoda.wysiwyp.init(wysiwyp);
+        }
+
+        agoda.DoShowEmailVerificationAlert = false;
+        agoda.VerifyEmailStatus = 0;
+
+
+            agoda.redirect = {
+                IsDisplay: 'False',
+                uncertaintyMsgEndpoint: '/api/zh-tw/RedirectMobileAppPrice/GetUncertaintyMessageAppPrice',
+                targetPage: 1
+            }
+
+
+        window.homePageParams = {};
+        window.homePageParams.ValuePropositionsContainer = {"ValueProps":[{"Name":"reviews","Title":"超過15,000,000篇評鑑","Description":"訂房前先看住客真心話評鑑，絕對不踩雷！"},{"Name":"bestPrice","Title":"Agoda最低價保證","Description":"致力提供最好的價格，保證便宜，訂貴退差價！"},{"Name":"customerService","Title":"24小時客戶服務中心","Description":"提供17種主要語言，全天候待命為您服務！"}]};
+
+
+    </script>
+
+}

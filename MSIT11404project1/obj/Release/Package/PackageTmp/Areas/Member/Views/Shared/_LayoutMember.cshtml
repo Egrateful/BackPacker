@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Content/main.css" />
+    @RenderSection("style", required: false)
+</head>
+<body>
+    <div class="Headback">
+        <div class="jumbotron" id="Headrow">
+            <div class="container">
+                <div class="col-lg-4">
+                    <span class="logo"></span>
+                    <h1 class="header">BackPackers</h1>
+                    <h5>MSIT11404</h5>
+                </div>
+                <nav class="navbar navbar-default col-lg-8" id="navbar1">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true" id="btnnav">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav" id="menu1">
+                                <li class="active">                                
+                                    @Html.ActionLink("首頁", "Index", "Home")
+                                </li>
+                                <li><a href="#">買賣</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">行程規劃<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">職缺</a></li>
+                                <li><a href="#">交通</a></li>
+                                <li class="dropdown">
+                                    <a href="resident.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">落角處<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="landlord.html">成為房東</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="resident.html">尋找地點</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#">關於BackPackers</a></li>
+                                <li>
+                              <!--       <a href="~/Members/Login">登入 <span class="iconlogin"></span></a> -->
+                                    <span class="iconlogin"></span>
+                                        @{
+                                            if (Request.Cookies["UserName"] == null)
+                                            {
+                                                @*@Html.ActionLink("登入", "Login", "Member", null, new { @class = "iconlogin" });*@
+                                                @Html.ActionLink("登入", "Login", "Member", null, new { Area = "Member" });
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink(" 登出", "Logout", "Member", null, new { Area = "Member" });
+                                                @*@Html.ActionLink(Request.Cookies["UserName"].Value + " 登出", "Logout", "Member", null, new { Area = "Member" });*@
+                                            }
+
+                                        }
+                                   
+                                </li>
+                                <li><a href="#">註冊<span class="iconregist"></span></a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+
+        </div>
+        <div id="News">
+            <span class="spanSign">最新消息:</span>
+            <div id="mask">
+                <ul id="trick01">
+                    <li><a><span class="glyphicon glyphicon-star"></span>News one</a></li>
+                    <li><a><span class="glyphicon glyphicon-star"></span>News Two</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="backgorund container-fluid">
+        <div class="container">
+            <div id="Middlecontent">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+        <div class="jumbotron">
+            <ul>
+                <li><a>聯絡我們</a></li>
+                <li><a>媒體</a></li>
+            </ul>
+        </div>
+    </footer>
+
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+    <script src="~/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+
+        window.onload = function () {
+
+            $(this).resize(function ()
+            {
+                var pagewidth = $(this).width();
+                if (pagewidth <= 750) {
+                    $('#navbar1').css('background-color', 'black');
+                }
+                else
+                {
+                    $('#navbar1').css('background-color', 'transparent');
+                }
+            })
+            //var selecteffect = $('#effectTypes').val();
+            $('.logo').mouseenter(over);
+            function over()
+            {
+                $(this).effect("slide",500);
+            }
+
+            //alert(document.getElementById("mask").offsetWidth);
+            var movingNews = document.getElementById("trick01");
+            //alert(window.innerWidth);
+            var timeinterval = setInterval(moving1, 10);
+            var min = 0;
+
+            function moving1() {
+                var a = $("#mask").width();
+                if (min < -250) {
+
+                    min = a;
+                    movingNews.style.left = min + 'px';
+                    min - 1;
+                }
+                else {
+
+                    movingNews.style.left = min + 'px';
+                    min -= 1;
+                }
+
+            }
+        }
+
+    </script>
+    @RenderSection("script", required: false)
+</body>
+</html>

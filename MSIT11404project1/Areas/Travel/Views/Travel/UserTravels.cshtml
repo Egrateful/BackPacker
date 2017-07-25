@@ -1,0 +1,130 @@
+﻿@model IQueryable<MSIT11404project1.Models.Travels>
+@{
+    ViewBag.Title = "UserTravels";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+<style>
+    a[name='travellink'] {
+        color: black;
+    }
+    #travelHome {
+    }
+        #travelHome > h5 {
+            font-weight: bold;
+            font-size: 3em;
+        }
+        #travelHome > div > a {
+            font-size: 2em;
+            color: black;
+            margin: 30px;
+            background-color: transparent;
+            border-color: black;
+            border-width: 3px;
+        }
+    #showTravels {
+        background-color: #8cb6b4;
+    }
+        #showTravels > div > h1 {
+            color: black;
+        }
+    .traveldiv {
+        border: 1px solid gray;
+        border-radius: 20px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        height: 350px;
+    }
+        .traveldiv:hover {
+            cursor: pointer;
+        }
+</style>
+    }
+
+<div class="row">
+    <div class="col-lg2"></div>
+    <div class="col-lg8">
+        <div class="row">
+            <h2 class="col-lg-12">我的行程</h2>
+        </div>
+        
+        @{
+            foreach (var t in Model)
+            {
+                //href="@Url.Action("Edit", "Travel", new { Area = "Travel", id = t.TravelID })"
+                <a  name="travellink">
+                    <div class="col-lg-3 ">
+                        <div class="traveldiv">
+                            <div class="thumbnail" style="margin:5px;background-color: darkseagreen">
+                                @Html.HiddenFor(id => t.TravelID)
+                                <img src="@t.TitleImage" style="height:150px;"/>
+                            </div>
+                            <div style="margin:5px">
+                                <div class="row">
+                                    <h3 class="col-lg-9">@t.Name</h3>
+                                    <h3 class="col-lg-2 btn btn-danger deletebtns"  >刪除</h3>
+                                    
+                                    
+                                </div>
+                                <div class="row">
+                                    <p class="col-lg-8">出發日期:@t.StartDate.ToShortDateString() </p>
+                                    <p style="text-align:right" class="col-lg-4">@t.DuringDay 天 </p>
+                                </div>
+                                @*<p>出發日期:@t.StartDate.ToShortDateString() </p>*@
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p style="text-align:left">@t.ViewCount 次瀏覽</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p style="text-align:right">@t.Message.Count() 則留言</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        @{
+                                            if (t.Members.UserPhoto != null)
+                                            {
+                                                <img style="border-radius:50%;width:50px;height:50px" src="@string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(t.Members.UserPhoto))" />
+                                            }
+                                            else
+                                            {
+                                                <img style="border-radius:50%;width:50px;height:50px" src="~/Areas/Blog/PicForBlog/DFHeadPic.png" />
+                                            }
+                                        }
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h5 style="text-align:right">@t.Members.UserName</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </a>
+                                            }
+        }
+    </div>
+    <div class="col-lg2"></div>
+</div>
+
+@section script{
+    <script>
+        $(document).ready(function () {
+            var alinks = $('a[name="travellink"]');
+            $.each(alinks, function (index, obj) {
+                $(obj).click(function (e) {
+                    var tid = $(obj).find('input[type="hidden"]').val();
+                    if ($(e.target).text() == '刪除')
+                    {
+                        $(obj).attr('href', '@Url.Action("Delete", "Travel", new { Area = "Travel"})'+'/'+tid);
+                    }
+                    else
+                    {
+                        $(obj).attr('href', '@Url.Action("Edit", "Travel", new { Area = "Travel"})'+'/'+tid);
+                    }
+                })
+            })
+        })
+        
+    </script>
+    
+    }

@@ -1,0 +1,283 @@
+﻿@model MSIT11404project1.Models.Places
+@{
+    ViewBag.Title = "景點編輯";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDestination.cshtml";
+}
+@section style{
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <style>
+        #showimg {
+            width: 700px;
+            height: 500px;
+            margin-top: 10px;
+        }
+    </style>
+}
+@using (Html.BeginForm("Edit", "Place", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="thispage" value="@ViewBag.EditSavedPage" />
+    <input type="hidden" name="allsearch" value="@ViewBag.EditSaveAllStr" />
+    <input type="hidden" name="namesearch" value="@ViewBag.EditSaveNameStr" />
+    <input type="hidden" name="addrsearch" value="@ViewBag.EditSaveAddrStr" />
+    <input type="hidden" name="citysearch" value="@ViewBag.EditSaveCityStr" />
+    <input type="hidden" name="sortby" value="@ViewBag.EditSaveSortBy" />
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                @Html.LabelFor(p => Model.PlaceID, new { @class = "control-label col-lg-2" })
+                <div class="col-lg-10">
+                    @Html.EditorFor(p => Model.PlaceID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.Name, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.EditorFor(p => Model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(p => p.CityID)
+                @Html.HiddenFor(p => p.Cities.CityID)
+                @Html.HiddenFor(p => p.Cities.CityContinent)
+                @Html.HiddenFor(p => p.Cities.CityCountry)
+                @Html.LabelFor(p => Model.Cities.CityName, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.EditorFor(p => Model.Cities.CityName, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.Description, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextAreaFor(p => Model.Description, new { @class = "form-control", rows = "5", style = "resize:none" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.Address, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.EditorFor(p => Model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.ArrivalWay, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextAreaFor(p => Model.ArrivalWay, new { @class = "form-control", rows = "5", style = "resize:none" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.Notice, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.EditorFor(p => Model.Notice, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.Phone, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.EditorFor(p => Model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.WebSite, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.EditorFor(p => Model.WebSite, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => Model.ImageWebSite, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.EditorFor(p => Model.ImageWebSite, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                @Html.LabelFor(p => Model.Image, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @{
+                        if (Model.ImageWebSite != null)
+                        {
+                            <img id="showimg" src="@Model.ImageWebSite" width="500" height="300" />
+                        }
+                        else if (Model.Image != null)
+                        {
+                            <img id="showimg" src="@string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(Model.Image))" width="500" height="300" />
+                        }
+                        else
+                        {
+                            <h3>查無照片</h3>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(p => Model.Image)
+                @Html.LabelFor(p => Model.Image, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-8">
+                    <input type="file" id="image" multiple="multiple" class="form-control" name="byteimg" />
+                </div>
+                <div class="col-lg-2">
+                    <input id="modify" type="button" class="btn btn-primary" value="修改" />
+                </div>
+            </div>
+        </div>
+    </div>
+                        }
+<div id="dialog" title="新增新城市">
+    <form class="form-horizontal" enctype="multipart/form-data" accept-charset="ISO-8859-1">
+        <h3 style="text-align:center">請幫我們建立新的城市</h3>
+        <label class="control-label" for="CityName">城市名稱</label>
+        <input id="CityName" type="text" class="form-control" />
+        <label class="control-label" for="CityCountry">所屬國家</label>
+        <input id="CityCountry" type="text" class="form-control" />
+        <label class="control-label" for="CityContinent">所在區域</label>
+        <input id="CityContinent" type="text" class="form-control" />
+        <br />
+        <h2 id="result"></h2>
+        @*<div>
+                <a id="check" class="btn btn-primary col-lg-4">確定</a>
+                <p class="col-lg-4"></p>
+                <a id="cancel" class="btn btn-danger col-lg-4">取消</a>
+            </div>*@
+    </form>
+</div>
+@section script{
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var strurl = "@Url.RouteUrl("Default", new {  action = "GetCities", controller = "Place" })";
+
+            $.getJSON(strurl, function (data) {
+                $(document).on('keyup.autocomplete', '#Cities_CityName', function (e) {
+                    $(this).autocomplete({ source: data });
+                })
+            })
+
+
+
+            var dia = $('#dialog');
+            dia.dialog({
+                autoOpen: false,
+                height: "auto",
+                width: 400,
+                modal: true,//鎖定跳出視窗
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                buttons: {
+                    "確定": function () {
+                        var strurl = '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "CityApi" })';
+                        var city = {
+                            'CityName': $("#CityName").val(),
+                            'CityCountry': $("#CityCountry").val(),
+                            'CityContinent': $("#CityContinent").val()
+                        }
+                        $.ajaxSettings.async = false;
+                        $.ajax({
+                            'type': 'Post',
+                            'url': strurl,
+                            'contentType': 'application/json',
+                            'data': JSON.stringify(city),
+                            'dataType': 'Json',
+                        }).done(function (result) {
+                            if (result["checkResult"] == 0) {
+                                alert('新增成功!請再按一次修改即可完成');
+                                $('#Cities_CityName').val($('#CityName').val());
+                                $('#Cities_CityContinent').val($('#CityContinent').val());
+                                $('#Cities_CityCountry').val($('#CityCountry').val());
+
+                                var GetCityIDurl = '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "CityApi" })' + '/' + $("#Cities_CityName").val() + '?getid=""';
+                                $.ajaxSettings.async = false;
+                                $.getJSON(GetCityIDurl, function (cityID) {
+                                    $('#CityID').val(cityID);
+                                    $('#Cities_CityID').val(cityID);
+                                    //$('#Cities_CityID').val(city['CityID']);
+                                    //$('#Cities_CityCountry').val(city['CityCountry']);
+                                    //$('#Cities_CityContinent').val(city['CityContinent']);
+                                })
+                                $.ajaxSettings.async = true;
+
+                                $('#modify').attr('type', 'submit');
+                                dia.dialog("close");
+                            }
+                            else {
+                                alert('該城市已存在,請確認您的輸入是否正確');
+                            }
+                        })
+                        $.ajaxSettings.async = true;
+                    },
+                    "取消": function () {
+                        $(this).dialog("close");
+                    }
+                }
+
+
+            });
+
+            $('#modify').click(function () {
+                $('#CityName').val($('#Cities_CityName').val());
+                var strurl = '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "CityApi" })' + '/' + $("#Cities_CityName").val();
+                $.ajaxSettings.async = false;
+                $.ajax({
+                    'type': 'Get',
+                    'url': strurl,
+                    'dataType': 'Json'
+                }).done(function (result) {
+                    if (result['checkResult'] == 0) {
+                        alert('未找到您所輸入的城市,請幫助我們新增新城市')
+                        dia.dialog('open');
+                    }
+                    else {
+                        var getFinalData = '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "CityApi" })' + '/' + $("#Cities_CityName").val() + '?getData=""&m=""';
+                        $.ajaxSettings.async = false;
+                        $.getJSON(getFinalData, function (showcity) {
+                            $('#CityID').val(showcity["CityID"]);
+                            $('#Cities_CityID').val(showcity["CityID"]);
+                            $('#Cities_CityName').val(showcity["CityName"]);
+                            $('#Cities_CityContinent').val(showcity["CityContinent"]);
+                            $('#Cities_CityCountry').val(showcity["CityCountry"]);
+                        })
+                        $.ajaxSettings.async = true; $('#modify').attr('type', 'submit');
+                    }
+                })
+                $.ajaxSettings.async = true;
+                //$('#create').attr('type', 'submit');
+            })
+
+            $('#image').change(function () {
+                var filereader = new FileReader();
+                filereader.onload = function () {
+                    $('#showimg').attr('src', this.result);
+                    $('#showimg').removeAttr('hidden', 'hidden');
+                }
+                filereader.readAsDataURL(this.files[0]);
+                //console.log($('#showimg').val());
+                //console.log($(this).val());
+            })
+
+
+            //用泛型處理常式處理autocomplete
+            @*var strurl = "http://"+"@Request.Url.Host:" + "@Request.Url.Port/" + "CityHandler.ashx";*@
+            //$.ajax({
+            //    type: 'Get',
+            //    url: strurl,
+            //    contentType:'application/json'
+            //    //'dataType': 'json'
+            //}).done(function (data) {
+            //    $(document).on('keyup.autocomplete', '#City', function (e) {
+            //        $(this).autocomplete({ source: data });
+            //    })
+            //})
+        })
+    </script>
+}

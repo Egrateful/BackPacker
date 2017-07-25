@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MSIT11404ModelStoreContainer" CdmEntityContainer="MSIT11404Entities">
+    <EntitySetMapping Name="HouseMain">
+      <EntityTypeMapping TypeName="MSIT11404Model.HouseMain">
+        <MappingFragment StoreEntitySet="HouseMain">
+          <ScalarProperty Name="BadComment" ColumnName="BadComment" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="BedAvailableNum" ColumnName="BedAvailableNum" />
+          <ScalarProperty Name="PeopleAllowed" ColumnName="PeopleAllowed" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsOwnerHome" ColumnName="IsOwnerHome" />
+          <ScalarProperty Name="BedroomNum" ColumnName="BedroomNum" />
+          <ScalarProperty Name="BathroomNum" ColumnName="BathroomNum" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="HouseSpaceTypeID" ColumnName="HouseSpaceTypeID" />
+          <ScalarProperty Name="HouseSourceID" ColumnName="HouseSourceID" />
+          <ScalarProperty Name="HouseKey" ColumnName="HouseKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseSourceType">
+      <EntityTypeMapping TypeName="MSIT11404Model.HouseSourceType">
+        <MappingFragment StoreEntitySet="HouseSourceType">
+          <ScalarProperty Name="HouseSource" ColumnName="HouseSource" />
+          <ScalarProperty Name="HouseSourceID" ColumnName="HouseSourceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseSpace">
+      <EntityTypeMapping TypeName="MSIT11404Model.HouseSpace">
+        <MappingFragment StoreEntitySet="HouseSpace">
+          <ScalarProperty Name="HouseSpaceDescript" ColumnName="HouseSpaceDescript" />
+          <ScalarProperty Name="HouseSpaceID" ColumnName="HouseSpaceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageForRoom">
+      <EntityTypeMapping TypeName="MSIT11404Model.ImageForRoom">
+        <MappingFragment StoreEntitySet="ImageForRoom">
+          <ScalarProperty Name="ImageByte" ColumnName="ImageByte" />
+          <ScalarProperty Name="HouseKey" ColumnName="HouseKey" />
+          <ScalarProperty Name="ImageKey" ColumnName="ImageKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

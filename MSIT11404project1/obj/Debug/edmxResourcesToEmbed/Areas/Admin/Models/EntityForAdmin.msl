@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MSIT11404Model1StoreContainer" CdmEntityContainer="MSIT11404Entities1">
+    <EntitySetMapping Name="HouseMain">
+      <EntityTypeMapping TypeName="MSIT11404Model1.HouseMain">
+        <MappingFragment StoreEntitySet="HouseMain">
+          <ScalarProperty Name="HouseKey" ColumnName="HouseKey" />
+          <ScalarProperty Name="HouseSourceID" ColumnName="HouseSourceID" />
+          <ScalarProperty Name="HouseSpaceTypeID" ColumnName="HouseSpaceTypeID" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="BathroomNum" ColumnName="BathroomNum" />
+          <ScalarProperty Name="BedroomNum" ColumnName="BedroomNum" />
+          <ScalarProperty Name="IsOwnerHome" ColumnName="IsOwnerHome" />
+          <ScalarProperty Name="IsFinal" ColumnName="IsFinal" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="PeopleAllowed" ColumnName="PeopleAllowed" />
+          <ScalarProperty Name="BedAvailableNum" ColumnName="BedAvailableNum" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseSourceType">
+      <EntityTypeMapping TypeName="MSIT11404Model1.HouseSourceType">
+        <MappingFragment StoreEntitySet="HouseSourceType">
+          <ScalarProperty Name="HouseSourceID" ColumnName="HouseSourceID" />
+          <ScalarProperty Name="HouseSource" ColumnName="HouseSource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseSpace">
+      <EntityTypeMapping TypeName="MSIT11404Model1.HouseSpace">
+        <MappingFragment StoreEntitySet="HouseSpace">
+          <ScalarProperty Name="HouseSpaceID" ColumnName="HouseSpaceID" />
+          <ScalarProperty Name="HouseSpaceDescript" ColumnName="HouseSpaceDescript" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageForRoom">
+      <EntityTypeMapping TypeName="MSIT11404Model1.ImageForRoom">
+        <MappingFragment StoreEntitySet="ImageForRoom">
+          <ScalarProperty Name="HouseRoomKey" ColumnName="HouseRoomKey" />
+          <ScalarProperty Name="ImageFirst" ColumnName="ImageFirst" />
+          <ScalarProperty Name="ImageSecond" ColumnName="ImageSecond" />
+          <ScalarProperty Name="ImageThird" ColumnName="ImageThird" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

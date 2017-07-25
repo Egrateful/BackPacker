@@ -1,0 +1,154 @@
+﻿@model MSIT11404project1.Areas.Member.ViewModel.LoginViewModel
+@using CaptchaMvc.HtmlHelpers 
+
+
+@{
+    ViewBag.Title = "會員登入";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <style>
+         
+        .form-login {
+            max-width: 520px;
+            margin: auto;
+            margin-top: 10px;
+            margin-bottom: 30px;           
+        }
+
+        .table-remind {
+            max-width: 500px;
+            margin: auto;
+            /*background-color: #E5F683;*/
+            background-color: #fff;
+            border-radius: 20px;
+            border: 10px solid #73AD21;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+
+        .table-header {
+            position: relative;
+            font-size: 14px;
+            text-shadow: 3px 3px 3px #c5e673;
+            color: #000;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .form-horizontal .form-group .control-label {
+            padding-top: 6px;
+            font-size: 16px;
+        }
+
+        .controltext-red {
+            color: red;
+            font-size: 14px;        
+        }
+
+        .verification {
+            max-width: 500px;
+            height: 50px;
+        }
+
+        #idlogin {
+            margin-left: 240px;
+        }
+       
+    </style>
+
+}
+
+@using (Html.BeginForm("Login", "Member", new { area = "Member", enctype = "multipart/form-data"}, FormMethod.Post))
+{
+
+    <div class="form-login">
+        <table class="table-remind">
+            <tr>
+                    <td class="iconlogin1">
+                    @*<img src="~/img/icon1.png" alt="圖示" title="圖示" />*@
+                </td>
+                <td>
+                    還不是BackPacker的會員嗎？趕快點此<a href="~/Member/Member/MemberJoin">免費加入</a>會員！<br />
+                    忘記密碼嗎？<a href="./?q=2820siryAEzwNh3UatGSfP4rc3iAfUKXfqHqu0HuRyi/h4AyJYbKju3K5Omgyw4MDRKDjpI">點擊此處</a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="form-horizontal">
+            <div class="table-header">
+                <h1 style="color:red">@ViewBag.answer</h1>
+                <h3>登入會員</h3>
+            </div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-5" >電子信箱</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-5">密　　碼</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", type="Password" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-5">是否為管理者?</label>
+                <div class="col-md-3">
+                    <input type="checkbox" name="admin" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4  col-md-offset-5">
+                    <a href="@Url.Action("Login")"><img src="@Url.Action("CaptchaImage")" alt="Captcha" style="" /></a>
+                        
+                </div>
+            </div>
+                <div class="form-group">
+                    <label class="control-label col-md-5">輸入驗證碼</label>
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Captcha, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Captcha, "", new { @class = "text-danger", type = "Password" })
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="controltext-red col-md-offset-5">(若難以辨識，請按上圖重新產生)</span>
+                </div>
+               
+                <div class="form-group">
+                    <input id="idlogin" type="submit" value="會員登入" class="btn btn-warning" />
+                </div>
+                
+
+            </div> <!-- /form-horizontal-->
+    </div> <!-- /content-->
+
+ 
+}
+
+<button id="A" class="btn btn-primary">會員A</button>
+<button id="B" class="btn btn-primary">會員B</button>
+<button id="C" class="btn btn-primary">管理員</button>
+
+@section script{
+    
+<script>
+    $(document).ready(function(){
+        $("#A").click(function () { $("#Email").val("Chiling@gmail.com"); $("#Password").val("123456") })
+        $("#B").click(function () { $("#Email").val("Kim@hotmail.com"); $("#Password").val("000000") })
+        $("#C").click(function () { $("#Email").val("Jerry@yahoo.com.tw"); $("#Password").val("789012") })
+    })
+    </script>    
+}
+
+
+
+
+

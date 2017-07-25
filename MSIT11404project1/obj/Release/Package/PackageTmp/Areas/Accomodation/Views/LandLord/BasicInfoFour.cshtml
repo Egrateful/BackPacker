@@ -1,0 +1,214 @@
+﻿@model MSIT11404project1.Areas.Accomodation.ViewModel.basicviewmodel
+@{
+    ViewBag.Title = "BasicInfoFour";
+    Layout = "~/Areas/Accomodation/Views/Shared/belandlord.cshtml";
+}
+@section style{
+    <style>
+        input[type=button] {
+        width:100px;
+        font-size:25px;
+        font-weight:700;
+        }
+    </style>
+    }
+<div class="container">
+<div class="row">
+        <div class="col-lg-6">
+            <div class="divforhead row" style="margin-top:100px">
+                <div class="col-lg-3">
+                    <img src='@Url.Content("~/img/signfo.png")' style="height:250px;width:150px" />
+                </div>
+                <div class="col-lg-9">
+                    
+                    <label style="font-size:45px;font-weight:700">為你的房間新增一些照片吧!</label>
+                </div>
+            </div>
+           
+           
+                <div class="form-group button1" style="text-align:right">
+                    @{
+
+                            <input type="button" id="saver" class="btn btn-default" value="儲存" />
+
+                    }
+                </div>
+
+
+
+
+
+
+                        
+
+        </div>
+<div class="col-lg-6">
+     
+@using (Html.BeginForm("GetForth", "LandLord", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.EditorFor(n => Model.housesentity.HouseKey, new { htmlattributes = new { type = "hidden" } });
+    <div class="divforimgshow row container-fluid" style="background-color:white;border:3px solid dashed;margin-top:10px;padding:5px">
+                    @{
+
+                        if (Model.imglist != null)
+                        {
+                            foreach (var pic in Model.imglist)
+                            {
+
+                                <div  class="col-lg-6 same">
+                                    <div class="row" style="margin:5px;border:3px dashed #83b3e1">
+                                        <div class="col-lg-2" style="text-align:center">
+                                        <input type="checkbox" data-check="checkbox" data-id="@pic.ImageKey" style="width:30px;height:30px" />
+                                        </div>
+                                        <div class="col-lg-10">
+
+                                            @{
+                                                string picurl = Convert.ToBase64String(pic.ImageByte);
+
+                                                <img style="width:200px" src="@String.Format("data:img/jpeg;base64,{0}", picurl)" class="img-thumbnail" />
+
+                                            }
+                                            
+                                                <div>
+                                                    <label style="font-size:18px;line-height:20px;text-align:left">描述</label>
+                                                    <div>
+                                                    <textarea data-imkey="@pic.ImageKey" class="form-control descriptts" style="resize:none;width:170px;height:50px;font-size:15px;margin-bottom:15px;">@Html.DisplayFor(n => pic.Descript)</textarea>
+                                                    </div>
+                                                </div>
+                                         
+                                        </div>
+                                    </div>
+                                </div>
+
+                                                    }
+
+
+
+                                                }
+
+                    }
+     
+        
+</div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-lg-6">
+            <input type="button" class="btndelete" style="height:40px;width:40px" />
+        </div>
+        <div class="col-lg-6">
+            <input type="file" name="pics" multiple class="form-control piccs col-lg-6" />
+        </div>
+    </div>
+                                                }
+    <div style="display:none" class="iampop">
+        <div>
+            <label>恭喜你已經填寫完全部的申請步驟了!</label>
+            
+            <div class="ActiveOrNot">
+                @{
+                    if (Request.Cookies["IsActive"] == null)
+                    {      <div>
+                          您可以先儲存或直接發布房源!
+                           </div>
+                        @Html.ActionLink("發佈", "laststep", "LandLord", new { area = "Accomodation" }, new { @class = "btn btn-default" })
+                        <a class="btn btn-default" href="@Url.Action("theveryfirst","LandLord",new {area="Accomodation",id="0" })">返回主畫面</a>
+                    }
+                    else {
+                        <div>您已經發布過此房源了!可以更改房源狀態或儲存!</div>
+                        @Html.ActionLink("更改房源狀態","ChangeState","LandLord",new {area="Accomodation" },new {@class="btn btn-default",id="changestate" })
+                        <a class="btn btn-default" href="@Url.Action("theveryfirst","LandLord",new {area="Accomodation",id="0" })" >返回主畫面</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+</div>
+
+</div>
+@section script{
+    <script>
+        var forms = $('form');
+        var frg = $('.row123');
+        $('.same').css('height', '250px');
+        var urldelete ='@Url.HttpRouteUrl("DefaultApi",new {controller="Images"})'
+        $('.btndelete').click(function () {
+         //刪除-------------------------------------------------------------------------------- 
+            $('input[data-check="checkbox"]').each(function () {
+                var ob = $(this);
+                var ch =$(this).data("id");
+                if ($(this).prop("checked")) {
+                    
+                    $.ajax({
+                        'url':urldelete+"/"+ch,
+                        'type':'Delete'
+
+                    }).done(function(){
+                        ob.parent().parent().parent().remove();
+                    })
+                }
+            })
+
+        })
+
+        //儲存----------------------------------------------------------------------------------
+        $('#saver').click(function (e) {
+           
+            $('.descriptts').each(function (index, func) {
+                var stirn = { "descripts": $(this).val(), "keys": $(this).data("imkey") };
+                $.ajaxSettings.async = false;
+                $.ajax({
+                    'url': urldelete,
+                    'data': JSON.stringify(stirn),
+                    'type':'Put',
+                    'contentType': "application/json"
+
+                })
+
+            })
+            $.ajaxSettings = true;
+            $('.iampop').dialog();
+        })
+        
+        var formdata = new FormData();
+
+
+
+
+        $('.piccs').change(function () {
+            var files1 =this.files
+            
+            //var count = 0;
+            for (var i = 0; i < files1.length; i++) {
+                 
+                var fileupload = new FileReader();
+                  
+                
+                    fileupload.addEventListener("load", function () {
+                        //count += 1;
+                        //var divout = $('<div></div>').addClass('col-lg-4');
+                        //var imgs = $('<img />').attr('src',this.result).css({'width':'400px','height':'200px'}).addClass('img-thumbnail');
+                        //var desdiv = $('<textarea></textarea>').attr({ 'name': 'descripts','data-id':count}).css({ 'resize': 'none' ,'width':'100%','margin-top':'10px'});
+                        //divout.append(imgs, desdiv);
+                        //frg.append(divout);
+                        //forms.submit();
+                       
+                       
+                    })
+                   
+                    fileupload.readAsDataURL(this.files[i])
+                    
+
+              
+                
+                
+            }
+            
+            forms.submit();
+            
+            
+
+        })
+    </script>
+    }

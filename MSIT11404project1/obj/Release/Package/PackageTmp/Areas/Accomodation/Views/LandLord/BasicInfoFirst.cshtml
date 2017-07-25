@@ -1,0 +1,203 @@
+﻿@model MSIT11404project1.Areas.Accomodation.ViewModel.basicviewmodel
+    @using MSIT11404project1.Models
+@{
+    ViewBag.Title = "BasicInfoFirst";
+    Layout = "~/Areas/Accomodation/Views/Shared/belandlord.cshtml";
+}
+@section style{ 
+    <style>
+        
+        .heads {
+        padding-top:100px;
+        }
+        .heads label {
+        font-size:45px;
+        font-weight:600;
+        font-stretch:expanded;
+        }
+        /*#map {
+        height:300px;
+        width:500px;
+        }*/
+        .saveicon {
+        width:60px;
+        height:60px;
+        }
+        .row > div {
+        margin-top:10px;
+        }
+        input[type=submit]{
+        width:100px;
+        font-size:20px;
+        }
+    </style>
+    }
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("GetFirst", "LandLord", FormMethod.Post))
+       {
+        <div class="col-lg-7">
+            <div class="row heads">
+                <div class="col-lg-3">
+                    <img src="@Url.Content("~/img/signstart.png")" style="height:250px;width:150px" />
+                </div>
+                <div class="col-lg-9">
+                    <label>@Html.DisplayFor(n => Model.memsentity.UserName) 歡迎!讓我們來協助你成為房東吧!</label>
+                    <label style="font-size:20px">您要出租的是什麼樣的空間呢?</label>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 form-group uicontrol">
+                            @{ 
+                                IRepository<HouseSpace> space = new Repository<HouseSpace>();
+                                var spacelists = space.GetAll();
+                                SelectList lists = new SelectList(spacelists, "HouseSpaceID", "HouseSpaceDescript");
+
+                             }
+                            @Html.DropDownListFor(n => Model.housesentity.HouseSpaceTypeID, lists,new {placeholder="房源空間" })
+                        </div>
+                        <div class="col-lg-6 form-group uicontrol">
+                            @{
+                                IRepository<HouseSourceType> sourcetype = new Repository<HouseSourceType>();
+                                var soucrcelists = sourcetype.GetAll();
+                                SelectList listss = new SelectList(soucrcelists, "HouseSourceID", "HouseSource");
+                            }
+                            @Html.DropDownListFor(n=>Model.housesentity.HouseSourceID,listss,new {placeholder="房源種類" })
+                       </div>
+                    </div>
+                 
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    @Html.EditorFor(n => n.housesentity.Country, new { htmlattributes = new { placeholder = "國家", @class = "form-control" } })
+                </div>
+                <div class="col-lg-6">
+                    @Html.EditorFor(n => n.housesentity.State, new { htmlattributes = new { placeholder = "城市", @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group" style="margin-top:10px">
+                
+
+                @Html.EditorFor(n => n.housesentity.Adress, new { htmlattributes = new { placeholder = "請輸入完整地址", @class ="form-control" } })
+            </div>
+            <div class="form-group" style="margin-top:10px;text-align:right">
+                @{ 
+                    if (Request.Cookies["hkey"].Value != "0")
+                    {
+                       <img src="@Url.Content("~/img/save.png")" id="saveing" style="width:55px;height:55px;border-radius:5px;cursor:pointer;margin-top:45px" />
+                        
+                    }
+                    else {
+                       <input type="submit" class="btn btn-default" value="下一步" />
+                    }
+                }
+            </div>
+        </div>
+                    }
+        <div class="col-lg-5">
+            <img class="houses" src="@Url.Content("~/img/becomelan.png")" style="width:100%;margin-top:150px"  />
+        </div>
+        
+        
+    </div>
+</div>
+@section script{
+
+
+
+
+
+    <script>
+        $('#saveing').click(function () {
+            $('form').submit();
+        })
+        $('.houses').effect('slide', 1000, "");
+        $('.uicontrol').controlgroup();
+        var link = $('.nav a');
+        var check = $('form input[type="submit"]').val();
+
+        if (check == "下一步") {
+            link.each(function (index,ob) {
+                $(this).click(function (e) {
+                    e.preventDefault();
+                })
+            })
+
+        }
+        //function initAutocomplete() {
+        //    var map = new google.maps.Map(document.getElementById('map'),{
+        //        center: { lat: 24, lng: 121 },
+        //        zoom: 13,
+        //        mapTypeId: 'roadmap'
+        //    });
+        //    //做一個搜尋的輸入項
+        //    var input = document.getElementById('housesentity_Adress');
+        //    var searchBox = google.maps.places.SearchBox(input, {
+        //        bounds: defaultBounds
+        //    });
+
+
+        //    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        //    //當邊界產生變化 搜尋輸入項也要跟著放大縮小
+
+        //    map.addListener('bounds_changed', function () {
+        //        searchBox.setBounds(map.getBounds());
+        //    });
+
+        //    var markers = [];
+        //    // Listen for the event fired when the user selects a prediction and retrieve
+        //    // more details for that place.
+        //    searchBox.addListener('places_changed', function () {
+        //        var places = searchBox.getPlaces();
+
+        //        if (places.length == 0) {
+        //            return;
+        //        }
+
+        //        // Clear out the old markers.
+        //        markers.forEach(function (marker) {
+        //            marker.setMap(null);
+        //        });
+        //        markers = [];
+
+        //        // For each place, get the icon, name and location.
+        //        var bounds = new google.maps.LatLngBounds();
+        //        places.forEach(function (place) {
+        //            if (!place.geometry) {
+        //                console.log("Returned place contains no geometry");
+        //                return;
+        //            }
+        //            var icon = {
+        //                url: place.icon,
+        //                size: new google.maps.Size(71, 71),
+        //                origin: new google.maps.Point(0, 0),
+        //                anchor: new google.maps.Point(17, 34),
+        //                scaledSize: new google.maps.Size(25, 25)
+        //            };
+
+        //            // Create a marker for each place.
+        //            markers.push(new google.maps.Marker({
+        //                map: map,
+        //                icon: icon,
+        //                title: place.name,
+        //                position: place.geometry.location
+        //            }));
+
+        //            if (place.geometry.viewport) {
+        //                // Only geocodes have viewport.
+        //                bounds.union(place.geometry.viewport);
+        //            } else {
+        //                bounds.extend(place.geometry.location);
+        //            }
+        //        });
+        //        map.fitBounds(bounds);
+        //    });
+
+        //}
+</script>
+@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeBrTeSIi8jK5DklEoFrkghJhw8-CeUwY&libraries=places&callback=initAutocomplete"
+        async defer></script>*@
+
+    }

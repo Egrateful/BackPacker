@@ -1,0 +1,212 @@
+﻿@model MSIT11404project1.Areas.Accomodation.ViewModel.basicviewmodel
+    @using MSIT11404project1.Models;
+@{
+    ViewBag.Title = "BasicInfoThree";
+    Layout = "~/Areas/Accomodation/Views/Shared/belandlord.cshtml";
+}
+@section style{ 
+    <style>
+        .btndelete, .btninsert {
+        width:50px;
+        height:50px;
+        }
+        .uiforcontrol {
+        margin-top:50px;
+        }
+        .uiforcontrol > label {
+        font-size:18px;
+        line-height:20px;
+        }
+        .table {
+        text-align:center;
+        margin-top:50px;
+        }
+        .divforbed {
+        font-size:25px;
+        font-weight:600;
+        text-align:left;
+        margin-top:100px;
+       
+        }
+    </style>
+}
+<div class="container-fluid" style="margin-left:10px;margin-right:10px">
+    @using (Html.BeginForm("GetThird", "LandLord", FormMethod.Post))
+ {
+    <div class="row">
+        <div class="col-lg-3" style="margin-top:100px;">
+            <div class="divforhead row" style="margin-top:100px">
+                <div class="col-lg-3">
+                    <img src='@Url.Content("~/img/signth.png")' style="height:300px;width:150px" />
+                </div>
+                <div class="col-lg-9" style="text-align:right">
+                    <label style="font-size:25px;font-weight:700">房源房間描述</label>
+                </div>
+            </div>
+
+                <div class="uiforcontrol">
+
+                    <label id="rooms" data-id="@Model.housesentity.HouseKey" style="font-size:20px">房客可用的房間數量</label>
+                    @Html.EditorFor(n => Model.housesentity.BedAvailableNum, new { htmlattributes = new { @readonly="true", @class = "form-control" } })
+                </div>
+                <div class="form-group button1" style="text-align:right">
+                    @{
+                        if (Request.Cookies["StepCount3"] != null)
+                        {
+                            if (Request.Cookies["StepCount3"].Value == "1")
+                            {
+
+                                <img src="@Url.Content("~/img/save.png")" id="saveing" style="width:55px;height:55px;border-radius:5px;cursor:pointer;margin-top:45px" />
+                            }
+
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-default" value="下一步" />
+                        }
+                    }
+                </div>
+
+                       
+
+        </div>
+        <div class="col-lg-9">
+            
+            <div id="hide1">
+                <div class="divforbed row"style="white-space:nowrap">
+                    
+                    <div class="col-lg-2" >公共空間</div>
+                    <div class="col-lg-3" >床型</div>
+                    <div class="col-lg-2" >幾張床</div>
+                    <div class="col-lg-2" >價格</div>
+                    <div class="col-lg-3" >房間描述</div>
+                </div>
+                <div class="row uiforcontrol">
+
+                    <div class="col-lg-2"><input type="checkbox" data-id="ispub" class="form-control" /></div>
+                    @{
+                        IRepository<BedType> bedtype = new Repository<BedType>();
+                        var bedstypelists = bedtype.GetAll();
+                        SelectList select = new SelectList(bedstypelists, "BedTypeID", "BedDescript");
+
+                    <div class="col-lg-3 controlgroup">@Html.DropDownList("bedtypesdrop", select,new {id="bedtype1"})</div>
+                    }
+                    <div class="col-lg-2 controlgroup"><input data-id="bedcount" type="number" class="form-control" /></div>
+                    <div class="col-lg-2"><input type="text" data-id="price" class="form-control" /></div>
+                    <div class="col-lg-3"><textarea class="form-control" data-id="intro" draggable="false" style="resize:none"></textarea></div>
+                </div>
+                <div style="text-align:right;margin-right:30px;margin-top:20px;">
+                    <input type="button" class="btninsert" id="insertdata" />
+                </div>
+            </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>刪除</th>
+                                <th>公共空間</th>
+                                <th>床型</th>
+                                <th>床數</th>
+                                <th>價格</th>
+                                <th>房間描述</th>
+                            </tr>
+                        </thead>
+                        @{
+                            if (Model.bedss != null)
+                            {
+
+
+                                for (int i =0;i<Model.bedss.Count;i++)
+                                {
+                                    IRepository<BedType> bedss = new Repository<BedType>();
+                                    var lists = bedss.GetAll();
+                                    List<SelectListItem> itms = new List<SelectListItem>();
+
+                                    foreach (var itm in lists) {
+                                        itms.Add(new SelectListItem
+                                        {
+                                            Text = itm.BedDescript,
+                                            Value = Convert.ToString(itm.BedTypeID),
+                                            Selected = itm.BedTypeID.Equals(Model.bedss[i].BedTypeID)
+                                        });
+
+                                    }
+
+                                    <tr>
+                                        <td><input type="checkbox" class="deleteb" data-id="@Model.bedss[i].BedInSpaceID" style="width:30px;height:30px" /></td>
+                                        <td>@Html.EditorFor(n => Model.bedss[i].Ispublic, new { htmlattributes = new { @class = "form-control" } })</td>
+                                            
+                                         @Html.EditorFor(n=>Model.bedss[i].BedInSpaceID,new { htmlattributes=new {type="hidden" } })                                            
+                                         
+                                        <td>@Html.DropDownListFor(n => Model.bedss[i].BedTypeID,itms,new {@class="form-control" })</td>
+                                             
+                                        
+                                        
+                                        
+                                        @Html.EditorFor(n => Model.bedss[i].HouseKey, new { htmlattributes = new { type = "hidden" } })
+                                        <td>@Html.EditorFor(n => Model.bedss[i].BedCount,new {htmlattributes=new {@class="form-control" } })</td>
+                                        <td>@Html.EditorFor(n=> Model.bedss[i].RoomPrice, new { htmlattributes = new { @class = "form-control" } })</td>
+                                        <td>@Html.TextAreaFor(n=> Model.bedss[i].SpaceIntro,new {@class="form-control",style="resize:none" })</td>
+                                    </tr>
+
+
+                                                }
+                        }
+                        }
+                    </table>
+                </div>
+                <div>
+                    <input type="button" class="btndelete" />
+                </div>
+            
+            
+
+        </div>
+    </div>
+                    }
+</div>
+@section script{ 
+<script>
+    //$('.uiforcontrol').controlgroup({ "direction": "vertical" });
+    $('.controlgroup').controlgroup();
+    $('#saveing').click(function () {
+        $('form').submit();
+    })
+
+    var delestr = '@Url.HttpRouteUrl("DefaultApi",new {controller="BadDetailsApi" })'
+    $('.btndelete').click(function () {
+        $('.deleteb').each(function (index,ob) {
+            var items = $(this);
+            if ($(this).prop('checked')) {
+                $.ajax({
+                    'url': delestr+"/"+$(this).data("id"),
+                    'type': 'Delete',
+                    
+                }).done(function () {
+                    items.parent().parent().remove();
+                })
+
+            }
+        })
+
+    })
+    
+    $('#insertdata').click(function () {
+        var insert='@Url.HttpRouteUrl("DefaultApi",new {controller="BadDetailsApi" })'
+        var jsontr = {"BedTypeID":$('#bedtype1').val(),"BedCount":$('input[data-id="bedcount"]').val(),"HouseKey":$('#rooms').data("id"),"SpaceIntro":$('textarea[data-id="intro"]').val(),"RoomPrice":$('input[data-id="price"]').val(),"Ispublic":$('input[data-id="ispub"]').prop("checked")} 
+
+       $.ajax({
+            'url':insert,
+            'type': 'Post',
+            'data': JSON.stringify(jsontr),
+            'contentType':'application/json'
+       }).done(function () {
+           location.reload();
+       })
+
+
+    })
+
+
+</script>
+}

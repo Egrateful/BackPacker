@@ -1,0 +1,90 @@
+﻿@model MSIT11404project1.Models.Products
+@{
+    ViewBag.Title = "產品詳細資料";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+
+
+@section style{
+    <style>
+        .resize {
+            resize: none;
+        }
+
+        .form-horizontal {
+            background-color: RGBA(200,200,200,0.7);
+        }
+
+        .list-inline {
+            height: 50px;
+        }
+         .panel-transparent {
+        background: none;
+            }
+    </style>
+}
+
+<div class="panel panel-warning THome">
+    <div class="panel-heading">
+
+        <ul class="list-inline">
+            <li><h3><strong>後臺管理</strong></h3></li>
+            <li>
+                <ol class="breadcrumb panel-transparent">
+    <li>
+        @Html.ActionLink("拍賣場首頁", "Index", "Products", new { area = "Transaction" }, null)
+    </li>
+    <li>
+        <a href="@Url.Action(  "Products","Categorys", new { area = "Transaction" })">後臺管理首頁</a>
+    </li>
+    
+</ol>
+            </li>
+        </ul>
+
+    </div>
+    <div class="panel-body">
+        <div class="col-md-4">
+            <div class="list-group">
+               
+                    @Html.Action("CategorysIndex")
+                
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <h3><strong>產品詳細資料</strong></h3>
+
+                <div class="col-sm-4">
+                    <img src="@Url.Action("GetImage", "Products", new { id = Model.ProductID})" id="img" class="img-thumbnail" />
+
+                </div>
+                <div class="col-sm-8">
+              
+                 
+                    <h3>
+                        @Html.DisplayFor(p => p.ProductName, new { htmlAttributes = new { @class = "form-control", placeholder = "ModelName" } })
+                        @if (Model.Quantity == 0)
+                        {
+                            <strong class="line-height" style="color:white;background-color:red ">
+                                已完售
+                            </strong>
+                        }
+                    </h3>
+                    <br>
+                    <h4><strong>@Html.DisplayNameFor(p => p.ProductContent)</strong></h4>
+                    <p style="white-space:pre-wrap;">@Html.DisplayFor(p => p.ProductContent)</p>
+                    <p>可購買量: @Html.DisplayFor(p => p.Quantity, new { htmlAttributes = new { @class = "form-control" } })</p>
+                    <p>@Html.LabelFor(p => p.UnitPrice, new { @class = "control-label" }): @Html.DisplayFor(p => p.UnitPrice, new { htmlAttributes = new { @class = "control-label" } }) </p>
+                    <p>建立日: @Html.DisplayFor(p => p.Date)</p>
+                    <p> @Html.ActionLink("修改", "PUpdate", "Categorys", new { area = "Transaction", id = Model.ProductID }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })     @Html.ActionLink("刪除", "PDelete", "Categorys", new { area = "Transaction", id = Model.ProductID }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

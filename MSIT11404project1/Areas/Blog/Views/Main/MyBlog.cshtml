@@ -1,0 +1,269 @@
+﻿@model MSIT11404project1.Areas.Blog.BlogViewModel.MyBlogVM
+@{
+    ViewBag.Title = "MyBlog";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+<h2><B>文章管理</B></h2>
+@section Style{
+<link href="~/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+<link href="~/Areas/Blog/hover-min.css" rel="stylesheet" />
+    <style>
+        .AutoHideText {
+         display : inline-block;
+         white-space : nowrap;
+         overflow : hidden;
+         text-overflow : ellipsis;
+        }
+         .CoverImg {
+        height:170px;
+        width:240px;
+        z-index:5;
+        margin-bottom:10px;
+        border-radius:5px;
+        }
+        .ShowDivBG {
+        background:no-repeat center center;
+        background-size:cover;
+        margin:10px;
+        }
+        .HeadImg {
+        width:200px;
+        }
+        .editbtn {
+        margin-left:6px;
+        background-color:#87c8ff
+        }
+            .editbtn:active {
+            background-color:#00ffff
+            
+            }
+            .editbtn:hover {
+            color:#808080
+            }
+        .btn-uplopad {
+        background-color:white;
+        margin:5px;
+        padding:5px;
+        border:1px black solid;
+        
+        }
+        table {
+        font-size:120%;
+            display : inline-block;
+             white-space : nowrap;
+             overflow : hidden;
+              text-overflow : ellipsis;
+        }
+        a{text-decoration:none;}
+        a:hover{text-decoration:none;}
+        td:hover {
+        color:#808080
+        }
+        a:active {
+        color:aqua;
+        }
+        .div-pics h4:hover {
+        color:gray;
+        }
+    </style>
+    }
+@section Script{
+    <script>
+        $("a[class*='fordelmsg']").click(function () {
+            if (confirm("確定刪除此留言？")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+
+      $("#tabs").tabs();
+
+      $("#dialog_div").dialog({
+          autoOpen: false,
+          show: "drop",
+          hide: "drop",
+          title: "上傳照片",
+          buttons: {
+              //"Ok": function () { $(this).dialog("close"); },
+              //"Cancel": function () { $(this).dialog("close"); }
+          }
+      });
+      $("#uploadpic").click(function () {
+          $("#dialog_div").dialog("open");
+          return false;
+      });
+ 
+  $("div[class*='DivForIMG']").dialog({
+      width: 450,
+      height:650,
+      autoOpen: false,
+      show: "drop",
+      hide: "drop",
+      title: "照片詳細資料",
+      zIndex: 100
+  });
+        $("div[class*='ShowDivBG']").click(function () {
+      var te = $(this).attr("data-div")
+      var Ddiv = document.getElementById(te);
+      $(Ddiv).dialog("open");
+      return false;
+  });
+        
+       
+
+
+
+  function PreviewImage001() {
+      var oFReader = new FileReader();
+      
+      oFReader.readAsDataURL(this.files[0]);
+      oFReader.onload = function (oFREvent) {
+          document.getElementById("uploadPreview").src = oFREvent.target.result;
+      };
+  };
+
+
+</script>
+    }
+<div id="dialog_div">
+    <form action="MyBlog" method="post" enctype="multipart/form-data">
+        <div>
+            <input class="form-control" id="uploadImage" name="UserPhoto" type="file" onchange="PreviewImage001();" />
+        <input  name="Uid" type="hidden" value="@Model.User.MemberID" />
+        </div>
+        @*<div>
+            <img id="uploadPreview" style="width:250px;height:250px" />
+        </div>*@
+              <input class="form-control" type="submit" style="margin-top:20px" value="確定上傳"/>
+     </form>
+   
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-lg-3 text-center"  style="padding-left:80px">
+            <h2>@Model.User.UserName</h2>
+            <div><img  class="HeadImg" src="@Url.Action("GetHeadPic",new { id=Model.User.MemberID})"/></div>
+            <div> 
+                @Html.ActionLink("上傳大頭照", "Upload", "", new { @class = "btn btn-uplopad", id = "uploadpic" })
+            </div>
+            <div class="text-left"style="padding-left:70px">
+                
+                    <h4>人氣：@Model.CountMyHotPoint</h4>
+                    <h4>文章總數：@Model.CountMyDoc</h4>
+                    <h4>照片總數：@Model.CountMyPic</h4>
+                    <h4>留言總數：@Model.CountMyMsg</h4>
+              
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">所有文章 (@Model.CountMyDoc)</a></li>
+                    <li><a href="#tabs-2">所有照片 (@Model.CountMyPic)</a></li>
+                    <li><a href="#tabs-3">所有留言 (@Model.CountMyMsg)</a></li>
+                </ul>
+                <div id="tabs-1">
+                    <h3>文章總數：@Model.CountMyDoc</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="25%  ">文章標題</th>
+                                <th width="15%  ">撰寫時間</th>
+                                <th width="10%  ">瀏覽人氣</th>
+                                <th width="10%  ">總留言數</th>
+                                <th width="10%  ">管理</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.MyDocList)
+                            {
+                                <tr class="">
+                                    <td class="hvr-underline-reveal AutoHideText" style="width:90%" ><a href="@Url.Action("BlogOne",new {id =item.DocID})">@item.Title</a></td>
+                                    <td style="width:15%">@item.CreateTime</td>
+                                    <td style="width:8%">@item.Good</td>
+                                    <td style="width:8%">@item.Msg.Count</td>
+                                    <td>
+                                        @Html.ActionLink("文章 ","EditDoc",new { id=item.DocID},new { @class="btn editbtn"})
+                                        @Html.ActionLink("照片:  "+item.Pic.Count, "EditPic", new { id = item.DocID }, new { @class = "btn editbtn" })
+                                        @Html.ActionLink("留言:  "+ item.Msg.Count, "EditMsg", new { id = item.DocID }, new { @class = "btn editbtn" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                                </div>
+                <div id="tabs-2">
+                    <h3>照片總數：@Model.CountMyPic</h3>
+
+                    <div class="row">
+                        @foreach (var item in Model.MyPicList)
+                        {
+                            <div class="col-sm-3 div-pics">
+                                    @if (item.IsCover == true) { ViewBag.iscover = "封面"; } else { ViewBag.iscover = ""; }
+                               
+                                <div class="ShowDivBG hvr-glow" data-div="@item.PhotoID@item.PhotoName" style="width:100%;height:200px;background-image:url(@Url.Action("GetImage2",new {id=item.PhotoID}))">
+                                   <h4 style="top:1%;position:absolute;color:white">
+                                       <b style="background: linear-gradient(90deg,yellow,rgba(0, 0, 0, 0.00));color:black ">@ViewBag.iscover</b><span style="text-shadow:3px 3px 3px black;">@item.Doc.Title</span>  
+                                   </h4>
+                                   <h4 class="AutoHideText"   style="width:110px;  top:80%;position:absolute; text-shadow:3px 3px 3px black;color:white">@item.PhotoName</h4>
+                               </div>
+                                <div class="DivForIMG" id="@item.PhotoID@item.PhotoName">
+                                    <form action="@Url.Action("EditAPic")" method="post" enctype="multipart/form-data">
+                                        <div>
+                                            <input name="PicID" type="hidden" value="@item.PhotoID" />
+                                            <input name="Uid" type="hidden" value="@item.Doc.Nid" />
+                                            <h3> 所屬文章：<a href="@Url.Action("BlogOne",new { id=item.DocID})"> @item.Doc.Title</a></h3>
+                                            照片名稱：<input class="form-control" name="PhotoName" value="@item.PhotoName" autocomplete="off" />
+                                            照片描述：<input class="form-control" name="Description" value="@item.Description" autocomplete="off" />
+                                            照片修改：<input name="UserPhoto" type="file"  accept="image/*" onchange="PreviewImage();" />
+                                        </div>
+                                        <input class="form-control btn-info" value="確認修改" type="submit" style="margin:10px 0  10px 0" />
+                                        @if (item.IsCover != true)
+                                        { <a class="form-controlbtn btn btn-danger"  style="width:100%" href="@Url.Action("DelPic",new { id=item.PhotoID})">刪除此張照片</a>}
+
+                                        <img  style="width:400px;margin-top:20px" id="uploadPreview" src="@Url.Action("GetImage2",new { id=item.PhotoID})" />
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>                </div>
+                <div id="tabs-3">
+                    <h3>留言總數：@Model.CountMyMsg</h3>
+
+                    <div>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">留言所屬文章</th>
+                                    <th style="width:50%">留言內容</th>
+                                    <th style="width:15%">留言時間</th>
+                                    <th style="width:10%">管理</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.MyMsgList)
+                                {
+                                    <tr>
+                                        <td>@Html.ActionLink(item.Doc.Title , "BlogOne", new { id = item.DocID })</td>
+                                        <td>@item.Msg1</td>
+                                        <td>@item.CreateTime</td>
+                                        <td>@Html.ActionLink("刪除此留言", "DelMsg", new { id = item.MsgID },new { @class= "btn btn-danger fordelmsg" })</td>
+                                    </tr>
+                                    
+                                }
+                               
+                            </tbody>
+                        </table>
+        
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

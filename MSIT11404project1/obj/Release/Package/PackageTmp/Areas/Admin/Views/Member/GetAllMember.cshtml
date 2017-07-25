@@ -1,0 +1,90 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@using MSIT11404project1.Models
+@model IPagedList<MSIT11404project1.Models.Members>
+
+@{
+    ViewBag.Title = "GetAllMember";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutMembers.cshtml";
+
+}
+
+@section style{
+    <style>
+        .btndelete, .btnedit, .btninsert {
+            height: 60px;
+            width: 60px;
+        }
+
+        tbody tr:hover {
+            background-color: burlywood;
+        }
+
+        tbody tr {
+            text-align: center;
+        }
+
+        tbody td {
+            padding-top: 20px;
+            font-size: 15px;
+        }
+    </style>
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().MemberID)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Password)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().UserName)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Birthday)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Gender)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().OfficialID)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Address)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Phone)</th>
+                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().UserPhoto)</th>
+
+                <th>更新</th>
+                <th>刪除</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.MemberID)</td>
+                    <td>@Html.DisplayFor(m => item.Email)</td>
+                    <td>@Html.DisplayFor(m => item.Password) </td>
+                    <td>@Html.DisplayFor(m => item.UserName)</td>
+                    <td>@Html.DisplayFor(m => item.Birthday)</td>
+                    @*<td>@Html.DisplayFor(m => item.Gender)</td>*@
+                    @*<td>@Enum.GetName(typeof(Sex), item.Gender)</td>*@                   
+                    <td>@Html.DisplayFor(m => item.OfficialID)</td>
+                    <td>@Html.DisplayFor(m => item.Address)</td>
+                    <td>@Html.DisplayFor(m => item.Phone)</td>
+                    <td>@Html.DisplayFor(m => item.UserPhoto)</td>
+                    <td>
+                        <a href="@Url.Action("MemberEdit","Member",new {area="Admin",id= item.MemberID})">
+                            <input type="button" class="btnedit">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("MemberDelete","Member",new {area="Admin",id= item.MemberID})">
+                            <input type="button" class="btndelete" />
+                        </a>
+                    </td>
+
+                </tr>
+            }
+</table>
+    @Html.PagedListPager(Model, page => Url.Action("GetAllMember", new { page }))
+</div>
+
+@*<div>
+    <a href="@Url.Action("MemberInsert","Member",new {area ="Admin" })">
+    <input type="button" class="btninsert" /></a>
+
+</div>*@

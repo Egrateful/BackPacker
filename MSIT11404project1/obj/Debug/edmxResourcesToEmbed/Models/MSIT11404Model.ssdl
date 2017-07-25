@@ -1,0 +1,917 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MSIT11404Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BedDtails">
+    <Key>
+      <PropertyRef Name="BedInSpaceID" />
+    </Key>
+    <Property Name="BedTypeID" Type="int" />
+    <Property Name="BedCount" Type="int" />
+    <Property Name="BedInSpaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseKey" Type="int" />
+    <Property Name="SpaceIntro" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoomPrice" Type="money" />
+    <Property Name="Ispublic" Type="bit" />
+  </EntityType>
+  <EntityType Name="BedType">
+    <Key>
+      <PropertyRef Name="BedTypeID" />
+    </Key>
+    <Property Name="BedTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BedDescript" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="BookingID" />
+    </Key>
+    <Property Name="BookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseKeyID" Type="int" Nullable="false" />
+    <Property Name="BedInSpaceID" Type="int" Nullable="false" />
+    <Property Name="FromDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="IsConfirm" Type="bit" />
+    <Property Name="Createdate" Type="datetime" Nullable="false" />
+    <Property Name="IsRejected" Type="bit" />
+    <Property Name="ReplyDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Calendar">
+    <Key>
+      <PropertyRef Name="HouseKeyID" />
+      <PropertyRef Name="BedInSpaceID" />
+      <PropertyRef Name="FromDate" />
+    </Key>
+    <Property Name="HouseKeyID" Type="int" Nullable="false" />
+    <Property Name="BedInSpaceID" Type="int" Nullable="false" />
+    <Property Name="FromDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HouseMain">
+    <Key>
+      <PropertyRef Name="HouseKey" />
+    </Key>
+    <Property Name="HouseKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseSourceID" Type="int" />
+    <Property Name="HouseSpaceTypeID" Type="int" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="BathroomNum" Type="int" />
+    <Property Name="BedroomNum" Type="int" />
+    <Property Name="IsOwnerHome" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="PeopleAllowed" Type="int" />
+    <Property Name="BedAvailableNum" Type="int" />
+    <Property Name="Price" Type="money" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="BadComment" Type="int" />
+    <Property Name="HouseName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsFreeze" Type="bit" />
+  </EntityType>
+  <EntityType Name="HouseQuality">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="HouseKey" Type="int" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="Messages" Type="nvarchar" MaxLength="50" />
+    <Property Name="Score" Type="int" />
+    <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IsChecked" Type="bit" />
+  </EntityType>
+  <EntityType Name="HouseSourceType">
+    <Key>
+      <PropertyRef Name="HouseSourceID" />
+    </Key>
+    <Property Name="HouseSourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseSource" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HouseSpace">
+    <Key>
+      <PropertyRef Name="HouseSpaceID" />
+    </Key>
+    <Property Name="HouseSpaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseSpaceDescript" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ImageForRoom">
+    <Key>
+      <PropertyRef Name="ImageKey" />
+    </Key>
+    <Property Name="ImageKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseKey" Type="int" />
+    <Property Name="ImageByte" Type="varbinary(max)" />
+    <Property Name="Descript" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Doc">
+    <Key>
+      <PropertyRef Name="DocID" />
+    </Key>
+    <Property Name="DocID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nid" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Article" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifyTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsShow" Type="bit" Nullable="false" />
+    <Property Name="Good" Type="int" Nullable="false" />
+    <Property Name="PlaceID" Type="int" Nullable="false" />
+    <Property Name="MoodID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mood">
+    <Key>
+      <PropertyRef Name="MoodID" />
+    </Key>
+    <Property Name="MoodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MoodName" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Msg">
+    <Key>
+      <PropertyRef Name="MsgID" />
+    </Key>
+    <Property Name="MsgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocID" Type="int" Nullable="false" />
+    <Property Name="Msg" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsShow" Type="bit" />
+    <Property Name="Nid" Type="int" />
+  </EntityType>
+  <EntityType Name="Pic">
+    <Key>
+      <PropertyRef Name="PhotoID" />
+    </Key>
+    <Property Name="PhotoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocID" Type="int" Nullable="false" />
+    <Property Name="PhotoName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Photo" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="TakeTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsShow" Type="bit" Nullable="false" />
+    <Property Name="IsCover" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PlaceForBlog">
+    <Key>
+      <PropertyRef Name="PlaceID" />
+    </Key>
+    <Property Name="PlaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlaceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Airlines">
+    <Key>
+      <PropertyRef Name="AirlineID" />
+    </Key>
+    <Property Name="AirlineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AirlineCName" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="AirlineName" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="CallSign" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="IsSelected" Type="bit" />
+  </EntityType>
+  <EntityType Name="Flights">
+    <Key>
+      <PropertyRef Name="FlightID" />
+    </Key>
+    <Property Name="FlightID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AirlineID" Type="int" Nullable="false" />
+    <Property Name="TicketInfoID" Type="int" Nullable="false" />
+    <Property Name="FromAirport" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="FromAirportName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FromAirportCity" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="FromAirportCountry" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="ToAirport" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ToAirportName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ToAirportCity" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="ToAirportCountry" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="DepartureDate" Type="date" Nullable="false" />
+    <Property Name="ReturnDate" Type="date" />
+    <Property Name="ScheduleID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ScheduleDetails">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+    </Key>
+    <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TicketInfoID" Type="int" Nullable="false" />
+    <Property Name="FlightNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="DepartureTime" Type="datetime" Nullable="false" />
+    <Property Name="ArrivalTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TicketInfo">
+    <Key>
+      <PropertyRef Name="TicketInfoID" />
+    </Key>
+    <Property Name="TicketInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FlightID" Type="int" Nullable="false" />
+    <Property Name="TicketPrice" Type="money" Nullable="false" />
+    <Property Name="TicketType" Type="tinyint" Nullable="false" />
+    <Property Name="Stops" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoginRecord">
+    <Key>
+      <PropertyRef Name="LoginID" />
+    </Key>
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="LoginTime" Type="datetime" />
+    <Property Name="LogoutTime" Type="datetime" />
+    <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Members">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Birthday" Type="date" />
+    <Property Name="Gender" Type="tinyint" />
+    <Property Name="OfficialID" Type="nchar" MaxLength="10" />
+    <Property Name="Address" Type="nvarchar" MaxLength="60" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="30" />
+    <Property Name="UserPhoto" Type="varbinary(max)" />
+    <Property Name="IsAdminitrator" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Carts">
+    <Key>
+      <PropertyRef Name="CartID" />
+    </Key>
+    <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="int" />
+  </EntityType>
+  <EntityType Name="CartsProducts">
+    <Key>
+      <PropertyRef Name="CartID" />
+    </Key>
+    <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Subtotal" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categorys">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderDetailsID" />
+    </Key>
+    <Property Name="OrderDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="UnitPrice" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="Purchaser" Type="nvarchar" MaxLength="50" />
+    <Property Name="PurchaserPhon" Type="nvarchar" MaxLength="50" />
+    <Property Name="PurchaserAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="ShippingDate" Type="datetime" />
+    <Property Name="Total" Type="money" />
+    <Property Name="Service" Type="bit" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ProductImage" Type="nvarchar" MaxLength="50" />
+    <Property Name="ByteImge" Type="image" Nullable="false" />
+    <Property Name="ProductContent" Type="nvarchar" MaxLength="3800" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="UnitPrice" Type="money" Nullable="false" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CityCountry" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CityContinent" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hotels">
+    <Key>
+      <PropertyRef Name="HotelID" />
+    </Key>
+    <Property Name="HotelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="ArrivalWay" Type="nvarchar(max)" />
+    <Property Name="AvgPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Image" Type="varbinary(max)" />
+    <Property Name="ImageWebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="ServiceInfo" Type="nvarchar(max)" />
+    <Property Name="WebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="CityID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="MessageID" />
+    </Key>
+    <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TravelID" Type="int" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Places">
+    <Key>
+      <PropertyRef Name="PlaceID" />
+    </Key>
+    <Property Name="PlaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="ArrivalWay" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Image" Type="varbinary(max)" />
+    <Property Name="ImageWebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Notice" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="WebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="CityID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restaurants">
+    <Key>
+      <PropertyRef Name="RestaurantID" />
+    </Key>
+    <Property Name="RestaurantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="ArrivalWay" Type="nvarchar(max)" />
+    <Property Name="AvgPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Image" Type="varbinary(max)" />
+    <Property Name="ImageWebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="OpenTime" Type="nvarchar" MaxLength="100" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="WebSite" Type="nvarchar" MaxLength="200" />
+    <Property Name="CityID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Travels">
+    <Key>
+      <PropertyRef Name="TravelID" />
+    </Key>
+    <Property Name="TravelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" Nullable="false" />
+    <Property Name="DuringDay" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Detail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="TitleImage" Type="nvarchar(max)" />
+    <Property Name="ViewCount" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="LastModifiedDate" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_BedDtails_BedType">
+    <End Role="BedType" Type="Self.BedType" Multiplicity="0..1" />
+    <End Role="BedDtails" Type="Self.BedDtails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BedType">
+        <PropertyRef Name="BedTypeID" />
+      </Principal>
+      <Dependent Role="BedDtails">
+        <PropertyRef Name="BedTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BedDtails_HouseMain">
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="0..1" />
+    <End Role="BedDtails" Type="Self.BedDtails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseMain">
+        <PropertyRef Name="HouseKey" />
+      </Principal>
+      <Dependent Role="BedDtails">
+        <PropertyRef Name="HouseKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_BedDtails">
+    <End Role="BedDtails" Type="Self.BedDtails" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BedDtails">
+        <PropertyRef Name="BedInSpaceID" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="BedInSpaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_HouseMain">
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseMain">
+        <PropertyRef Name="HouseKey" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="HouseKeyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Booking_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Carts_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+    <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Carts">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartsProducts_Member">
+    <End Role="Members" Type="Self.Members" Multiplicity="1" />
+    <End Role="CartsProducts" Type="Self.CartsProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="CartsProducts">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartsProducts_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="CartsProducts" Type="Self.CartsProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="CartsProducts">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doc_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="1" />
+    <End Role="Doc" Type="Self.Doc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Doc">
+        <PropertyRef Name="Nid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doc_Mood">
+    <End Role="Mood" Type="Self.Mood" Multiplicity="1" />
+    <End Role="Doc" Type="Self.Doc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mood">
+        <PropertyRef Name="MoodID" />
+      </Principal>
+      <Dependent Role="Doc">
+        <PropertyRef Name="MoodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doc_PlaceForBlog">
+    <End Role="PlaceForBlog" Type="Self.PlaceForBlog" Multiplicity="1" />
+    <End Role="Doc" Type="Self.Doc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlaceForBlog">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Doc">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flights_Airlines">
+    <End Role="Airlines" Type="Self.Airlines" Multiplicity="1" />
+    <End Role="Flights" Type="Self.Flights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airlines">
+        <PropertyRef Name="AirlineID" />
+      </Principal>
+      <Dependent Role="Flights">
+        <PropertyRef Name="AirlineID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flights_ScheduleDetails">
+    <End Role="ScheduleDetails" Type="Self.ScheduleDetails" Multiplicity="1" />
+    <End Role="Flights" Type="Self.Flights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleDetails">
+        <PropertyRef Name="ScheduleID" />
+      </Principal>
+      <Dependent Role="Flights">
+        <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flights_TicketInfo">
+    <End Role="TicketInfo" Type="Self.TicketInfo" Multiplicity="1" />
+    <End Role="Flights" Type="Self.Flights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TicketInfo">
+        <PropertyRef Name="TicketInfoID" />
+      </Principal>
+      <Dependent Role="Flights">
+        <PropertyRef Name="TicketInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hotels_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+    <End Role="Hotels" Type="Self.Hotels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="Hotels">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseMain_HouseSourceType">
+    <End Role="HouseSourceType" Type="Self.HouseSourceType" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSourceType">
+        <PropertyRef Name="HouseSourceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseMain_HouseSpace">
+    <End Role="HouseSpace" Type="Self.HouseSpace" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSpace">
+        <PropertyRef Name="HouseSpaceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSpaceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseMain_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseQuality_HouseMain">
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="1" />
+    <End Role="HouseQuality" Type="Self.HouseQuality" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseMain">
+        <PropertyRef Name="HouseKey" />
+      </Principal>
+      <Dependent Role="HouseQuality">
+        <PropertyRef Name="HouseKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseQuality_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="1" />
+    <End Role="HouseQuality" Type="Self.HouseQuality" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="HouseQuality">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Travels">
+    <End Role="Travels" Type="Self.Travels" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Travels">
+        <PropertyRef Name="TravelID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="TravelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Msg_Doc">
+    <End Role="Doc" Type="Self.Doc" Multiplicity="1" />
+    <End Role="Msg" Type="Self.Msg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doc">
+        <PropertyRef Name="DocID" />
+      </Principal>
+      <Dependent Role="Msg">
+        <PropertyRef Name="DocID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Msg_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+    <End Role="Msg" Type="Self.Msg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Msg">
+        <PropertyRef Name="Nid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pic_Doc">
+    <End Role="Doc" Type="Self.Doc" Multiplicity="1" />
+    <End Role="Pic" Type="Self.Pic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doc">
+        <PropertyRef Name="DocID" />
+      </Principal>
+      <Dependent Role="Pic">
+        <PropertyRef Name="DocID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Places_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+    <End Role="Places" Type="Self.Places" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="Places">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Categorys">
+    <End Role="Categorys" Type="Self.Categorys" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorys">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Restaurants_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+    <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="Restaurants">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleDetails_TicketInfo">
+    <End Role="TicketInfo" Type="Self.TicketInfo" Multiplicity="1" />
+    <End Role="ScheduleDetails" Type="Self.ScheduleDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TicketInfo">
+        <PropertyRef Name="TicketInfoID" />
+      </Principal>
+      <Dependent Role="ScheduleDetails">
+        <PropertyRef Name="TicketInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Travels_Members">
+    <End Role="Members" Type="Self.Members" Multiplicity="1" />
+    <End Role="Travels" Type="Self.Travels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Travels">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MSIT11404Model1StoreContainer">
+    <EntitySet Name="BedDtails" EntityType="Self.BedDtails" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="BedType" EntityType="Self.BedType" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="Booking" EntityType="Self.Booking" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="HouseMain" EntityType="Self.HouseMain" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="HouseQuality" EntityType="Self.HouseQuality" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="HouseSourceType" EntityType="Self.HouseSourceType" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="HouseSpace" EntityType="Self.HouseSpace" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="ImageForRoom" EntityType="Self.ImageForRoom" Schema="Accomodation" store:Type="Tables" />
+    <EntitySet Name="Doc" EntityType="Self.Doc" Schema="Blog" store:Type="Tables" />
+    <EntitySet Name="Mood" EntityType="Self.Mood" Schema="Blog" store:Type="Tables" />
+    <EntitySet Name="Msg" EntityType="Self.Msg" Schema="Blog" store:Type="Tables" />
+    <EntitySet Name="Pic" EntityType="Self.Pic" Schema="Blog" store:Type="Tables" />
+    <EntitySet Name="PlaceForBlog" EntityType="Self.PlaceForBlog" Schema="Blog" store:Type="Tables" />
+    <EntitySet Name="Airlines" EntityType="Self.Airlines" Schema="Flight" store:Type="Tables" />
+    <EntitySet Name="Flights" EntityType="Self.Flights" Schema="Flight" store:Type="Tables" />
+    <EntitySet Name="ScheduleDetails" EntityType="Self.ScheduleDetails" Schema="Flight" store:Type="Tables" />
+    <EntitySet Name="TicketInfo" EntityType="Self.TicketInfo" Schema="Flight" store:Type="Tables" />
+    <EntitySet Name="LoginRecord" EntityType="Self.LoginRecord" Schema="Member" store:Type="Tables" />
+    <EntitySet Name="Members" EntityType="Self.Members" Schema="Member" store:Type="Tables" />
+    <EntitySet Name="Carts" EntityType="Self.Carts" Schema="Transaction" store:Type="Tables" />
+    <EntitySet Name="CartsProducts" EntityType="Self.CartsProducts" Schema="Transaction" store:Type="Tables" />
+    <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="Transaction" store:Type="Tables" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="Transaction" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="Transaction" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="Transaction" store:Type="Tables" />
+    <EntitySet Name="Cities" EntityType="Self.Cities" Schema="Travel" store:Type="Tables" />
+    <EntitySet Name="Hotels" EntityType="Self.Hotels" Schema="Travel" store:Type="Tables" />
+    <EntitySet Name="Message" EntityType="Self.Message" Schema="Travel" store:Type="Tables" />
+    <EntitySet Name="Places" EntityType="Self.Places" Schema="Travel" store:Type="Tables" />
+    <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="Travel" store:Type="Tables" />
+    <EntitySet Name="Travels" EntityType="Self.Travels" Schema="Travel" store:Type="Tables" />
+    <AssociationSet Name="FK_BedDtails_BedType" Association="Self.FK_BedDtails_BedType">
+      <End Role="BedType" EntitySet="BedType" />
+      <End Role="BedDtails" EntitySet="BedDtails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BedDtails_HouseMain" Association="Self.FK_BedDtails_HouseMain">
+      <End Role="HouseMain" EntitySet="HouseMain" />
+      <End Role="BedDtails" EntitySet="BedDtails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_BedDtails" Association="Self.FK_Booking_BedDtails">
+      <End Role="BedDtails" EntitySet="BedDtails" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_HouseMain" Association="Self.FK_Booking_HouseMain">
+      <End Role="HouseMain" EntitySet="HouseMain" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Booking_Members" Association="Self.FK_Booking_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Carts_Members" Association="Self.FK_Carts_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Carts" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartsProducts_Member" Association="Self.FK_CartsProducts_Member">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="CartsProducts" EntitySet="CartsProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartsProducts_Products" Association="Self.FK_CartsProducts_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="CartsProducts" EntitySet="CartsProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doc_Members" Association="Self.FK_Doc_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Doc" EntitySet="Doc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doc_Mood" Association="Self.FK_Doc_Mood">
+      <End Role="Mood" EntitySet="Mood" />
+      <End Role="Doc" EntitySet="Doc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doc_PlaceForBlog" Association="Self.FK_Doc_PlaceForBlog">
+      <End Role="PlaceForBlog" EntitySet="PlaceForBlog" />
+      <End Role="Doc" EntitySet="Doc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flights_Airlines" Association="Self.FK_Flights_Airlines">
+      <End Role="Airlines" EntitySet="Airlines" />
+      <End Role="Flights" EntitySet="Flights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flights_ScheduleDetails" Association="Self.FK_Flights_ScheduleDetails">
+      <End Role="ScheduleDetails" EntitySet="ScheduleDetails" />
+      <End Role="Flights" EntitySet="Flights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flights_TicketInfo" Association="Self.FK_Flights_TicketInfo">
+      <End Role="TicketInfo" EntitySet="TicketInfo" />
+      <End Role="Flights" EntitySet="Flights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hotels_Cities" Association="Self.FK_Hotels_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Hotels" EntitySet="Hotels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseMain_HouseSourceType" Association="Self.FK_HouseMain_HouseSourceType">
+      <End Role="HouseSourceType" EntitySet="HouseSourceType" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseMain_HouseSpace" Association="Self.FK_HouseMain_HouseSpace">
+      <End Role="HouseSpace" EntitySet="HouseSpace" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseMain_Members" Association="Self.FK_HouseMain_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseQuality_HouseMain" Association="Self.FK_HouseQuality_HouseMain">
+      <End Role="HouseMain" EntitySet="HouseMain" />
+      <End Role="HouseQuality" EntitySet="HouseQuality" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseQuality_Members" Association="Self.FK_HouseQuality_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="HouseQuality" EntitySet="HouseQuality" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Travels" Association="Self.FK_Message_Travels">
+      <End Role="Travels" EntitySet="Travels" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Msg_Doc" Association="Self.FK_Msg_Doc">
+      <End Role="Doc" EntitySet="Doc" />
+      <End Role="Msg" EntitySet="Msg" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Msg_Members" Association="Self.FK_Msg_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Msg" EntitySet="Msg" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Members" Association="Self.FK_Orders_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pic_Doc" Association="Self.FK_Pic_Doc">
+      <End Role="Doc" EntitySet="Doc" />
+      <End Role="Pic" EntitySet="Pic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Places_Cities" Association="Self.FK_Places_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Places" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Categorys" Association="Self.FK_Products_Categorys">
+      <End Role="Categorys" EntitySet="Categorys" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Members" Association="Self.FK_Products_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Restaurants_Cities" Association="Self.FK_Restaurants_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Restaurants" EntitySet="Restaurants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleDetails_TicketInfo" Association="Self.FK_ScheduleDetails_TicketInfo">
+      <End Role="TicketInfo" EntitySet="TicketInfo" />
+      <End Role="ScheduleDetails" EntitySet="ScheduleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Travels_Members" Association="Self.FK_Travels_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Travels" EntitySet="Travels" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

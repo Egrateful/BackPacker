@@ -1,0 +1,167 @@
+﻿@model MSIT11404project1.Models.Members
+@using MSIT11404project1.Models;
+
+
+@{
+    ViewBag.Title = "加入會員";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <style>
+        .form-horizontal .control-label {
+            margin-left: 50px;
+
+        }
+
+        .form-registration {
+            max-width: 520px;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            background-color: #c5e673;
+            border-radius: 10px;
+            border: 15px solid #73AD21;
+            padding-bottom: 10px;
+        }
+
+        .form-header {
+            position: relative;
+            font-size: 18px;
+            text-shadow: 3px 3px 3px #c5e673;
+            color: #000;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            /*border-radius: 3px;*/
+            background-color: #73AD21;
+        }
+
+        .control-label {
+            margin-left: 40px;
+            font-size: 16px;
+        }         
+
+        #idsubmit {
+            margin-left: 160px;
+        }
+
+       
+        h3 {
+            text-align: center;
+            /*line-height: 200%;*/
+        }
+    </style>
+
+     
+
+}
+
+
+@using (Html.BeginForm("MemberJoin", "Member", new { area = "Member" }, FormMethod.Post))
+ {
+    @Html.AntiForgeryToken()
+    <div class="form-registration">
+        <div class="form-horizontal">
+            <div class="form-header">
+                <h3>加入會員</h3>
+            </div>
+            <div class="form-group">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">電子信箱</label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">密　　碼</label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">姓　　名</label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">西元生日</label>
+             
+                <div class="col-md-6" >  
+                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })       
+                    @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-3">證件號碼</label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.OfficialID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OfficialID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">性　　別</label>
+                <div class="col-md-6">
+                   <!--  @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Sex))), "請選擇", new { htmlAttributes = new { @class = "form-control" } })   -->
+                    @Html.DropDownListFor(model => model.Gender, EnumHelper.GetSelectList(typeof(Sex)), "請選擇", new { htmlAttributes = new { @class = "form-control" } })                   
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">住　　址</label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">行動電話</label>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+    <div class="form-group">
+
+                <table class="col-md-offset-2 col-md-6">
+                    <tr>
+                        <td>
+                            <input name="check_read" type="checkbox" value="1" />&nbsp;是，我已經閱讀並接受背包客
+                            <a href="http://www.hotelr.tw/?act=privacy">會員條款</a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+
+            <div class="form-group">
+                <input id="idsubmit" type="submit" value="確認送出" class="btn btn-warning" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="idreset" type="reset" value="取消重填" class="btn btn-default" />
+            </div>
+
+        </div> <!-- /form-horizontal-->
+
+    </div> <!-- /form-registration-->
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+

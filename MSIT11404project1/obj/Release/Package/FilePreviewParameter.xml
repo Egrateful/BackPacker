@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="BackPackers" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\WhiteSnowP\\Desktop\\我們是廢物_備案0622\\MSIT11404project1_0619\\MSIT11404project1\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\WhiteSnowP\\Desktop\\我們是廢物_備案0622\\MSIT11404project1_0619\\MSIT11404project1\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="Add write permission to App_Data Folder" description="Add write permission to App_Data folder" value="BackPackers/App_Data" tags="Hidden">
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\WhiteSnowP\\Desktop\\我們是廢物_備案0622\\MSIT11404project1_0619\\MSIT11404project1\\obj\\Release\\Package\\PackageTmp\\App_Data$" />
+  </parameter>
+  <parameter name="MSIT11404Entities-Web.config Connection String" description="MSIT11404Entities 應用程式在 web.config 中用來存取資料庫的連接字串。" value="metadata=res://*/Models.MSIT11404EnitityModel.csdl|res://*/Models.MSIT11404EnitityModel.ssdl|res://*/Models.MSIT11404EnitityModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Server=tcp:backpackers.database.windows.net,1433;Initial Catalog=MSIT11403;Persist Security Info=False;User ID=MSIT11404;Password=B@ck11404;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\WhiteSnowP\\Desktop\\我們是廢物_備案0622\\MSIT11404project1_0619\\MSIT11404project1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MSIT11404Entities']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,195 @@
+﻿@model MSIT11404project1.Areas.ViewModel.InsertHouse
+@using MSIT11404project1.Models
+@{
+    ViewBag.Title = "新增房間";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutRooms.cshtml";
+}
+@section style{
+    <style>
+        form {
+            background-color: rgba(128, 128, 128,0.6);
+        }
+
+        .largediv {
+            flex: auto;
+        }
+
+        .form-group {
+            width: 400px;
+        }
+
+        .form-control {
+            margin-left: 40px;
+        }
+
+        .form-group input {
+            font-size: 20px;
+            margin-top: 3px;
+            width: 250px;
+        }
+
+        .form-group label {
+            font-size: 20px;
+            width: 200px;
+            padding: 3px;
+            text-shadow: 3px 3px 2px rgba(128, 128, 128,0.6);
+        }
+
+        #btndiv input {
+            width: 100px;
+            margin-left: 50%;
+        }
+        
+    </style>
+}
+<div class="largediv">
+    @using (Html.BeginForm("Insert", "AboutHouse", new { area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="row">
+            <div class="col-lg-6 ">
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.MemberID)
+                    @Html.TextBoxFor(n => n.EntityHouseMain.MemberID, new { @readonly = "true", @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.HouseName)
+                    @Html.EditorFor(n => n.EntityHouseMain.HouseName, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.HouseSpaceTypeID)
+                    @{
+                        IRepository<HouseSpace> housespaces = new Repository<HouseSpace>();
+                        var housespace = new SelectList(housespaces.GetAll(), "HouseSpaceID", "HouseSpaceDescript");
+                        if (Model.EntityHouseMain.HouseSpaceTypeID != null)
+                        {
+
+                            var item = housespace.Where(n => n.Value == Convert.ToString(Model.EntityHouseMain.HouseSpaceTypeID)).First();
+                            item.Selected = true;
+                        }
+                    }
+                    @Html.DropDownListFor(n => n.EntityHouseMain.HouseSpaceTypeID, housespace, new { @class = "form-control" });
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.HouseSourceID)
+                    @{
+
+                        IRepository<HouseSourceType> housesources = new Repository<HouseSourceType>();
+                        var housesource = new SelectList(housesources.GetAll(), "HouseSourceID", "HouseSource");
+                        if (Model.EntityHouseMain.HouseSourceID != null)
+                        {
+
+                            var item = housesource.Where(n => n.Value == Convert.ToString(Model.EntityHouseMain.HouseSourceID)).First();
+                            item.Selected = true;
+                        }
+                    }
+                    @Html.DropDownListFor(n => n.EntityHouseMain.HouseSourceID, housesource, new { @class = "form-control" });
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.State)
+                    @Html.EditorFor(n => n.EntityHouseMain.State, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.Country)
+                    @Html.EditorFor(n => n.EntityHouseMain.Country, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.Adress)
+                    @Html.EditorFor(n => n.EntityHouseMain.Adress, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BathroomNum)
+                    @Html.EditorFor(n => n.EntityHouseMain.BathroomNum, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BedroomNum)
+                    @Html.EditorFor(n => n.EntityHouseMain.BedroomNum, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BedAvailableNum)
+                    @Html.EditorFor(n => n.EntityHouseMain.BedAvailableNum, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.IsOwnerHome)
+                    @Html.EditorFor(n => n.EntityHouseMain.IsOwnerHome, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.PeopleAllowed)
+                    @Html.EditorFor(n => n.EntityHouseMain.PeopleAllowed, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.IsActive)
+                    @Html.EditorFor(n => n.EntityHouseMain.IsActive, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.Price)
+                    @Html.EditorFor(n => n.EntityHouseMain.Price, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.CreateDate)
+                    @Html.DisplayFor(n => n.EntityHouseMain.CreateDate, new { @class = "form-control", @readonly = "true" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BadComment)
+                    @Html.EditorFor(n => n.EntityHouseMain.BadComment, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group" id="partial">
+                    @Html.LabelFor(n =>n.Images)
+                    <input id="Images" name="Images" class="form-control" type="file" multiple="multiple" />
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+        <div id="btndiv">
+            <input type="submit" id="Subbtn" value="確認" class="btn btn-default form-control" />
+        </div>
+
+
+                        }
+
+</div>
+
+@section script{
+
+
+
+<script>
+        
+        
+        $('#Images').change(function () {
+           
+            
+            if (this.files.length > 0) {
+                for (var i = 0; i < this.files.length; i++)
+                {
+                var reader = new FileReader();
+                reader.addEventListener("load", function () {
+                var imgs = $('<img/>').attr("src", this.result).css({ "width": "200px", "height": "200px","margin-left":"5px" }).addClass("img-thumbnail");
+                $('#partial>').append(imgs);
+                })
+                
+                reader.readAsDataURL(this.files[i]);
+                }
+            }
+            
+                
+        }
+
+        )
+       
+       
+
+
+
+
+</script>
+}

@@ -1,0 +1,138 @@
+﻿@model IEnumerable<MSIT11404project1.Models.HouseQuality>
+@{
+    ViewBag.Title = "Critics";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutRooms.cshtml";
+}
+@section style{
+    <style>
+        .col-lg-4 label {
+        font-weight:700;
+        font-size:25px;
+        }
+        .col-lg-4 textarea {
+        font-size:20px;
+        }
+        .col-lg-4 p {
+        margin-top:15px;
+        font-size:25px;
+        }
+        
+        .backbtn>a {
+        padding:10px;
+        box-shadow:2px 2px 3px ;
+        background-color:rgba(172, 182, 237, 0.77);
+        border-radius:4px 4px;
+        font-weight:700;
+        color:rgb(0, 0, 0);
+        width:100px;
+        margin-top:25px;
+        margin-left:300px;
+        }
+    </style>
+    }
+@{
+    if (Model != null)
+    {
+        <div class="container">
+            <h2>房東 @Html.DisplayFor(n=>Model.FirstOrDefault().HouseMain.Members.UserName) 被檢舉紀錄</h2>
+            <h2>房東會員編號:@Html.DisplayFor(n => Model.FirstOrDefault().HouseMain.MemberID)</h2>
+            
+            <div class="row">
+                @foreach (var cr in Model)
+     {
+
+    <div class="col-lg-4">
+        <p><label>投訴者為:</label>@Html.DisplayFor(n => cr.Members.UserName)</p>
+        <p><label>投訴內容:</label></p>
+        <textarea class="form-control" style="resize:none" readonly>@Html.DisplayFor(n => cr.Messages)</textarea>
+        <div style="margin-top:20px" class="uicontrol">
+            <select class="form-control select1">
+                <option value="1">通知房東</option>
+                <option value="0">忽略</option>
+            </select>
+        </div>
+        @{
+            if (cr.IsChecked != null)
+            {
+        <p><strong style="margin-left:100px;color:red">已審查</strong></p>
+            }
+            else { 
+        <p><input type="button" style="margin-left:100px;" class="btn btn-danger" data-id="@cr.CommentID" value="確認" /></p>
+            }
+        }
+    </div>
+
+            }
+            </div>
+            <div class="backbtn" style="height:100px">
+                @Html.ActionLink("返回", "backtosame", "AboutHouse", new { area = "Admin", @class = "btn btn-default" }, "")
+            </div>
+        </div>
+            }
+            else
+            {
+        <h1>此房東沒有負評紀錄</h1>
+    }
+<div class="emaildialog" style="display:none">
+    <div>
+        <p><label>管理者帳號:</label><input type="text" id="account" class="form-control" /></p>
+        <p><label>密碼:</label><input type="password" id="pass" class="form-control" /></p>
+        <p ><label>房東Email:</label></p>
+        <p><input id="email" class="form-control" value="cciinnddyy0033@("@")gmail.com" /></p>
+        <p><label>信件內容:</label></p>
+        <textarea id="texting" style="resize:none"></textarea>
+    </div>
+</div>
+}
+
+@section script{
+    <script>
+        function showdia(){
+        $('.emaildialog').dialog({
+            'buttons': {
+                'OK': function () {
+                    var content = {"account":$('#account').val(),"password":$('#pass').val(),"landlordemail":$('#email').val(),"textting":$('#texting').val()}
+                    var btn = $(this)
+                    $.ajax({
+                        'url': '@Url.HttpRouteUrl("DefaultApi",new {http="",controller="Mail" })'
+                        , 'contentType': 'application/json',
+                        'data': JSON.stringify(content),
+                        'type':'Post'
+                    }).done(function () {
+                        btn.dialog('close');
+                    })
+                }
+            }
+        })
+        }
+
+        $('.uicontrol').controlgroup();
+        
+        $('.btn-danger').click(function () {
+            
+            var comentid = $(this).data("id");
+            var ans = $(this).prev().val();
+            var btn = $(this);
+            if (ans == 0) {
+                ans = false;
+            }
+            else {
+                ans = true;
+            }
+            var check = { "ischeck": ans, "commentid": comentid };
+            $.ajax({
+                'url':'@Url.HttpRouteUrl("DefaultApi",new {http="",controller="BadComments"})',
+                'type':'Put',
+                'data':JSON.stringify(check),
+                'contentType':'application/json'
+                
+            }).done(function(){
+                btn.attr('disabled','true');
+            })
+            if (ans) {
+                showdia();
+            }
+
+        })
+    </script>
+    }

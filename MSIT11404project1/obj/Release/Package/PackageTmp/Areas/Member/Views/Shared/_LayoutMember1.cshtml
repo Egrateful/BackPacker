@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+ 
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">  
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/core.css" rel="stylesheet" />    
+    <link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/theme.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    @*<link href="~/Content/member-main.css" rel="stylesheet" />*@
+
+    @RenderSection("styles",required:false)
+</head>
+<body>
+
+    <div class="Headback">
+        @*<div class="jumbotron" id="Headrow">*@
+
+            <div class="container">
+                @*<div class="col-lg-4">*@
+                <div class="col-lg-3">
+                    <span class="logo"></span>
+                    <h1 class="header">BackPackers</h1>
+                    @*<h5>MSIT11404</h5>*@
+                </div>
+
+                <nav class="navbar navbar-default col-lg-8" id="navbar1">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true" id="btnnav">
+                                <span class="sr-only">Toggle navigation</span>
+                                @*<span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>*@
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav" id="menu1">
+                                <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">買賣</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">行程規劃<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">職缺</a></li>
+                                <li><a href="#">交通</a></li>
+                                <li class="dropdown">
+                                    <a href="resident.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">落角處<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+
+                                        <li><a href="landlord.html">成為房東</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="resident.html">尋找地點</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#">關於BackPackers</a></li>
+                                <li><a href="~/Members/Login">登入<span class="iconlogin"></span></a></li>
+                                <li><a href="#">註冊<span class="iconregist"></span></a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+             
+            </div> <!-- /container  -->
+
+
+       <!-- </div>  /Headrow>  -->
+
+
+        <div id="News">
+            <span class="spanSign">最新消息:</span>
+            <div id="mask">
+                <ul id="trick01">
+                    <li><a><span class="glyphicon glyphicon-star"></span>News one</a></li>
+                    <li><a><span class="glyphicon glyphicon-star"></span>News Two</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div> <!-- /Headback>  -->
+    <div class="backgorund container-fluid">
+        <div class="content">
+            
+                @RenderBody()
+        
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="jumbotron">
+            <ul>
+                <li><a>聯絡我們</a></li>
+                <li><a>媒體</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    @section scripts{
+      
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>     
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/fullcalendar-3.4.0/fullcalendar.min.js"></script>
+    <script src="~/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        
+        window.onload = function () {
+
+            $(this).resize(function ()
+            {
+                var pagewidth = $(this).width();
+                if (pagewidth <= 750) {
+                    $('#navbar1').css('background-color', 'black');
+                }
+                else
+                {
+                    $('#navbar1').css('background-color', 'transparent');
+                }
+            })
+            //var selecteffect = $('#effectTypes').val();
+            $('.logo').mouseenter(over);
+            function over()
+            {
+                $(this).effect("slide",500);
+            }
+
+            //alert(document.getElementById("mask").offsetWidth);
+            var movingNews = document.getElementById("trick01");
+            //alert(window.innerWidth);
+            var timeinterval = setInterval(moving1, 10);
+            var min = 0;
+
+            function moving1() {
+                var a = $("#mask").width();
+                if (min < -250) {
+
+                    min = a;
+                    movingNews.style.left = min + 'px';
+                    min - 1;
+                }
+                else {
+
+                    movingNews.style.left = min + 'px';
+                    min -= 1;
+                }
+
+            }
+        }
+
+        //$(function () {
+        //    $("#Birthday").datepicker();
+        //})
+
+        //$(function () {
+        //    var $status = true;
+
+        //    $('#captcha').click(function () {
+        //        var $captcha = $('#captcha');
+        //        $captcha.attr('src', $captcha.attr('src') + '?' + (new Date()).getMilliseconds() + '&id=0q7imoithknp1q8fpicnkdnci5');
+        //    });
+        //    $('input[name="gm_email"], input[name="gm_name"], input[name="gm_pwd[]"]:eq(0), input[name="gm_pwd[]"]:eq(1), input[name="gm_identity"], input[name="gm_mobile"]').bind('keydown', 'return', function (evt) { MoveNext(this); });
+
+        //    $('#btn_send').click(function () {
+        //        $status = true;
+        //        $('input[name="gm_email"], input[name="gm_name"], input[name="gm_pwd[]"]:eq(0), input[name="gm_pwd[]"]:eq(1), input[name="gm_identity"], input[name="gm_mobile"]').blur();
+        //        //$('input[name="gm_email"], input[name="gm_pwd"], input[name="gm_pwd2"], input[name="gm_identity"], input[name="gm_mobile"]').bind('keydown', 'return',function (evt){MoveNext(this);});
+        //        if ($status) {
+        //            if ($('input[name="check_read"]').attr('checked')) {
+        //                $.ajax({
+        //                    url: './?act=func',
+        //                    type: 'POST',
+        //                    data: ($('#form_login').serialize()),
+        //                    ajaxStart: func_loading(), success: function (response) {
+        //                        $('#func_loading').dialog('close');                        //alert(response);
+        //                        var obj = jQuery.parseJSON(response);
+        //                        func_alert(obj.status, obj.msg, obj.redirect);
+        //                        if (obj.status == 'fail') {
+        //                            $('#captcha').click();
+        //                        }
+        //                    }
+        //                });
+        //            } else {
+        //                func_alert('fail', '請先閱讀並接受使用條款及隱私政策', '');
+        //            }
+        //        } else {
+        //            func_alert('fail', '請填寫必填欄位', '');
+        //        }
+
+
+        //    });
+        //    $('input[name="gm_email"]').blur(function () {
+        //        var $this = $(this);
+        //        if ($this.val() == '') {
+        //            $status = false;
+        //            fieldStatus($this, 'incorrect', '請填寫電子信箱');
+        //        } else {
+        //            fieldStatus($this, 'correct', '');
+
+        //        }
+        //    });
+
+        //    $('input[name="gm_pwd[]"]:eq(0)').blur(function () {
+        //        var $val = $(this).val();
+        //        if ($val == '') {
+        //            $status = false;
+        //            fieldStatus($(this), 'incorrect', '請填寫密碼');
+        //        } else {
+        //            if ($val.length >= 6) {
+
+        //                if (/[a-zA-Z]{1,}/.test($val)) {
+        //                    fieldStatus($(this), 'correct', '');
+        //                } else {
+        //                    $status = false;
+        //                    fieldStatus($(this), 'incorrect', '至少包含一個英文字母');
+        //                }
+        //            } else {
+        //                $status = false;
+        //                fieldStatus($(this), 'incorrect', '請填寫至少6個字元密碼');
+        //            }
+        //        }
+        //    });
+
+        //    $('input[name="gm_pwd[]"]:eq(1)').blur(function () {
+        //        var $val = $(this).val();
+        //        if ($val == '') {
+        //            $status = false;
+        //            fieldStatus($(this), 'incorrect', '請填寫密碼');
+        //        } else {
+        //            if ($val == $('input[name="gm_pwd[]"]:eq(0)').val()) {
+        //                fieldStatus($(this), 'correct', '');
+        //            } else {
+        //                $status = false;
+        //                fieldStatus($(this), 'incorrect', '兩道密碼不一致');
+        //            }
+        //        }
+        //    });
+
+        //    $('input[name="gm_name"]').blur(function () {
+        //        var $val = $(this).val();
+        //        if ($val == '') {
+        //            $status = false;
+        //            fieldStatus($(this), 'incorrect', '請填寫姓名');
+        //        } else {
+        //            fieldStatus($(this), 'correct', '');
+        //        }
+        //    });
+
+        //    $('input[name="gm_identity"]').blur(function () {
+        //        var $this = $(this);
+        //        $this.val($this.val().toUpperCase());
+        //        if (checkIdentity($this.val())) {
+        //            fieldStatus($this, 'correct', '');
+        //        } else {
+        //            $status = false;
+        //            fieldStatus($this, 'incorrect', '身份證格式不正確');
+        //        }
+        //    });
+
+        //    $('input[name="gm_mobile"]').blur(function () {
+        //        if (/[0-9]{10,}/.test($(this).val())) {
+        //            fieldStatus($(this), 'correct', '');
+        //        } else {
+        //            $status = false;
+        //            fieldStatus($(this), 'incorrect', '行動電話格式不正確');
+        //        }
+        //    });
+        //    $('select[name="gm_birth_year"], select[name="gm_birth_month"]').change(function () {
+        //        getDay();
+        //    }).change();
+        //});
+        //function getDay() {
+        //    $year = $('select[name="gm_birth_year"]').val();
+        //    $month = $('select[name="gm_birth_month"]').val();
+        //    $str = '';
+        //    for ($i = 1; $i <= getLastDay($year, $month) ; $i++) {
+        //        if ($i < 10) $i = '0' + $i;
+        //        $str += '<option value="' + $i + '" ' + ($i == '' ? 'selected="selected"' : '') + '>' + $i + '</option>';
+        //    }
+        //    $('select[name="gm_birth_day"]').html($str);
+        //}
+        //function MoveNext(elementid) {
+        //    if ($(elementid).attr('type') !== 'submit') {
+        //        var fields = $(elementid).parents('form:eq(0),body').find('button, input, textarea, select');
+        //        var index = fields.index(elementid);
+        //        if (index > -1 && (index + 1) < fields.length) {
+        //            fields.eq(index + 1).focus();
+        //            fields.eq(index + 1).select();
+        //        }
+        //        $(elementid).blur();
+        //        return false;
+        //    }
+        //}
+        //function fieldStatus($obj, $status, $msg) {
+        //    //$obj.parent().find('.explain').text($msg);
+
+        //    switch ($status) {
+        //        case 'correct':
+
+        //            $obj.removeClass('info_incorrect').addClass('info_correct');
+        //            break;
+        //        case 'incorrect':
+
+        //            $obj.removeClass('info_correct').addClass('info_incorrect');
+        //            break;
+        //    }
+        //}
+        //function checkIdentity($id) {
+        //    var $tab = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+        //    var $a1 = new Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3);
+        //    var $a2 = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5);
+        //    var $Mx = new Array(9, 8, 7, 6, 5, 4, 3, 2, 1, 1);
+
+        //    if ($id.length != 10) return false;
+        //    i = $tab.indexOf($id.charAt(0));
+        //    if (i == -1) return false;
+        //    sum = $a1[i] + $a2[i] * 9;
+
+        //    for (i = 1; i < 10; i++) {
+        //        v = parseInt($id.charAt(i));
+        //        if (isNaN(v)) return false;
+        //        sum = sum + v * $Mx[i];
+        //    }
+        //    if (sum % 10 != 0) return false;
+        //    return true;
+        //}
+
+    </script>
+
+    }
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

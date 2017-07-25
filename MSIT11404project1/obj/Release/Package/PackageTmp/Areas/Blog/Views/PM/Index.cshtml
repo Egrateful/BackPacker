@@ -1,0 +1,521 @@
+﻿@model MSIT11404project1.Areas.Blog.BlogViewModel.PMVM
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+@section style{
+<link href="~/Areas/Blog/hover-min.css" rel="stylesheet" />
+
+    <style>
+        a {
+        text-decoration:none;
+        }
+        a:hover{text-decoration:none;}
+        
+        table {
+        font-size:150%;
+           display : inline-block;
+             white-space : nowrap;
+             overflow : hidden;
+              text-overflow : ellipsis;
+        }
+        .Fitem a {
+        font-size:1.25em;
+        }
+        .Fitem {
+        border:2px solid rgba(0, 0, 0, 0.3);
+        border-radius:10px;
+        background:linear-gradient(145deg,#ffffff,rgba(0, 0, 0, 0.00));
+        width:200px;
+        }
+        .btn-del{
+        color:red;
+        background-color:white;
+        }
+        .btn-save {
+        background-color:#4263ff;
+        color:white;
+        }
+        .btn-undo {
+        background-color:#a9a9a9;
+        color:white;
+        }
+        .div-bg {
+        background:no-repeat center center;
+        background-size:cover;
+        }
+        .btn-add {
+        background-color:white;
+        color:blue;
+        }
+        .div-ShowData {
+        border:2px solid gray;
+        border-radius:5px;
+        box-shadow:rgba(0, 0, 0, 0.5) 10px 10px;
+        margin:15px 0 20px 20px;
+        background-color:white;
+        padding:5px;
+        }
+        .table-data {
+         margin:15px 0 5px 20px;
+         padding:5px;
+         box-shadow:rgba(0, 0, 0, 0.5) 10px 10px;
+         border-radius:5px;
+        }
+        .nav-page {
+        border:1px gray solid;
+        margin:1px 0 20px 0;
+        }
+        td {
+        vertical-align:middle
+        }
+    </style>
+    
+    
+    }
+<h1><B style="text-shadow:8px 8px 3px gray">管理</B></h1>
+    
+
+<div class="row">
+    <div class="col-lg-2 Fitem">
+        <h3><a class="btn hvr-forward" href="@Url.Action("Index", "PM", new { page = 0, get = 0 })">文章管理</a></h3>
+        <h3><a class="btn hvr-forward" href="@Url.Action("Index", "PM", new { page = 0, get = 1 })">照片管理</a></h3>
+        <h3><a class="btn hvr-forward" href="@Url.Action("Index", "PM", new { page = 0, get = 2 })">留言管理</a></h3>
+        <h3><a class="btn hvr-forward" href="@Url.Action("Index", "PM", new {page = 0, get = 3 })">地點管理</a></h3>
+        <h3><a class="btn hvr-forward" href="@Url.Action("Index", "PM", new {page = 0, get = 4 })">分類管理</a></h3>
+        <h3><a class="btn hvr-forward" href="@Url.Action("Index", "PM", new {page = 0, get = 10 })">分析</a></h3>
+     </div>
+    <div class="col-lg-10">
+        <div class="collapse navbar-collapse">
+            <ul class="nav nav-page navbar-nav">
+                @if (Model.Page != 0)
+                {<h4 >分頁頁碼</h4>}
+                @{
+                    for (int i = 1; i <= Model.Page; i++)
+                    {
+                        <li ><a class="hvr-float" href="@Url.Action("Index","PM", new { page = i-1 , get=Model.getby})">@i</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    @{
+        int yy = 1;
+        switch (Model.getby)
+        {
+            case 0:
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th width="5%">排序</th>
+                            <th width="10%">文章ID</th>
+                            <th width="50%">文章標題</th>
+                            <th width="10%">作者</th>
+                            <th width="15%">撰寫時間</th>
+                            <th width="10%">管理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Doc)
+                        {
+
+                            <tr>
+                                <td>@yy</td>
+                                <td class="IDu">@item.DocID</td>
+                                <td><a href="@Url.Action("BlogOne","Main",new {id=item.DocID})">@item.Title</a></td>
+                                <td>@item.Members.UserName</td>
+                                <td>@item.CreateTime</td>
+                                <td>
+                                    @if (item.IsShow == true)
+                                    {<a class="btn Isshow btn-success">顯示</a>}
+                                    else
+                                    {<a class="btn Isshow btn-danger">隱藏</a>}
+                                    <input class="TableName" hidden value="Doc" />
+                                    <a class="btn btn-del" data-dialog="@item.DocID">刪除</a>
+                                </td>
+                            </tr>
+                            <div class="fordel" data-dialog="@item.DocID" data-del="@Url.Action("DelAData","PM",new {id=item.DocID,delat=0})" >
+                                <h3>確認刪除：@item.Title</h3>
+                            </div>
+                            yy += 1;
+                        }
+                    </tbody>
+                </table>
+                break;
+            case 1:
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="5%">排序</th>
+                            <th width="10%">照片ID</th>
+                            <th width="10%">上傳者</th>
+                            <th width="20%">所屬文章</th>
+                            <th width="35%">照片</th>
+                            <th width="10%">照片名稱</th>
+                            <th width="10%">管理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Pic)
+                        {
+
+                            <tr>
+                                <td style="height:200px">@yy</td>
+                                <td class="IDu">@item.PhotoID</td>
+                                <td>@item.Doc.Members.UserName</td>
+                                <td><a href="@Url.Action("BlogOne","Main",new { id = item.DocID })">@item.Doc.Title</a></td>
+                                <td class="div-bg" style="background-image:url(@Url.Action("GetImage2","Main",new { id = item.PhotoID })"></td>
+                                <td>@item.PhotoName</td>
+                                <td>
+                                    @if (item.IsShow == true)
+                                    {<a class="btn Isshow btn-success">顯示</a>}
+                                    else
+                                    {<a class="btn Isshow btn-danger">隱藏</a>}
+                                    <input class="TableName" hidden value="Pic" />
+                                    <a class="btn btn-del" data-dialog="@item.PhotoID">刪除</a>
+                                </td>
+                            </tr>
+                            <div class="fordel" data-dialog="@item.PhotoID" data-del="@Url.Action("DelAData","PM",new {id=item.PhotoID,delat=1})">
+                                <h3>確認刪除：@item.PhotoName</h3>
+                                <img style="width:370px" src="@Url.Action("GetImage2","Main",new { id=item.PhotoID})"/>
+                            </div>
+                            yy += 1;
+                        }
+                    </tbody>
+
+                </table>
+                break;
+            case 2:
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="5%">排序</th>
+                            <th width="10%">留言ID</th>
+                            <th width="10%">留言者</th>
+                            <th width="20%">所屬文章</th>
+                            <th width="35%">內容</th>
+                            <th width="10%">留言時間</th>
+                            <th width="10%">管理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Msg)
+                        {
+
+                            <tr>
+                                <td>@yy</td>
+                                <td class="IDu">@item.MsgID</td>
+                                <td>@item.Members.UserName</td>
+                                <td><a href="@Url.Action("BlogOne","Main",new { id=item.DocID})"> @item.Doc.Title</a></td>
+                                <td>@item.Msg1</td>
+                                <td>@item.CreateTime</td>
+                                <td>
+                                    @if (item.IsShow == true)
+                                    {<a class="btn Isshow btn-success">顯示</a>}
+                                    else
+                                    {<a class="btn Isshow btn-danger">隱藏</a>}
+                                    <input class="TableName" hidden value="Msg" />
+                                    <a class="btn btn-del" data-dialog="@item.MsgID">刪除</a>
+                                </td>
+                            </tr>
+                            <div class="fordel" data-dialog="@item.MsgID" data-del="@Url.Action("DelAData","PM",new {id=item.DocID,delat=2})">
+                                <h3>確認刪除： @item.Msg1</h3>
+                            </div>
+                            yy += 1;
+                        }
+                    </tbody>
+                </table>
+                break;
+            case 3:
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="10%">排序</th>
+                            <th width="10%">地點ID</th>
+                            <th width="40%">地點</th>
+                            <th width="40%">管理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PlaceForBlog)
+                        {
+                            <tr>
+                                <td>@yy</td>
+                                <td class="idd">@item.PlaceID</td>
+                                <td contenteditable="true" class="canC">@item.PlaceName</td>
+                                <td>
+                                    <a class="CE btn btn-undo">還原</a>
+                                    <a class="Save btn btn-save" data-saveby="Place">儲存</a>
+                                    <input value="@item.PlaceName" hidden />
+                                    <a class="btn btn-del" data-dialog="@item.PlaceID">刪除</a>
+
+                                </td>
+                            </tr>
+                            <div class="fordel" data-dialog="@item.PlaceID" data-del="@Url.Action("DelAData","PM",new {id=item.PlaceID,delat=3})">
+                                <h3>確認刪除： @item.PlaceName</h3>
+                            </div>
+                            yy += 1;
+                        }
+                        <tr>
+                            <td>新增欄位</td>
+                            <td>*</td>
+                            <td class="tagV" contenteditable="true"></td>
+                            <td>
+                                <a class="btn btn-add adtag" style="width:110px">新增</a>
+                                <input class="tagn" value="Place" hidden />
+                                <input class="byn" value="@Model.getby" hidden />
+                                <input class="pagen" value="@Model.Page" hidden />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                break;
+            case 4:
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="10%">排序</th>
+                            <th width="10%">分類ID</th>
+                            <th width="40%">分類</th>
+                            <th width="40%">管理</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Mood)
+                        {
+
+                            <tr>
+                                <td>@yy</td>
+                                <td class="idd">@item.MoodID</td>
+                                <td contenteditable="true" class="canC">@item.MoodName</td>
+                                <td>
+                                    <a class="CE btn btn-undo">還原</a>
+                                    <a class="Save btn btn-save" data-saveby="Mood">儲存</a>
+                                    <input value="@item.MoodName" hidden />
+                                    <a class="btn btn-del" data-dialog="@item.MoodID">刪除</a>
+
+                                </td>
+                            </tr>
+                            <div class="fordel" data-dialog="@item.MoodID" data-del="@Url.Action("DelAData","PM",new {id=item.MoodID,delat=4})">
+                                <h3>確認刪除： @item.MoodName</h3>
+                            </div>
+                            yy += 1;
+                        }
+                        <tr>
+                            <td>新增欄位</td>
+                            <td>*</td>
+                            <td class="tagV" contenteditable="true"></td>
+                            <td>
+                                <a class="btn btn-add adtag" style="width:110px">新增</a>
+                                <input class="tagn" value="Mood" hidden />
+                                <input class="byn"  value="@Model.getby" hidden/>
+                                <input class="pagen"  value="@Model.Page" hidden/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                break;
+            case 10:
+              <h2>文章分類百分比</h2>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <table class="table table-hover table-data">
+                            <thead>
+                                <tr>
+                                    <th>分類名稱</th>
+                                    <th>分類比數</th>
+                                    <th>百分比</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Docbymood)
+                                {
+                                    <tr>
+                                        <td>@item.Thename</td>
+                                        <td>@item.Total</td>
+                                        <td>@item.Total100</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-5">
+                        <table class="table table-hover table-data ">
+                            <thead>
+                                <tr>
+                                    <th>分類名稱</th>
+                                    <th>分類比數</th>
+                                    <th>百分比</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Docbyplace)
+                                {
+                                    <tr>
+                                        <td>@item.Thename</td>
+                                        <td>@item.Total</td>
+                                        <td>@item.Total100</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-5 div-ShowData">
+                        @foreach (var item in Model.Docbymood)
+                          {
+                            <h4>@item.Thename  @item.Total100</h4>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:@item.Total100">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                    
+                    <div class="col-sm-5 div-ShowData">
+                        @foreach (var item in Model.Docbyplace)
+                          {
+                            <h4>@item.Thename @item.Total100</h4>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:@item.Total100">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                break;
+        }
+    }
+    </div>
+</div>
+
+
+
+@section script{
+    <script>
+        //$("select[class*=Cdata]").change
+
+
+
+        $("div[class*=div-ShowData]").hide(0, function () { $(this).show(500) })
+        $("table[class*=table-data]").hide(0, function () { $(this).show(500) })
+
+
+        $("a[class*=btn-del]").click(function () {
+            var dialog=$(this).attr("data-dialog")
+            $("div[data-dialog="+dialog+"]").dialog("open");
+            return false
+        })
+
+        $("div[class*=fordel]").dialog({
+            autoOpen: false,
+            show: "drop",
+            width: 400,
+            height: 650,
+            title: "要刪除這筆紀錄?",
+            buttons: {
+                "確定": function () {
+                    var delUrl = $(this).attr("data-del")
+                    $.ajax({
+                        'url': delUrl,
+                        'type': 'get',
+                    }).done(function () {
+                        window.location.reload()
+                        $(this).dialog('close');
+                    })
+                    $(this).dialog("close");
+                },
+                "取消": function () { $(this).dialog("close"); }
+            }
+        })
+
+
+
+
+        $("a[class*='adtag']").click(function () {
+            var TagNew=$(this).parent().siblings("td[class*=tagV]").text()
+            var TagTable = $(this).siblings("input[class*=tagn]").val()
+            var getby = $(this).siblings("input[class*=byn]").val()
+            var page = $(this).siblings("input[class*=pagen]").val()
+
+            var addTag = { 'TagTable': TagTable, 'TagNew': TagNew, 'getby': getby, 'page': page }
+            $.ajax({
+                'url': '@Url.Action("AddNewTag", "PM")',
+                'contentType': "application/json; charset=utf-8",
+                'type': 'post',
+                'data': JSON.stringify(addTag),
+                'dataType': 'json'
+            }).done(function () { })
+            window.location.reload()
+        })
+
+
+        $("a[class*='Isshow']").click(function () {
+            btn = $(this);
+            var txt = btn.text();
+            if (txt == "顯示") {
+                btn.text("隱藏")
+                btn.removeClass("btn-success")
+                btn.addClass("btn-danger")
+            }
+            else {
+                $(this).text("顯示")
+                btn.removeClass("btn-danger")
+                btn.addClass("btn-success")
+            }
+            var IDu = btn.parent().siblings("td[class='IDu']").text()
+            var IsShow = (btn.text() == "顯示") ? true : false;
+            var TableName = btn.siblings("input[class='TableName']").val()
+            var Itshow = {'IDu':IDu,'IsShow':IsShow, 'TableName':TableName}
+            $.ajax({
+                'url': '@Url.Action("IsItShow", "PM")',
+                'contentType': "application/json; charset=utf-8",
+                'type': 'post',
+                'data': JSON.stringify(Itshow),
+                'dataType': 'json'
+            })
+        })
+
+        $("td[class*='canC']").focus(function () {
+                tdval = $(this).text().trim();
+            })
+            .blur(function () {
+                if (tdval != $(this).text().trim()) {
+                    $(this).css("color", "red")
+                }
+            })
+
+        $("a[class*='CE']").click(function () {
+                var xt = $(this).siblings("input").val()
+            $(this).parent().siblings("td[class*=canC]").text(xt).css("color","black")
+
+        })
+        $("a[class*='Save']").click(function () {
+                var idd=$(this).parent().siblings("td[class*='idd']").text();
+                var savebyy= $(this).attr("data-saveby")
+                var mee = $(this).parent().siblings("td[class*='canC']");
+                var tosave = { 'IDn': idd, 'saveby': savebyy, 'TheContent': mee.text() }
+
+            $.ajax({
+                'url':'@Url.Action("saveN","PM")',
+                'contentType': "application/json; charset=utf-8",
+                'type': 'post',
+                'data': JSON.stringify(tosave),
+                'dataType': 'json'
+            })
+            alert("修改完成");
+            mee.css("color", "black");
+            this.onblur;
+        })
+
+
+
+    </script>
+    }

@@ -1,0 +1,270 @@
+﻿@model MSIT11404project1.Areas.ViewModel.InsertHouse
+@using MSIT11404project1.Models
+@using MSIT11404project1.Areas.Accomodation.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Accomodation/Views/Shared/ForUser.cshtml";
+}
+
+@section style{
+    <style>
+        
+        #navbarCus {
+            flex: auto;
+            background-color:rgba(192, 245, 182,0.4);
+            border-radius:6px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: justify;
+            padding-top: 4px;
+            font-size:25px;
+            margin-top:15px;
+        }
+            #navbarCus label {
+            font-size:25px;
+            font-weight:600;
+            }
+        .btnsearch1 {
+            width: 50px;
+            height: 50px;
+            border-radius: 99em;
+            background-size: 85%;
+            background-image: url('@Url.Content("~/img/search.png")');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: antiquewhite;
+        }
+
+        .outback {
+            background-image: url('@Url.Content("~/img/68680990-wood-wallpapers.jpg")');
+            background-position:center;
+            background-size: cover;
+            margin-left: 6px;
+            padding: 20px;
+            border-radius: 7px;
+            margin-top: 15px;
+            text-shadow: 1px 1px 2px #808080;
+            box-shadow: 4px 4px 2px #808080;
+            height: inherit;
+            filter: grayscale(30%);
+        }       
+            .outback:hover {
+            filter:grayscale(0%);
+            }
+        .discript {
+        background-color:rgba(188, 225, 250,0.4);
+        padding:10px;
+        line-height:20px;
+        margin-top:5px;
+        }
+        .discript > p {
+        font-size:18px;
+        }
+       .discript > p:first-child {
+            font-size:25px;
+            font-weight:600;
+            }
+       .discript>span {
+       margin-right:3px;
+       width:20px;
+       height:20px;
+            }
+        .page-header > h1:hover {
+        font-size:35px;
+        font-weight:800;
+        color:crimson;
+        cursor:default;
+        }
+        
+        
+    </style>
+    }
+<form enctype="application/x-www-form-urlencoded"></form>
+<div class="container" id="navbarCus">
+    @using (Html.BeginForm("searchRoom", "JustForUser", FormMethod.Post,new { enctype = "application/x-www-form-urlencoded" })) {
+<div>
+    <div class="form-group col-lg-2">
+     <label>地點</label>
+        <input type="text" name="place" placeholder="國家/城市" required id="searchbycountry" class="form-control" /> 
+         
+    </div>
+    <div class="form-group col-lg-2">
+        <label>人數</label>
+        <input type="number" min="1" class="form-control" required name="people"/>
+    </div>
+    <div class="form-group col-lg-3">
+        <label>開始日期</label> <input id="fdate" name="fdate" required type="text" class="form-control" />
+    </div>
+    <div class="form-group col-lg-3">
+        <label>結束日期</label><input id="edate" name="edate" required type="text" class="form-control" />
+    </div>
+    <div class="form-group col-lg-2" style="text-align:center;padding-top:15px">
+        <input class="btnsearch1" type="submit" value="" />
+    </div>
+
+</div>
+    }
+</div>
+<div>
+   <div class="container" style="margin-bottom:15px">
+        <div class="page-header">
+        <h1>熱門房源</h1>
+        </div>
+      
+            <div id="Goodrow" class="row">
+
+                @{
+                    HouseQualityRepository housesq = new HouseQualityRepository();
+
+                    var listshouse = housesq.housesScore();
+                }
+                @foreach (var hhs in listshouse)
+                {
+
+                    var listimage = Model.EntityImages.Where(n => n.HouseKey == hhs.HouseKey).ToList();
+
+
+                    
+                        <div class="col-lg-4">
+                           
+                                <div class="outback">
+                                    <a href="@Url.Action("houseDetails","JustForUser",new {area="Accomodation",id=hhs.HouseKey})" >
+                                        <div class="owl-carousel" style="height:200px">
+                                            @foreach (var pics in listimage)
+                                                   {
+                                                string strpic = Convert.ToBase64String(pics.ImageByte);
+                                                <div style="height:100%">
+                                                    <img class="img-thumbnail" style="width:100%;height:200px" src="@String.Format("data:img/jpeg;base64,{0}",strpic)" />
+                                                </div>
+
+
+                                                  }
+
+
+                                        </div>
+                                    </a>
+                                    <div class="discript">
+                                        <p><span class="glyphicon glyphicon-home"></span>@Html.DisplayFor(n=>hhs.HouseName)</p>
+                                        <p><span class="glyphicon glyphicon-usd"></span>@Html.DisplayFor(n=>hhs.Price) TW</p>
+                                        <p><span class="glyphicon glyphicon-log-in"></span>可容納 @Html.DisplayFor(n => hhs.PeopleAllowed) 人</p>
+                                        <p><span class="glyphicon glyphicon-globe"></span>@Html.DisplayFor(n => hhs.Adress)</p>
+                                    </div>
+                                </div>
+                            
+                        </div>
+
+                  
+                }
+
+
+            
+        </div>
+
+        <div class="page-header">
+            <h1>台灣</h1>
+        </div>
+        
+       <div id="Tairow" class="row">           
+            @{
+                var listshouseT = Model.EntitiesHouses.Where(n => n.Country == "台灣" && n.IsActive==true).Take(9).ToList();
+            }
+            @foreach (var hhsT in listshouseT)
+            {
+
+                var listimageT = Model.EntityImages.Where(n => n.HouseKey == hhsT.HouseKey).ToList();
+
+
+
+                <div class="col-lg-4">
+                   
+                        <div class="outback">
+                            <a href="@Url.Action("houseDetails", "JustForUser", new { area = "Accomodation", id = hhsT.HouseKey })">
+                                <div class="owl-carousel" style="height:200px">
+
+                                    @foreach (var pics in listimageT)
+                                    {
+                                        string strpic = Convert.ToBase64String(pics.ImageByte);
+                                        <div style="height:100%">
+                                            <img class="img-thumbnail" style="width:100%;height:200px" src="@String.Format("data:img/jpeg;base64,{0}",strpic)" />
+                                        </div>
+                                    }
+
+                                </div>
+                             </a>
+                                <div class="discript">
+                                    <p><span class="glyphicon glyphicon-home"></span>@Html.DisplayFor(n => hhsT.HouseName)</p>
+                                    <p><span class="glyphicon glyphicon-usd"></span>@Html.DisplayFor(n => hhsT.Price) TW</p>
+                                    <p><span class="glyphicon glyphicon-log-in"></span>可容納 @Html.DisplayFor(n => hhsT.PeopleAllowed) 人</p>
+                                    <p><span class="glyphicon glyphicon-globe"></span>@Html.DisplayFor(n => hhsT.Adress)</p>
+                                </div>
+                      </div>
+                
+                </div>
+
+
+            }
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        
+        $('.btnsearch').click(function () {
+            var btn = $(this);
+            if ($('form input').val() == "") {
+                btn.preventDefault();
+            }
+        })
+
+        $(function () {
+            var dateFormat = "mm/dd/yy",
+              from = $('#fdate')
+                .datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 2
+                })
+                .on("change", function () {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+              to = $('#edate').datepicker({
+                  defaultDate: "+1w",
+                  changeMonth: true,
+                  numberOfMonths: 2
+              })
+              .on("change", function () {
+                  from.datepicker("option", "maxDate", getDate(this));
+              });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+
+
+        //$('#fdate').datepicker();
+        //$('#edate').datepicker();
+        $('.owl-carousel').owlCarousel(
+            {
+                loop: true,
+                margin:2,
+                nav: false,
+                items: 1,
+                stagePadding: 25,
+
+
+               }
+            );
+       
+       
+    </script>
+    
+    }

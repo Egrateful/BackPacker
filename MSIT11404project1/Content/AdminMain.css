@@ -1,0 +1,38 @@
+﻿
+        .backout {
+            margin: auto;
+            margin-top: 10%;
+        }
+
+        * {
+            font-family: Microsoft JhengHei;
+        }
+
+        html {
+            height: 100%;
+        }
+
+body {
+    min-height: 100%;
+    background-size: 100%;
+    background-image: url('../img/adminback3.jpg');
+    background-repeat: repeat-y;
+    flex: auto;
+}
+
+        .inimgh2 {
+            margin-top: -60px;
+            text-align: center;
+            text-shadow: 3px 3px 2px #808080;
+            color: #FF4500;
+            font-weight: 800;
+        }
+
+        .img-circle {
+            border: 3px dotted #00AAAA;
+        }
+
+        .item {
+            width: 350px;
+            height: 400px;
+        }

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MSIT11404Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="HouseMain">
+    <Key>
+      <PropertyRef Name="HouseKey" />
+    </Key>
+    <Property Name="HouseKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseSourceID" Type="int" />
+    <Property Name="HouseSpaceTypeID" Type="int" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="BathroomNum" Type="int" />
+    <Property Name="BedroomNum" Type="int" />
+    <Property Name="IsOwnerHome" Type="bit" />
+    <Property Name="IsFinal" Type="bit" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="PeopleAllowed" Type="int" />
+    <Property Name="BedAvailableNum" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="HouseSourceType">
+    <Key>
+      <PropertyRef Name="HouseSourceID" />
+    </Key>
+    <Property Name="HouseSourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseSource" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HouseSpace">
+    <Key>
+      <PropertyRef Name="HouseSpaceID" />
+    </Key>
+    <Property Name="HouseSpaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseSpaceDescript" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ImageForRoom">
+    <Key>
+      <PropertyRef Name="HouseRoomKey" />
+    </Key>
+    <Property Name="HouseRoomKey" Type="int" Nullable="false" />
+    <Property Name="ImageFirst" Type="varbinary(max)" />
+    <Property Name="ImageSecond" Type="varbinary(max)" />
+    <Property Name="ImageThird" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_HouseMain_HouseSourceType">
+    <End Role="HouseSourceType" Type="Self.HouseSourceType" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSourceType">
+        <PropertyRef Name="HouseSourceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseMain_HouseSpace">
+    <End Role="HouseSpace" Type="Self.HouseSpace" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSpace">
+        <PropertyRef Name="HouseSpaceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSpaceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MSIT11404Model1StoreContainer">
+    <EntitySet Name="HouseMain" EntityType="Self.HouseMain" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HouseSourceType" EntityType="Self.HouseSourceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HouseSpace" EntityType="Self.HouseSpace" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImageForRoom" EntityType="Self.ImageForRoom" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_HouseMain_HouseSourceType" Association="Self.FK_HouseMain_HouseSourceType">
+      <End Role="HouseSourceType" EntitySet="HouseSourceType" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseMain_HouseSpace" Association="Self.FK_HouseMain_HouseSpace">
+      <End Role="HouseSpace" EntitySet="HouseSpace" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

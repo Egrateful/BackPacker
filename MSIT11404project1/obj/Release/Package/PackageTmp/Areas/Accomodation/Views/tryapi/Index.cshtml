@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Accomodation/Views/Shared/ForUser.cshtml";
+}
+@section style{ 
+    <style>
+        #map {
+        height:600px;
+        width:600px;
+        }
+    </style>
+    
+    }
+<h2>Index</h2>
+
+<div id="map">
+
+</div>
+
+
+
+
+
+
+@section script{
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     <script>
+         var adress = ["桃園市龍潭區渴望路205巷46號1-4樓", "新竹縣尖石鄉秀巒村4鄰8之1號"];
+         var stri =["C","D"]
+        function initMap() {
+
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: { lat: 24.97, lng: 120 }
+
+        });
+        
+        var img = '@Url.Action("stars","JustForUser",new {area="Accomodation" })';
+            
+           
+        var markerss,i
+        for (let i = 0 ; i < 2; i++) {
+
+        var encoder = new google.maps.Geocoder();
+        encoder.geocode({'address': adress[i] }
+        , function (result, status) {
+            var labe1 = stri[i];
+            if (status == google.maps.GeocoderStatus.OK) {
+              markerss = new google.maps.Marker({
+                    position: result[0].geometry.location,
+                    map: map,
+                    label: labe1,
+                    icon:img
+                })
+            }
+        }
+
+    )
+        }
+      }
+
+
+
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeBrTeSIi8jK5DklEoFrkghJhw8-CeUwY&callback=initMap"></script>
+
+
+
+
+}

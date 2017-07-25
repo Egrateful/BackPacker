@@ -1,0 +1,66 @@
+﻿@model MSIT11404project1.Models.Doc
+@{
+    ViewBag.Title = "EditDoc";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+
+<h2>編輯文章</h2>
+
+@section style{
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    }
+@section script{
+    <script src="~/Areas/Blog/tinymce/jquery.tinymce.min.js"></script>
+    <script src="~/Areas/Blog/tinymce/tinymce.min.js"></script>
+    <script>
+        function GoUpload() {
+            var theArtical = document.getElementById("Article");
+            theArtical.value = tinyMCE.get('TheDOC').getContent()
+        };
+        document.getElementById("submitB").addEventListener("click", GoUpload)
+
+        tinymce.init({
+            selector: '#TheDOC',
+            language: 'zh_TW',
+        });
+    </script>
+    }
+<form action="EditDoc" method="post">
+   <input type="hidden" name="DocID"  value="@Model.DocID"/>
+    
+    <div class="row" style="margin-bottom:35px">
+        <div class="col-sm-4">
+            <div>
+                <h4>文章標題：</h4>
+                @Html.EditorFor(p => p.Title, new { htmlattributes = new { @class = "form-control" } })
+
+                <h4>地點選擇：</h4>
+                @{var PlaceSource = new SelectList(ViewBag.Place, "PlaceID", "PlaceName");}
+                @Html.DropDownListFor(p => p.PlaceID, PlaceSource, "選擇地點", new { @class = "form-control" })
+                <h4>分類選擇：</h4>
+                @{var MoodSource = new SelectList(ViewBag.Mood, "MoodID", "MoodName");}
+                @Html.DropDownListFor(p => p.MoodID, MoodSource, "選擇分類", new { @class = "form-control" })
+                </div>
+        </div>
+    </div>
+
+
+
+
+
+ 
+
+
+
+
+    <textarea id="TheDOC" rows="15">@Model.Article</textarea>
+    <input name="Article" id="Article" type="hidden" />
+    <div class="text-right">
+        <input id="submitB" class="btn btn-primary" style="margin:10px 0 30px 0;" type="submit" value="確認" />
+        <a href="@Url.Action("MyBlog")" style="margin:10px 0 30px 0;" class="btn btn-info">取消</a>
+    </div>
+
+
+</form>
+

@@ -1,0 +1,636 @@
+﻿@model MSIT11404project1.Areas.Accomodation.ViewModel.housedetailsview
+@using MSIT11404project1.Models
+@using MSIT11404project1.Areas.Accomodation.Models;
+@{
+    ViewBag.Title = "houseDetails";
+    Layout = "~/Areas/Accomodation/Views/Shared/ForUser.cshtml";
+}
+@section style{
+    <style>
+        .owl-carousel {
+            height: 300px;
+            width: 700px;
+            margin-bottom: 40px;
+            box-shadow: 3px 3px 5px #808080;
+            border: 3px solid #ffffff;
+        }
+
+        .pbody>p {
+            line-height: 30px;
+            font-size: 20px;
+            color:rgba(61, 121, 167, 0.92);
+            margin-top:10px;
+
+            font-weight:600;
+        }
+
+        .pbody strong {
+            font-size: 25px;
+            color:#838383;
+            text-shadow:2px 2px 3px #ffffff;
+            margin-right:10px;
+        }
+
+        .infoforhouse {
+            
+            
+            padding-bottom: 15px;
+            padding-top: 15px;
+            padding-left:15px;
+           
+        }
+        .navforimg {
+         border-bottom:2px solid gray;
+         border-top:2px solid gray;
+        }
+
+            .navforimg figcaption {
+            font-weight:700;
+            font-size:20px;
+            }
+            .infoforhouse img{
+            width:70px;
+            height:70px;
+            }
+            .infoforhouse p {
+                font-size: 20px;
+                line-height: 25px;
+            }
+
+
+
+        .comment {
+            background-image: url('@Url.Content("~/img/05-white-brick.png")');
+            margin-top: 16px;
+            margin-left: 0;
+        }
+
+        .insidecomment {
+            margin: auto;
+        }
+
+
+
+.thumbnail {
+    padding:0px;
+}
+.panel {
+	position:relative;
+   
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+	position:absolute;
+	top:11px;left:-16px;
+	right:100%;
+	width:0;
+	height:0;
+	display:block;
+	content:" ";
+	border-color:transparent;
+	border-style:solid solid outset;
+	pointer-events:none;
+}
+.panel>.panel-heading:after{
+	border-width:7px;
+	border-right-color:#f7f7f7;
+	margin-top:1px;
+	margin-left:2px;
+}
+.panel>.panel-heading:before{
+	border-right-color:#ddd;
+	border-width:8px;
+}
+        .commentshow {
+        padding:15px;
+        }
+        .commentpanel {
+        background-color:rgba(255, 237, 152, 0.77);
+        margin-right:15px;
+        }
+            .commentpanel>p {
+            font-size:16px;
+            line-height:20px;
+            color:black;
+            }
+
+        .btninsert {
+        width:45px;
+        height:45px;
+       
+        }
+        .hed > h2 {
+        padding-left:20px;
+        color:#3d79a7;
+        text-shadow:2px 2px 3px #808080;
+        }
+        .landlordinfo>h1 {
+        font-weight:700;
+        padding-left:15px;
+        }
+        .landlordinfo {
+        margin-right:100px;
+        }
+        .landlordinfo p {
+            font-size:16px;
+            font-weight:600;
+            padding-left:30px;
+            line-height:20px;
+            }
+
+        .landlordinfo2 {
+        width:80%;
+        margin:auto;
+        padding-top:100px;
+        }
+        
+        
+        .removedisplay {
+        display:none;
+        }
+        .adddisplay {
+        display:block;
+        }
+    </style>
+}
+
+
+    <div class="container" style="margin-bottom:30px">
+        <div class="hed">
+            <h1>這間屋子叫做?</h1>
+            <h1>@Model.housemainentity.HouseName</h1>
+            <strong style="font-size:18px">@Html.DisplayFor(n => Model.housemainentity.Country)   @Html.DisplayFor(n => Model.housemainentity.State)</strong>
+        </div>
+        <div class="row">
+            <div class="infoforhouse col-lg-4 col-md-4">
+                <div class="row navforimg">
+                    <div class="col-lg-4">
+                        <figure>
+                            <img src='@Url.Content("~/img/housebro.png")' />
+                            <figcaption>@Html.DisplayFor(n => Model.housemainentity.HouseSourceType.HouseSource)</figcaption>
+
+                        </figure>
+                    </div>
+                    <div class="col-lg-4">
+                        <figure>
+
+                            <img src='@Url.Content("~/img/bedcarttom.png")' ; />
+                            <figcaption>@Html.DisplayFor(n => Model.housemainentity.BedroomNum) 間臥室</figcaption>
+
+                        </figure>
+                    </div>
+                    <div class="col-lg-4">
+                        <figure>
+
+                            <img src='@Url.Content("~/img/cus.png")' />
+                            <figcaption>@Html.DisplayFor(n => Model.housemainentity.PeopleAllowed) 位房客</figcaption>
+
+                        </figure>
+                    </div>
+
+                </div>
+
+                <div style="margin-top:20px;">
+                    <p><strong>地點是?</strong>  @Html.DisplayFor(n => Model.housemainentity.Adress)</p>
+                    <p><strong>一間房間平均</strong>  @Html.DisplayFor(n => Model.housemainentity.Price)  TW</p>
+                    <p><strong>總共有</strong> @Html.DisplayFor(n => Model.housemainentity.BathroomNum) 間廁所</p>
+                    @{
+                        if (Model.housemainentity.IsOwnerHome == true)
+                        {<p><strong>與房東同住?</strong> 是</p> }
+                        else
+                        {<p><strong>與房東同住?</strong> 否</p> }
+                    }
+                </div>
+            </div>
+            
+            <div class="col-lg-8 col-md-8">
+                <div>
+                    <div class="owl-carousel" style="margin:auto">
+                        @foreach (var pics in Model.imagelist)
+                    {
+
+                        string src1 = Convert.ToBase64String(pics.ImageByte);
+
+
+                            <div style="height:300px">
+                                <img class="thumbnail" style="height:300px;width:100%" src="@String.Format("data:img/jpeg;base64,{0}", src1)" />
+                                <p>@Html.DisplayFor(n=>pics.Descript)</p>
+                            </div>
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+<div class="container">
+    <h1>這間屋子有哪些房間?</h1>
+    @foreach (var beds in Model.bedsintros)
+    {
+        <div class="row" style="margin-bottom:30px">
+           
+
+                <div class="col-lg-6">
+                    <div class="panel">
+                        <div class="panel-body pbody">
+                            <h3>@Html.DisplayFor(n => beds.SpaceIntro)</h3>
+
+                            <p><strong>房間價格: </strong>  @Html.DisplayFor(n => beds.RoomPrice)</p>
+
+                            <p><strong>床型: </strong> @Html.DisplayFor(n => beds.BedType.BedDescript)</p>
+
+                            <p><strong>床數: </strong>  @Html.DisplayFor(n => beds.BedCount)</p>
+                            @{ 
+                                if (beds.Ispublic == true) {
+                                    <p><strong>這間房間為公共空間</strong></p>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 divforcal">
+                    @{
+                    if (Request.Cookies["MemberID"] == null || Request.Cookies["MemberID"].Value == null)
+                    {
+                            <strong>請先登入才能訂房</strong>
+                            <input class="btn btn-default calbtn" type="button" style="margin-bottom:10px" value="預定" disabled data-hkey="@beds.HouseKey" data-bspace="@beds.BedInSpaceID" />
+
+                    }
+                    else
+                    {
+                            <input class="btn btn-default calbtn " type="button" style="margin-bottom:10px" value="預定" data-hkey="@beds.HouseKey" data-bspace="@beds.BedInSpaceID" data-price="@beds.RoomPrice" />
+
+                    }
+                    }
+                   
+                        <div class="cal1">
+                        </div>
+                  
+                </div>
+          
+        </div>
+                    }
+
+
+
+</div>
+<div class="row landlordinfo2">
+    <div class="landlordinfo col-lg-3">
+        <h1>認識房東</h1>
+        @{
+            if (Model.mem != null) {
+                if (Model.mem.UserPhoto != null)
+                {
+                    string bigface = Convert.ToBase64String(Model.mem.UserPhoto);
+                <img class="img-thumbnail" style="width:70px;height:70px" src="@String.Format("data:img/jpeg;base64,{0}", bigface)" />
+                }
+            }
+        }
+        <div>
+            @{ 
+            if (Model.mem != null) { 
+            <p>哈囉大家好!我是 @Model.mem.UserName</p>
+            <p>這是我的Email</p> 
+            <p>@Html.DisplayFor(n=>Model.mem.Email)</p>
+            <p>歡迎詢問房間資訊</p>
+            }
+            }
+        </div>
+    </div>
+    
+    <div class="col-lg-3" style="padding-top:20px">
+        @{ 
+            if (Request.Cookies["MemberID"] != null) {
+
+
+
+        <input  type="button" class="btn btn-danger btncomment" value="檢舉惡質房東"/>
+
+            }
+
+        }
+    </div>
+</div>
+
+
+
+
+<div class="comment">
+    <div class="insidecomment">
+        @foreach (var coms in Model.housecriticles)
+        {
+         <div>
+          <div class="row commentshow">
+            <div class="col-lg-1">
+                <div class="thumbnail">
+                @{
+                        string memp = Convert.ToBase64String(coms.Members.UserPhoto);
+                    <img class="img-responsive user-photo" src="@String.Format("data:img/jpeg;base64,{0}",memp)">                
+                    }
+                </div><!-- /thumbnail -->
+            </div><!-- /col-sm-1 -->
+
+            <div class="col-lg-11">
+                <div class="panel panel-default commentpanel">
+                    <div class="panel-heading">
+                        <strong>@coms.MemberID (會員名稱)</strong> <span class="text-muted">@coms.CreateDate.ToShortDateString()</span><span class="text-muted">@{int cs = Convert.ToInt32(coms.Score); for (int i = 1; i <= cs; i++)
+                            {
+                                string starspath = Server.MapPath("~/img/stars.png");
+                                <img src ="@Url.Action("stars", "JustForUser", new { area = "Accomodation" }, "")" style="width:30px" /> }
+                                      }</span>
+                    </div>
+                    <div class="panel-body">
+                       <textarea contenteditable="false" rows="3" style="width:100%;background-color:transparent;cursor:none;border:none" readonly disabled >@coms.Messages</textarea>
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-5 -->
+        </div><!-- /row -->
+
+     </div><!-- /container -->
+                            }
+ 
+        @using (Html.BeginForm("addcomments", "JustForUser",new {area="Accomodation",id=Model.housemainentity.HouseKey}, FormMethod.Post,new { enctype = "application/x-www-form-urlencoded" }))
+        {
+            <div class="form-group">
+
+                
+                <div>
+                   @{ 
+                       for (int i = 1; i <= 5; i++)
+                       {
+                          
+                       <img data-name="cris" src="@Url.Action("stars", "JustForUser", new { area = "Accomodation" }, "")" style="width:50px;filter:grayscale(100%)" />
+
+                       }
+                    }
+                    @Html.EditorFor(n => n.addacomment.Score, new { htmlattributes =new{type="hidden" ,@class="hidescore" } })
+                </div>
+                @{
+                    if (Request.Cookies["MemberID"] == null || Request.Cookies["MemberID"].Value == null)
+                    {
+                        @Html.TextAreaFor(n => n.addacomment.Messages, new { @class = "form-control", placeholder = "必須是會員才能評論", @readonly = "true" })
+                    }
+                    else {
+                       @Html.TextAreaFor(n => n.addacomment.Messages, new { @class = "form-control", placeholder = "Comments",style="resize:none" }) 
+                       }
+                    }
+            </div>
+       
+            <div class="form-group">
+                @{
+                    if (Request.Cookies["MemberID"] == null || Request.Cookies["MemberID"].Value == null)
+                    {
+                        <input type="submit" class="btninsert" value="" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" class="btninsert" value="" />
+                    }
+                }
+               
+            </div>
+                    }
+
+
+
+
+
+        </div>
+
+        </div>
+
+
+@*給預訂房間的popoutform 可是我的叉叉不見了*@
+<div style="display:none" class="booksdiv" title="提交訂房請求">
+    
+        <div class="form-group">
+            <label>開始日期</label>
+            @Html.EditorFor(n => n.bookdetails.FromDate,new { htmlattributes=new {id="fromdate",@readonly="true" } })
+        </div>
+        <div class="form-group">
+            <label>結束日期</label>
+            @Html.EditorFor(n => n.bookdetails.EndDate,new {htmlattributes=new {id="enddate",@readonly="true" } })
+        </div>
+        <div class="form-group">
+            <label></label>
+            <p id="countprice"></p>
+        </div>
+    
+</div>
+
+@*給檢舉房東的popout*@
+<div class="badcomment" style="display:none" title="請問這位房東對您造成什麼困擾?">
+    <div class="form-group">
+        <label>詳細說明</label>
+        <textarea class="form-control" draggable="false"></textarea>
+    </div>
+</div>
+        @section script{
+
+            <script>
+                var strurl = "@Url.HttpRouteUrl("DefaultApi", new { http = "", controller = "bookingapi" })";
+                
+                //datepicker
+                
+                //日曆
+                
+                $('.calbtn').click(function () {
+                    var today=new Date();
+                    
+                    var pricesss=$(this).data("price");
+                    var hkeys = $(this).data("hkey");
+                    var bspace = $(this).data("bspace");
+                    var btn = $(this);
+                    var calendar1 =$(this).next('div');
+                    $(this).next('div').fullCalendar({
+                        buttonText: {
+                            prevYear: "上一年",
+                            nextYear: "下一年",
+                            today: "今天",
+                            prev: "上個月",
+                            next: "下個月"
+                        },
+                        theme: true,
+
+                        header: {
+                            left: "prev,next today prevYear,nextYear",
+                            center: 'title',
+                            right: 'month'
+
+                        },
+                        selectable: true,
+                        selectHelper: true,
+                        
+                        select: function (start, end, jseEvent, view, source) {
+                            if(start<today){
+                                calendar1.fullCalendar('unselect');
+                                return false;
+                            }
+                            
+                            var a = new Date(start);
+
+                            var fdate = a.toLocaleDateString("ja-JP");
+                            
+                            var b = new Date(end);
+
+                            var minus=b.setDate(b.getDate()-1);
+                            
+                            var endd = b.toLocaleDateString("ja-JP");
+                            var prices = (b-a)/(1000 * 3600 * 24)
+                            var prices2 = prices+1;
+                            var stirn =new String(prices2+"天"+prices+"夜");
+                            $('.booksdiv').find('#countprice').text(stirn).css({'font-size':'17px','font-weight':'600'});
+                            $('.booksdiv').find('input[id="fromdate"]').val(fdate);
+                            $('.booksdiv').find('input[id="enddate"]').val(endd);
+                            $.ajax({
+                                url:'@Url.Action("findateisEvent","JustForUser",new {area="Accomodation"})?hkey='+hkeys+'&bspace='+bspace+'&date='+fdate,
+                                type:'Get',
+                                dataType:'text'
+                            }).done(function(datas){
+                                //如果是零 所選取的日期沒有超出界線
+                                if(datas=="1"){
+                                    alert("您選取的範圍已超出房東開放日期")
+                                }
+                                else
+                                {
+                                    
+                                    $('.booksdiv').dialog({
+                                        height: 300,
+                                        width: 300,
+                                        modal: true,
+                                        buttons: {
+                                            "確認": function () {
+
+                                                var booksjson = JSON.stringify({ "HouseKeyID": hkeys, "BedInSpaceID": bspace, "FromDate":$('.booksdiv').find('input[id="fromdate"]').val(), "EndDate":$('.booksdiv').find('input[id="enddate"]').val(),"CustomerID":@{
+                                                    int memId;
+                                                if (Request.Cookies["MemberID"] != null && Request.Cookies["MemberID"].Value != null) { memId = Convert.ToInt32(Request.Cookies["MemberID"].Value); } else { memId = 0; }
+                                            } @memId});
+                                        
+                                    $.ajax({
+                                        'url': strurl,
+                                        'type': 'Post',
+                                        'data': booksjson,
+                                        'contentType':'application/json'
+                                    }).done(function () {
+                                        alert("已送出您的預約申請");
+                                        $('.booksdiv').dialog('close');
+                                    })
+
+                                },
+                                "取消": function () {
+                                    $(this).dialog('close');
+                                }
+                            }
+                            })
+                                }
+                            })
+                           
+
+
+                        },
+
+                        eventSources: [{
+                            url: '@Url.Action("frontcal", "JustForUser", new { area = "Accomodation" })?hkey=' + hkeys + '&bspace=' + bspace
+                            , backgroundColor: "yellow", textColor: "black"
+                        },{url:'@Url.Action("calforbooks", "JustForUser", new { area = "Accomodation" })?hkey=' + hkeys + '&bspace=' + bspace,
+                            backgroundColor:"red",textColor:"white"}],
+
+                        @*dayClick: function (date, event, view) {
+                            var pickday = new Date(date);
+                            var pick = pickday.toLocaleDateString('ja-JP');
+                            $.ajax({
+                            url:'@Url.Action("findateisEvent","JustForUser",new {area="Accomodation"})?hkey='+hkeys+'&bspace='+bspace+'&date='+pick,
+                                type:'Get',
+                                dataType:'text'
+                            }).done(function(datas){
+                                //如果是零 所選取的日期沒有超出界線
+                                if(datas=="1"){
+                                alert("您選取的範圍已超出房東開放日期")
+                                }
+                            })
+                        },*@
+                        eventClick:function(){}
+                    }).css('border', '2px solid black')
+
+                   
+
+                    
+
+
+
+                });
+
+
+
+                //照片-------------------------------------
+
+                $('.owl-carousel').owlCarousel(
+                    {
+                        loop: true,
+                        margin: 2,
+                        nav: false,
+                        items: 1,
+                        stagePadding: 40,
+
+
+                    }
+                    );
+
+                //評分的星星
+                $('img[data-name="cris"]').hover(function () {
+                    $(this).css('width', '60px');
+                }, function () { $(this).css('width', '50px'); }).click(function () {
+                    var index = $(this).index();
+
+                    $('img[data-name="cris"]:lt(' + index + 1 + ')').css('filter', 'grayscale(0%)');
+
+                    if (index != 4) {
+                        $('img[data-name="cris"]:gt(' + index + ')').css('filter', 'grayscale(100%)');
+                    }
+
+                    $('.hidescore').val(index + 1);
+
+
+                }).dblclick(function () {
+                    $('img[data-name="cris"]').css('filter', 'grayscale(100%)');
+                    $('.hidescore').val(0);
+                });
+
+               
+                
+                var sendbadurl="@Url.HttpRouteUrl("DefaultApi", new { http = "", controller = "BadComments" })"; 
+                
+                //檢舉視窗
+                $('.btncomment').click(function(){
+                       
+                    $('.badcomment').dialog({
+                        height:300,
+                        width:300,
+                        modal:true,
+                        buttons:{
+                            "送出":function(){
+               
+                                var datas = JSON.stringify({"HouseKey":@Model.housemainentity.HouseKey,"MemberID":@memId,"Messages":$('.badcomment').find('textarea').val(),"Score":"-1"}) 
+                                $.ajax({
+                                    'url':sendbadurl,
+                                    'type':'Post',
+                                    'data':datas,
+                                    'contentType':'application/json'
+                                }).done(function(){
+                                    alert('檢舉已送出');
+                                    $(this).dialog('close');
+                                });
+                            },
+                            "取消":function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    })
+                });
+
+            </script>
+        }

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MSIT11404Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="HouseMain">
+    <Key>
+      <PropertyRef Name="HouseKey" />
+    </Key>
+    <Property Name="HouseKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseSourceID" Type="Int32" />
+    <Property Name="HouseSpaceTypeID" Type="Int32" />
+    <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BathroomNum" Type="Int32" />
+    <Property Name="BedroomNum" Type="Int32" />
+    <Property Name="IsOwnerHome" Type="Boolean" />
+    <Property Name="IsFinal" Type="Boolean" />
+    <Property Name="MemberID" Type="Int32" />
+    <Property Name="PeopleAllowed" Type="Int32" />
+    <Property Name="BedAvailableNum" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="HouseSourceType" Relationship="Self.FK_HouseMain_HouseSourceType" FromRole="HouseMain" ToRole="HouseSourceType" />
+    <NavigationProperty Name="HouseSpace" Relationship="Self.FK_HouseMain_HouseSpace" FromRole="HouseMain" ToRole="HouseSpace" />
+  </EntityType>
+  <EntityType Name="HouseSourceType">
+    <Key>
+      <PropertyRef Name="HouseSourceID" />
+    </Key>
+    <Property Name="HouseSourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HouseMain" Relationship="Self.FK_HouseMain_HouseSourceType" FromRole="HouseSourceType" ToRole="HouseMain" />
+  </EntityType>
+  <EntityType Name="HouseSpace">
+    <Key>
+      <PropertyRef Name="HouseSpaceID" />
+    </Key>
+    <Property Name="HouseSpaceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseSpaceDescript" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HouseMain" Relationship="Self.FK_HouseMain_HouseSpace" FromRole="HouseSpace" ToRole="HouseMain" />
+  </EntityType>
+  <EntityType Name="ImageForRoom">
+    <Key>
+      <PropertyRef Name="HouseRoomKey" />
+    </Key>
+    <Property Name="HouseRoomKey" Type="Int32" Nullable="false" />
+    <Property Name="ImageFirst" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ImageSecond" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ImageThird" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_HouseMain_HouseSourceType">
+    <End Role="HouseSourceType" Type="Self.HouseSourceType" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSourceType">
+        <PropertyRef Name="HouseSourceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseMain_HouseSpace">
+    <End Role="HouseSpace" Type="Self.HouseSpace" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HouseMain" Type="Self.HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSpace">
+        <PropertyRef Name="HouseSpaceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSpaceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MSIT11404Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="HouseMain" EntityType="Self.HouseMain" />
+    <EntitySet Name="HouseSourceType" EntityType="Self.HouseSourceType" />
+    <EntitySet Name="HouseSpace" EntityType="Self.HouseSpace" />
+    <EntitySet Name="ImageForRoom" EntityType="Self.ImageForRoom" />
+    <AssociationSet Name="FK_HouseMain_HouseSourceType" Association="Self.FK_HouseMain_HouseSourceType">
+      <End Role="HouseSourceType" EntitySet="HouseSourceType" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseMain_HouseSpace" Association="Self.FK_HouseMain_HouseSpace">
+      <End Role="HouseSpace" EntitySet="HouseSpace" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

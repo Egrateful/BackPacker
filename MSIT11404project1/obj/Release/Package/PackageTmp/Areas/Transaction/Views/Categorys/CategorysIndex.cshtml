@@ -1,0 +1,75 @@
+﻿@model IEnumerable<MSIT11404project1.Models.Categorys>
+
+@section style{
+    <style>
+        .resize {
+            resize: none;
+        }
+
+        .list-inline {
+            height: 50px;
+        }
+
+        .table2 {
+        margin-left:5px;}
+
+    </style>
+    
+}
+
+
+
+      
+      
+
+
+
+
+          
+                  
+                    @Html.Action("Create", "Categorys")
+
+@Html.Action("Update", "Categorys")  
+<h3><strong>產品類別清單</strong></h3>
+                    <table class="table  tab-content table-condensed col-lg-2  " id="Categorys">
+                        <thead>
+                            <tr>
+                                <th class="col-lg-8">
+                                 類別名稱
+                                </th>
+                                <th class="col-lg-4">
+                                  修改&刪除
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                      
+                            @foreach (var C in Model)
+                            {
+                                <tr>
+                                    <th>
+                                        @Html.DisplayFor(p => C.CategoryName) (@C.Products.Where(p => p.CategoryID == C.CategoryID).Count())
+                                    </th>
+                                    <th>
+                                        @Html.ActionLink("修改", "Products", "Categorys", new { area = "Transaction", id = C.CategoryID }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" }) @Html.ActionLink("刪除", "Delete", "Categorys", new { area = "Transaction", id = C.CategoryID }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                                    </th>
+                                </tr>
+                            }
+                      
+
+                        </tbody>
+                    </table>
+                      
+
+
+         
+        
+
+
+
+
+
+
+
+    
+

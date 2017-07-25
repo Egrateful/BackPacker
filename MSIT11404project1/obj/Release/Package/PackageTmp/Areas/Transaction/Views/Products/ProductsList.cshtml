@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "拍賣清單";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<MSIT11404project1.Models.Products>
+@section style{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <style>
+        .namelink {
+            color: black;
+            font-size: 2em;
+        }
+
+            .namelink:hover {
+                text-decoration: none;
+                color: black;
+            }
+             .list-inline {height:50px
+        }
+    </style>
+}
+
+@{
+    ViewBag.Title = "產品瀏覽";
+}
+<div class="panel panel-warning THome">
+    <div class="panel-heading">
+
+        <ul class="list-inline">
+            <li ><h3><strong>拍賣清單</strong></h3></li>
+            <li >@Html.Action("MenuLink")</li>
+            <li>@Html.ActionLink("建立日期排序", "ProductsList", new { sortBy = ViewBag.SortDate }, new { @class = "label label-default" })</li>
+          
+        </ul>
+
+
+
+    </div>
+    <div class="panel-body row">
+        <div class="col-md-2">
+    @Html.Action("ListLink")
+        </div>
+        
+        <div class="col-md-10">
+            <table class="table">
+    <thead>
+        <tr>
+            <th> @Html.DisplayNameFor(p => p.First().CategoryID)</th>
+            <th> @Html.DisplayNameFor(p => p.First().ProductImage)</th>
+            <th> @Html.DisplayNameFor(p => p.First().ProductName)</th>
+            <th>@Html.ActionLink(@Html.DisplayNameFor(p=>p.First().UnitPrice).ToString(),"ProductsList", new { sortBy = ViewBag.SortUnitCost })</th>
+            <th>@Html.DisplayNameFor(p=>p.First().Date)</th>
+            <th>購買人數</th>
+            <th>詳細資料</th>
+            <th>修改刪除</th>
+        </tr>
+    </thead>
+  
+        <tbody>
+            
+
+
+              @foreach (var product in Model)
+              {
+              
+                      <tr>
+                          <th> @Html.DisplayFor(c => product.Categorys.CategoryName)</th>
+                        <th> <img src="@Url.Action("GetImage", new { id = product.ProductID })" width="64" height="64"/></th>
+                        <th> @Html.DisplayFor(c => product.ProductName)
+                 @if (product.Quantity == 0)
+                 {
+                                <strong class="line-height" style="color:white;background-color:red ">
+                                    已完售
+                                </strong>
+                 }
+            </th>
+                       <th> @Html.DisplayFor(c => product.UnitPrice)</th>
+                       <th>@Html.DisplayFor(p => product.Date)</th>
+                          <th>@product.OrderDetails.Where(p=>p.ProductID==product.ProductID).Count()</th>
+                       <th>   @Html.ActionLink("詳細資料", "ProductsListDetailed", "Products", new { area = "Transaction", id = product.ProductID }, null)</th>
+                       <th>    @Html.ActionLink("修改", "Update", "Products", new { area = "Transaction", id = product.ProductID }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })     @Html.ActionLink("刪除", "Delete", "Products", new { area = "Transaction", id = product.ProductID }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })</th>
+                    </tr> 
+                  }
+     
+
+
+           
+        </tbody>
+            </table>
+
+            @Html.PagedListPager(Model, page => Url.Action("ProductsList", new { page = page, sortBy = Request["sortBy"] }), PagedListRenderOptions.Classic)
+        </div>
+
+    </div>
+</div>

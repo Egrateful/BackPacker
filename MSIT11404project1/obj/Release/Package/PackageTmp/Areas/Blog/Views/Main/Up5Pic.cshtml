@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewBag.Title = "Up5Pic";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+
+    <style>
+        .a-upload {
+            height: 135px;
+            cursor: pointer;
+            color: #888;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+        }
+
+            .a-upload img {
+                width: 180px;
+                height: 135px;
+            }
+
+            .a-upload input {
+                cursor: pointer;
+                position: absolute;
+                font-size: 100px;
+                right: 0;
+                top: 0;
+                opacity: 0;
+                filter: alpha(opacity=0);
+                width: 100%;
+                height: 100%;
+            }
+
+            .a-upload:hover {
+                color: #444;
+                background: #ccc;
+                border-color: #ccc;
+                text-decoration: none;
+            }
+
+        .picLable {
+            position: absolute;
+            top: 4px;
+            left: 2px;
+        }
+
+        .SeePics {
+            margin-bottom: 10px;
+        }
+
+
+
+        .imgs {
+            width: 350px;
+            height: 260px;
+        }
+
+        .hee {
+            background: no-repeat center center;
+            background-size: cover;
+        }
+    </style>
+
+
+}
+
+
+
+<h2>上傳照片</h2>
+<h3 style="color:red">提醒：新上傳的照片會把原本的照片覆蓋掉喔！</h3>
+
+
+
+
+<div class="upup" id="theupdiv" >
+    <form id="sen" action="Up5Pic" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="ThisDocID" value="@ViewBag.DocID" />
+
+        <div class="SeePics row" id="imgdiv1">
+            <div class="col-lg-2">
+                <a class="a-upload hvr-bob">
+                    <p class="picLable">上傳封面</p>
+                    <input id="uploadImage" name="myPhoto" type="file" onchange="PreviewImage();" />
+                    <img id="uploadPreview" />
+                </a>
+            </div>
+            <div class="col-lg-5">
+                <div>
+                    照片名稱<input class="form-control" name="PicNa" />
+                </div>
+                <div>
+                    照片描述<textarea name="PicDe" class="form-control" style="resize:none"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="SeePics row" id="imgdiv2" hidden>
+            <div class="col-lg-2">
+                <a class="a-upload hvr-bob">
+                    <div>
+                        <p class="picLable">
+                            照片1
+                        </p>
+                        <input id="uploadImage2" name="myPhoto2" width="200" type="file" onchange="PreviewImage2();" />
+                        <img id="uploadPreview2" />
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-5">
+                <div>
+                    照片名稱<input name="PicNa" class="form-control" />
+                </div>
+                <div>
+                    照片描述<textarea name="PicDe" class="form-control" style="resize:none"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="SeePics row" id="imgdiv3" hidden>
+            <div class="col-lg-2">
+                <a class="a-upload hvr-bob">
+                    <div>
+                        <p class="picLable">
+                            照片2
+                        </p>
+                        <input id="uploadImage3" name="myPhoto3" width="200" type="file" onchange="PreviewImage3();" />
+                        <img id="uploadPreview3" />
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-5">
+                <div>
+                    照片名稱<input name="PicNa" class="form-control" />
+                </div>
+                <div>
+                    照片描述<textarea name="PicDe" class="form-control" style="resize:none"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="SeePics row" id="imgdiv4" hidden>
+            <div class="col-lg-2">
+                <a class="a-upload hvr-bob">
+                    <div>
+                        <p class="picLable">
+                            照片3
+                        </p>
+                        <input id="uploadImage4" name="myPhoto4" width="200" type="file" onchange="PreviewImage4();" />
+                        <img id="uploadPreview4" />
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-5">
+                <div>
+                    照片名稱<input name="PicNa" class="form-control" />
+                </div>
+                <div>
+                    照片描述<textarea name="PicDe" class="form-control" style="resize:none"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="SeePics row" id="imgdiv5" hidden>
+            <div class="col-lg-2">
+                <a class="a-upload hvr-bob">
+                    <div>
+                        <p class="picLable">
+                            照片4
+                        </p>
+                        <input id="uploadImage5" name="myPhoto5" width="200" type="file" onchange="PreviewImage5();" />
+                        <img id="uploadPreview5" />
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-5">
+                <div>
+                    照片名稱<input name="PicNa" class="form-control" />
+                </div>
+                <div>
+                    照片描述<textarea name="PicDe" class="form-control" style="resize:none"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            <button style="margin:20px 40% 20px 0" id="gogopowerranger" type="submit" class="btn-primary" disabled>確定上傳</button>
+        </div>
+    </form>
+</div>
+
+
+
+@section script{
+    <script>
+
+        //即時顯示圖片===>>
+        function PreviewImage() {
+            $("#imgdiv2").removeAttr("hidden")
+            $("#gogopowerranger").removeAttr("disabled")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview").src = oFREvent.target.result;
+            };
+
+        };
+
+        function PreviewImage2() {
+            $("#imgdiv3").removeAttr("hidden")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage2").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview2").src = oFREvent.target.result;
+            };
+        };
+
+        function PreviewImage3() {
+            $("#imgdiv4").removeAttr("hidden")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage3").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview3").src = oFREvent.target.result;
+            };
+        };
+
+        function PreviewImage4() {
+            $("#imgdiv5").removeAttr("hidden")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage4").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview4").src = oFREvent.target.result;
+            };
+        };
+
+        function PreviewImage5() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage5").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview5").src = oFREvent.target.result;
+            };
+        };
+        //即時顯示圖片=====
+
+
+    </script>
+}

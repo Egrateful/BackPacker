@@ -1,0 +1,276 @@
+﻿@model MSIT11404project1.Models.Travels
+@using MSIT11404project1.Models;
+@{
+    ViewBag.Title = "TravelDetail";
+    //Layout = "~/Areas/Accomodation/Views/Shared/ForUser.cshtml";
+
+
+    //Layout = "~/Areas/Travel/Views/Shared/_LayoutTravel.cshtml";
+
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+
+
+
+}
+@section style{
+    <style>
+        .maplink {
+            font-size: 20px;
+            color: black;
+        }
+
+            .maplink:hover {
+                font-size: 30px;
+                color: rebeccapurple;
+                cursor: pointer;
+            }
+
+        .titleimg {
+            background: no-repeat center center;
+            background-size: contain;
+            height: 100%;
+        }
+
+        #messagediv {
+            border: 2px solid gray;
+            border-radius: 3px;
+            background-color: white;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mapclass {
+            border: 2px solid gray;
+            border-radius: 3px;
+        }
+    </style>
+}
+<div class="row" id="maindiv">
+    @Html.HiddenFor(t => Model.TravelID)
+    <div class="col-lg-7">
+        <div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 style="font-size:2em;font-weight:bold " class="panel-title">@Model.Name</h1>
+                    <h2 style="font-size:1.5em;font-weight:bold " class="panel-title">@Model.Members.UserName </h2>
+                    <h2 style="font-size:1.2em;font-weight:bold " class="panel-title">最後更新時間:@Model.LastModifiedDate.ToShortDateString()</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row" style="background-color:white;border-top-left-radius:4px">
+                        <h2 style="color: firebrick">行程描述</h2>
+                        <div>
+                            <p style="margin-left:10px;font-size:20px">@Model.Description</p>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:white;border-radius:4px;max-height:1500px;overflow-y:auto">
+                        <h2 style="color:blue" id="travelContentTitle">行程內容</h2>
+                        <div class="row">
+                            <div class="col-lg-4" style="border:1px solid gray;border-radius:3px;margin-left:100px;height:80px">
+                                <div class="row">
+                                    <div class="col-lg-4 titleimg " style="height:70px;margin-top:5px;background-image:url('@Url.Content("~/img/traveldays.gif")');">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h4>共 @Model.DuringDay 天</h4>
+                                        <h4>@Model.StartDate.ToShortDateString() ~ @Model.EndDate.ToShortDateString()</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" style="border:1px solid gray;border-radius:3px;margin-left:100px;height:80px">
+                                <div class="row">
+                                    <div class="col-lg-4 titleimg" style="height:70px;margin-top:5px;background-image:url('@Url.Content("~/img/travelcost.jpg")');">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h4>開銷</h4>
+                                        <h3 id="totalpay">$ TWD:</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        @Html.Raw(Model.Detail)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="row" style="width:700px;height:850px;margin:20px;">
+            <div class="col-lg-12" id="messagediv" style="max-height:100%;overflow-y:auto">
+                <h3>留言</h3>
+                <hr style="color:black;background-color:black;height:1px;border-top:1px" />
+                @{
+                    foreach (var m in Model.Message)
+                    {
+                        <div class="messageblock">
+                            @{
+                                IRepository<Members> mem = new Repository<Members>();
+                                Members mtemp = mem.GetByID(m.MemberID);
+                                //var user = mem.GetByID(m.MemberID);
+
+                                <div class="col-lg-1">
+                                    @{
+                                        if (mtemp.UserPhoto != null)
+                                        {
+                                            <img style="border-radius:50%;width:40px;height:40px" src="@string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(mtemp.UserPhoto))" />
+                                        }
+                                        else
+                                        {
+                                            <img style="border-radius:50%;width:40px;height:40px" src="~/Areas/Blog/PicForBlog/DFHeadPic.png" />
+                                        }
+                                    }
+                                    @*<img style="width:30px;height:30px;margin-top:5px;background-image:url(data:image/jpeg;base64,@Convert.ToBase64String(mtemp.UserPhoto))"/>*@
+                                </div>
+
+                                    <div class="col-lg-11">
+                                        <h4>@mtemp.UserName </h4>
+                                        <h4>@m.CreateDate</h4>
+                                        <h4>@m.Content</h4>
+                                    </div>
+                            }
+                        </div>
+                                        }
+                }
+                <textarea id="msgarea" class="form-control" rows="5" cols="10" style="resize:none"></textarea>
+                <div style="text-align:right">
+                    <a class="btn btn-primary" id="leavemsgbtn" style="margin-top:10px;margin-bottom:10px">留言</a>
+                </div>
+            </div>
+            <div class="col-lg-12" id="stepmap" style="width:100%;height:95%;margin-top:5px">
+            </div>
+        </div>
+        @*<a style="font-size:18px"> </a>*@
+    </div>
+</div>
+@section script{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDupNnhJDl-Ukp8AQgs43TNnjDeSAJ8JWk"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/jquery-cookie-master/src/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.googlemap.js"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            var listdays = $('#travelContentTitle').parent().children('li').children('h3');
+            $.each(listdays, function (i, day) {
+                var parentel = $(day).parent();
+                var nextel = $(day).next();
+
+                var htext = $(day).text();
+
+                var maplink = $('<a></a>').attr('style', 'font-size:18px').text(htext).addClass('maplink');
+                $(maplink).attr('href', '#stepmap');
+                day.remove();
+                
+                nextel.before(maplink);
+            });
+
+            var gmaps = $('div.mymap');
+
+            $.each(gmaps, function (index, eachgmap) {
+                var theparnet = $(eachgmap).parent();
+                $(eachgmap).remove();
+                var mapdiv = $('<div></div>').attr('style', 'width:250px;height:150px').addClass('col-lg-6 mymap');
+                theparnet.append(mapdiv);
+                mapdiv.googleMap({
+                    zoom: 18,
+                });
+                mapdiv.addMarker({
+                    address: theparnet.parent().parent().next().val()
+                });
+            })
+
+            var inputpays = $('input[name="pays"]');
+
+            var sum = 0;
+            $.each(inputpays, function (index, pay) {
+                $(pay).attr('readonly', 'readonly');
+                $(pay).val($(pay).next().val());
+                sum += parseInt($(pay).val());
+            })
+            var totalpay = $('#totalpay');
+            totalpay.text(totalpay.text() + sum);
+
+            var inputtextareas = $('textarea[name="detailareas"]');
+
+            $.each(inputtextareas, function (index, area) {
+                $(area).attr('readonly', 'readonly');
+                $(area).text($(area).next().val());
+            })
+
+            var deletebtns = $('a[name="deletebtns"]');
+
+            $.each(deletebtns, function (index, btn) {
+                btn.remove();
+            })
+
+            $(document).on('click', '.maplink', function () {
+                var addressArray = [];
+                var lis = $(this).next().children('li');
+                $.each(lis, function (index, li) {
+                    addressArray.push($(li).children('input').val());
+                    
+                    
+                    //console.log($(li).children('input').val());
+                })
+
+                var showdiv = $('#stepmap');
+                var arraylength = addressArray.length;
+                var patharray = [];
+                for (var j = 1; j < arraylength - 1; j++) {
+                    patharray.push(addressArray[j]);
+                }
+                showdiv.googleMap();
+                $('#stepmap').addWay({
+                    start: addressArray[0], // Postal address for the start marker (obligatory)
+                    end: addressArray[arraylength - 1], // Postal Address or GPS coordinates for the end marker (obligatory)
+                    route: 'way', // Block's ID for the route display (optional)
+                    langage: 'chinese', // language of the route detail (optional)
+                    step: patharray
+                });
+                showdiv.removeClass();
+                showdiv.addClass('col-lg-12 mapclass');
+            })
+
+            $('#leavemsgbtn').click(function () {
+                if ($.cookie('MemberID') == undefined) {
+                    if (confirm('請先登入會員，方可留言') == true)
+                    {
+                        $('#leavemsgbtn').attr('href', '@Url.Action("Login", "Member",new { Area="Member"})');
+                    }
+                }
+                else {
+                    if ($('#msgarea').val() == "") {
+                        alert('留言不可為空');
+                    }
+                    else
+                    {
+                        var strurl = '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "TravelMessageApi" })';
+
+                        var date = new Date();
+                        var msg = {
+                            'CreateDate': date,
+                            'Content': $('#msgarea').val(),
+                            'TravelID': $('#TravelID').val(),
+                            'MemberID': $.cookie('MemberID'),
+                        }
+                        $.ajax({
+                            'type': 'Post',
+                            'url': strurl,
+                            'contentType': 'application/json',
+                            'data': JSON.stringify(msg),
+                            'dataType': 'Json',
+                        }).done(function () {
+                            location.reload();
+                        })
+                    }
+                    
+                }
+
+            })
+
+
+
+        })
+
+    </script>
+}

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="MSIT11404Entities-Web.config Connection String" description="MSIT11404Entities 應用程式在 web.config 中用來存取資料庫的連接字串。" defaultValue="metadata=res://*/Models.MSIT11404EnitityModel.csdl|res://*/Models.MSIT11404EnitityModel.ssdl|res://*/Models.MSIT11404EnitityModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Server=tcp:backpackers.database.windows.net,1433;Initial Catalog=MSIT11403;Persist Security Info=False;User ID=MSIT11404;Password=B@ck11404;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\WhiteSnowP\\Desktop\\Backpacker\\MSIT11404project1_0619\\MSIT11404project1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MSIT11404Entities']/@connectionString" />
+  </parameter>
+</parameters>

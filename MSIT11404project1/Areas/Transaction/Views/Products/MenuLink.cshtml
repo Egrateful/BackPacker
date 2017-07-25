@@ -1,0 +1,18 @@
+﻿
+<style>
+       .panel-transparent {
+        background: none;
+            }
+  </style>
+
+<ol class="breadcrumb panel-transparent">
+    <li>
+        @Html.ActionLink("拍賣場首頁", "Index", "Products", new { area = "Transaction" })
+    </li>
+    <li>
+       
+        <a href="@Url.Action( "ProductsList", "Products", new { area = "Transaction" })">拍賣清單(@ViewBag.Sellcount)</a>
+    </li>
+    <li>  <a href="@Url.Action("CartIndex", "ShoppingCart", new { area = "Transaction" })">購物車(@ViewBag.Buycount)</a></li>
+<li><a  href="@Url.Action("List", "OrderList", new { area = "Transaction" })">購買紀錄</a></li>  
+  </ol>

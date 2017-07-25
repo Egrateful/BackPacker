@@ -1,0 +1,142 @@
+﻿@model  IEnumerable<MSIT11404project1.Models.Orders>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <style>
+        .list-inline {
+            height: 50px;
+        }
+
+        .w {
+            white-space: nowrap;
+        }
+        .table {
+        border: 1px solid #000000;
+        }
+      
+    </style>
+}
+<div class="panel panel-warning THome">
+    <div class="panel-heading">
+        <ul class="list-inline ">
+            <li><h3><strong>購買紀錄</strong></h3></li>
+            <li>@Html.Action("MenuLink", "Products")</li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-2">
+            <h1>  @ViewBag.Buycount</h1>
+            @Html.Action("ListLink", "Products")
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+
+
+            </div>
+            @using (Html.BeginForm("List", "OrderList", new { area = "Transaction" }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+            {
+
+                foreach (var list in Model)
+                {
+                    <div class="table">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                             
+                                </tr>
+                                <tr>
+                                    <th class="col-lg-1">@Html.DisplayNameFor(p => p.OrderID)</th>
+                                    <th>@Html.DisplayFor(p => list.OrderID)</th>
+                                </tr>
+                                <tr>
+
+                                    <th>@Html.DisplayNameFor(p => p.MemberID)</th>
+                                    <th>@Html.DisplayFor(p => list.Members.UserName)</th>
+
+                                </tr>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(p => p.OrderDate)</th>
+                                    <th>@Html.DisplayFor(p => list.OrderDate)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                           
+                                </tr>
+                                <tr>
+                                    <th>收件人</th>
+                                    <th>@Html.DisplayFor(p => list.Purchaser)</th>
+                                </tr>
+                                <tr>
+                                    <th>電話</th>
+                                    <th>@Html.DisplayFor(p => list.PurchaserPhon)</th>
+                                </tr>
+                                <tr>
+                                    <th>地址</th>
+                                    <th>@Html.DisplayFor(p => list.PurchaserAddress)</th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-bordered">
+                            <thead>
+
+                                <tr>
+                                    <th class="col-lg-1">@Html.DisplayNameFor(p => p.OrderDetails.First().OrderID)</th>
+                                    <th class="col-lg-5 strong">@Html.DisplayNameFor(p => p.OrderDetails.First().Products.ProductName)</th>
+                                    <th> @Html.DisplayNameFor(p => p.OrderDetails.First().Quantity)   </th>
+                                    <th>@Html.DisplayNameFor(p => p.OrderDetails.First().UnitPrice)</th>
+                                    <th>詳細資料</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                @foreach (var OrderDetails in Model.FirstOrDefault(p=>p.OrderID== list.OrderID).OrderDetails)
+                                {
+                                    <tr>
+                                        <th>@Html.DisplayFor(p => OrderDetails.OrderID)</th>
+                                        <th>@Html.DisplayFor(p => OrderDetails.Products.ProductName)</th>
+                                        <th> @Html.DisplayFor(p => OrderDetails.Quantity)   </th>
+                                        <th>@Html.DisplayFor(p => OrderDetails.UnitPrice)</th>
+                                        <th> @Html.ActionLink("詳細資料", "OrderDetailed", "Order", new { area = "Transaction", id = OrderDetails.ProductID }, null)</th>
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <th colspan="5">
+                                        總金額:@string.Format("{0:c0}",Model.FirstOrDefault(p => p.OrderID == list.OrderID).OrderDetails.Sum(p=>p.UnitPrice))
+                                    </th>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+
+$(function(){
+    var len = 25; // 超過30個字以"..."取代
+    $(".strong").each(function (i) {
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+});
+    </script>
+}

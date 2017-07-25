@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MSIT11404Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MSIT11404Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="HouseMain" EntityType="MSIT11404Model.HouseMain" />
+    <EntitySet Name="HouseSourceType" EntityType="MSIT11404Model.HouseSourceType" />
+    <EntitySet Name="HouseSpace" EntityType="MSIT11404Model.HouseSpace" />
+    <EntitySet Name="ImageForRoom" EntityType="MSIT11404Model.ImageForRoom" />
+    <AssociationSet Name="FK_HouseMain_HouseSourceType" Association="MSIT11404Model.FK_HouseMain_HouseSourceType">
+      <End Role="HouseSourceType" EntitySet="HouseSourceType" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HouseMain_HouseSpace" Association="MSIT11404Model.FK_HouseMain_HouseSpace">
+      <End Role="HouseSpace" EntitySet="HouseSpace" />
+      <End Role="HouseMain" EntitySet="HouseMain" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="HouseMain">
+    <Key>
+      <PropertyRef Name="HouseKey" />
+    </Key>
+    <Property Name="HouseKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseSourceID" Type="Int32" />
+    <Property Name="HouseSpaceTypeID" Type="Int32" />
+    <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BathroomNum" Type="Int32" />
+    <Property Name="BedroomNum" Type="Int32" />
+    <Property Name="IsOwnerHome" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="MemberID" Type="Int32" />
+    <Property Name="PeopleAllowed" Type="Int32" />
+    <Property Name="BedAvailableNum" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="BadComment" Type="Int32" />
+    <NavigationProperty Name="HouseSourceType" Relationship="MSIT11404Model.FK_HouseMain_HouseSourceType" FromRole="HouseMain" ToRole="HouseSourceType" />
+    <NavigationProperty Name="HouseSpace" Relationship="MSIT11404Model.FK_HouseMain_HouseSpace" FromRole="HouseMain" ToRole="HouseSpace" />
+  </EntityType>
+  <EntityType Name="HouseSourceType">
+    <Key>
+      <PropertyRef Name="HouseSourceID" />
+    </Key>
+    <Property Name="HouseSourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HouseMain" Relationship="MSIT11404Model.FK_HouseMain_HouseSourceType" FromRole="HouseSourceType" ToRole="HouseMain" />
+  </EntityType>
+  <EntityType Name="HouseSpace">
+    <Key>
+      <PropertyRef Name="HouseSpaceID" />
+    </Key>
+    <Property Name="HouseSpaceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseSpaceDescript" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HouseMain" Relationship="MSIT11404Model.FK_HouseMain_HouseSpace" FromRole="HouseSpace" ToRole="HouseMain" />
+  </EntityType>
+  <EntityType Name="ImageForRoom">
+    <Key>
+      <PropertyRef Name="ImageKey" />
+    </Key>
+    <Property Name="ImageKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseKey" Type="Int32" />
+    <Property Name="ImageByte" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_HouseMain_HouseSourceType">
+    <End Type="MSIT11404Model.HouseSourceType" Role="HouseSourceType" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MSIT11404Model.HouseMain" Role="HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSourceType">
+        <PropertyRef Name="HouseSourceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HouseMain_HouseSpace">
+    <End Type="MSIT11404Model.HouseSpace" Role="HouseSpace" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MSIT11404Model.HouseMain" Role="HouseMain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseSpace">
+        <PropertyRef Name="HouseSpaceID" />
+      </Principal>
+      <Dependent Role="HouseMain">
+        <PropertyRef Name="HouseSpaceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    
+    
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css" rel="stylesheet" />
+
+    <link href="~/Content/ButtonsCus.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+    <style>
+        .nav {
+        background-color:transparent;
+        margin-top:25px;
+        font-size:23px;
+        font-weight:700;
+        
+        }
+           
+            .nav>li {
+            border-right:3px solid #bbbbbb;
+            margin-left:0px; 
+            
+            }
+                .nav > li:last-child {
+                border:none;
+                }
+                    
+    </style>
+
+    @RenderSection("style", required: false)
+</head>
+<body>
+
+    <div class="Headback">
+        <div class="jumbotron" id="Headrow">
+
+            <div class="container">
+                <div class="col-lg-4">
+                    <span class="logo"></span>
+                    <h1 class="header">BackPackers</h1>
+                    <h5>MSIT11404</h5>
+                </div>
+
+                <nav class="col-lg-8">
+                    <div class="col-lg-9">
+                        <ul class="nav nav-pills">
+                            <li role="presentation"><a href="@Url.Action("Index", "Home",new {area="Admin" })">管理首頁</a></li>
+                            <li role="presentation"><a href="@Url.Action("Index2", "AboutHouse", new {area="Admin" })">房間總覽</a></li>
+                            <li role="presentation"><a href="@Url.Action("Indexofbed","AboutHouse",new {area="Admin" })">床型˙房型</a></li>
+                            <li role="presentation"><a href="@Url.Action("Index", "JustForUser", new { area = "Accomodation" })">返回前台</a></li>
+                        </ul><!-- /.container-fluid -->
+                    </div>
+                    <div class="col-lg-3">
+                        <ul class="nav nav-pills">
+                            @{
+                                if (Request.Cookies["MemberID"] != null) {
+                            <li><span class="iconlogin"></span></li>
+                            <li role="presentation"><a href="@Url.Action("Logout","Member",new {area="Member" })"></a></li> 
+                                }
+                            }
+                        </ul>
+                    </div>
+                  
+                </nav>
+
+            </div>
+
+
+        </div>
+
+        <div id="News">
+            <span class="spanSign">最新消息:</span>
+            <div id="mask">
+                <ul id="trick01">
+                    <li><a><span class="glyphicon glyphicon-star"></span>News one</a></li>
+                    <li><a><span class="glyphicon glyphicon-star"></span>News Two</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="backgorund container-fluid" style="min-height:700px">
+        <div class="content">
+            
+                @RenderBody()
+        
+
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="jumbotron">
+            <ul>
+                <li><a>聯絡我們</a></li>
+                <li><a>媒體</a></li>
+            </ul>
+        </div>
+    </footer>
+
+
+
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    
+    <script src="~/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    
+    <script>
+
+        window.onload = function () {
+            
+            $(this).resize(function ()
+            {
+                var pagewidth = $(this).width();
+                if (pagewidth <= 750) {
+                    $('#navbar1').css('background-color', 'black');
+                }
+                else
+                {
+                    $('#navbar1').css('background-color', 'transparent');
+                }
+            })
+            //var selecteffect = $('#effectTypes').val();
+            $('.logo').mouseenter(over);
+            function over()
+            {
+                $(this).effect("slide",500);
+            }
+
+            //alert(document.getElementById("mask").offsetWidth);
+            var movingNews = document.getElementById("trick01");
+            //alert(window.innerWidth);
+            var timeinterval = setInterval(moving1, 10);
+            var min = 0;
+
+            function moving1() {
+                var a = $("#mask").width();
+                if (min < -250) {
+
+                    min = a;
+                    movingNews.style.left = min + 'px';
+                    min - 1;
+                }
+                else {
+
+                    movingNews.style.left = min + 'px';
+                    min -= 1;
+                }
+
+            }
+        }
+       
+    </script>
+
+   
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+  <script>
+
+  </script>
+
+
+    @RenderSection("script", required: false)
+</body>
+</html>

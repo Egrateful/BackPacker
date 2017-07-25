@@ -1,0 +1,206 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Amatic+SC");        
+
+
+*{
+font-family:Microsoft JhengHei;
+}
+.navbar {
+            background-color: transparent;
+            font-size: 18px;
+            font-family: Microsoft JhengHei;
+            margin-top: 30px;
+            font-weight: 600;
+        }
+
+            .navbar li:hover {
+                background-color: gainsboro;
+            }
+
+.iconlogin {
+    background-image: url('../img/icon1.png');
+    background-size: 30px 30px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    float: left;
+}
+
+.iconlogin1 {
+    background-image: url('../img/icon_login.png');
+    background-size: 30px 30px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    float: left;
+}
+
+.iconregist {
+    background-image: url('../img/regist.png');
+    background-size: 30px 30px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    float: left;
+}
+
+        .navbar-nav {
+            margin-bottom: 0;
+        }
+
+.logo {
+    background-image: url('../img/logo.png');
+    float: left;
+    background-size: cover;
+    display: block;
+    width: 100px;
+    height: 150px;
+    margin-right: 10px;
+    /*margin-left: 10px;*/
+}
+
+        .header {
+            text-shadow: 10px 10px 3px #808080;
+            font-family: 'Amatic SC', cursive;
+            font-weight: 600;
+        }
+
+        /*#Headrow {
+            overflow: visible;
+            height: 300px;
+            height: auto;
+        }*/
+
+        #News {
+            display: block;
+            height: 70px;
+            margin-top: -50px;
+            width: 100%;
+        }
+
+.spanSign {
+    display: block;
+    float: left;
+    background-image: url('../img/sign.png');
+    height: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100px;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-family: Microsoft JhengHei;
+    font-size: 14px;
+    font-weight: 500;
+    /*font-size: 18px;
+    font-weight: 700;*/
+    color: white;
+}
+
+        #News li {
+            float: left;
+            margin-right: 20px;
+            font-size: 18px;
+            text-shadow: 3px 3px 2px gainsboro;
+            font-family: 'Century Gothic';
+        }
+
+
+        #News ul {
+            text-decoration: none;
+            list-style-type: none;
+            height: 100%;
+            padding-top: 10px;
+            position: relative;
+        }
+
+        #mask {
+            overflow: hidden;
+            margin-top: 5px;
+            padding-bottom: 25px;
+            height: 40px;
+            margin-right: 0;
+        }
+
+.backgorund {
+    /*background-image: url('../img/adminback3.jpg');*/
+    background-image: url('../img/travel-tools-button.jpg');
+    background-repeat: inherit;
+    background-size: 100%;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.Headback {
+    background-image: url('../img/wood.jpg');
+    border: double 7px black;
+}
+
+.container {
+    /*padding-top: 30px;
+    padding-bottom: 30px;*/
+   
+    width: 95%;
+}
+        .jumbotron {
+            background-color: transparent;
+        }
+
+        .panel {
+            background-color: rgba(192,192,192,0.5);
+            flex: auto;
+            margin-top: 1em;
+            margin-left: 1em;
+            margin-right: 1em;
+            width: 100%;
+        }
+
+#footer {
+    background-image: url('../img/wood.jpg');
+    border: double 7px black;
+}
+
+            #footer ul {
+                list-style-type: none;
+            }
+
+            #footer div {
+                height: 100px;
+            }
+
+        #ulforspan button {
+            margin-left: 23px;
+            margin-right: 5px;
+        }
+
+.btnedit {
+    border-radius: 99em;
+    background-image: url('../img/edit.png');
+    background-size:85%;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-color:antiquewhite;
+}
+.btndelete {
+    border-radius: 99em;
+    background-image: url('../img/delete.png');
+    background-size:85%;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-color:antiquewhite;
+}
+.table {
+background-color: rgba(192,192,192,0.5);
+}
+.content {
+width:95%;
+margin-top:10px;
+
+}
+.btninsert {
+    border-radius: 99em;
+    background-image: url('../img/plus.png');
+    background-size: 85%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: antiquewhite;
+}

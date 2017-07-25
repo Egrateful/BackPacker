@@ -1,0 +1,312 @@
+﻿@model IEnumerable<MSIT11404project1.Models.HouseMain>
+
+    @using MSIT11404project1.Models
+@{
+    ViewBag.Title = "searchRoom";
+    Layout = "~/Areas/Accomodation/Views/Shared/ForUser.cshtml";
+}
+@section style{
+    <style>
+
+        #map {
+            height:700px;
+            width:700px;
+            position:fixed;top:150px;
+        }
+         #navbarCus {
+            flex: auto;
+            background-color:rgba(192, 245, 182,0.4);
+            border-radius:6px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: justify;
+            padding-top: 4px;
+            font-size:25px;
+            margin-top:15px;
+        }
+            #navbarCus label {
+            font-size:25px;
+            font-weight:600;
+            }
+        .btnsearch1 {
+            width: 50px;
+            height: 50px;
+            border-radius: 99em;
+            background-size: 85%;
+            background-image: url('@Url.Content("~/img/search.png")');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: antiquewhite;
+        }
+         .discript {
+        background-color:rgba(188, 225, 250,0.4);
+        padding:10px;
+        line-height:20px;
+        margin-top:5px;
+        }
+        .discrip > p {
+        font-size:18px;
+        }
+       .discript > p:first-child {
+            font-size:25px;
+            font-weight:600;
+            }
+       .discript>span {
+       margin-right:3px;
+       width:20px;
+       height:20px;
+            }
+        .customer {
+       color:red;
+        }
+    </style>
+    
+    }
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="container" id="navbarCus">
+            @using (Html.BeginForm("searchRoom", "JustForUser", FormMethod.Post, new { enctype = "application/x-www-form-urlencoded" }))
+            {
+                <div>
+                    <div class="form-group col-lg-2">
+                        <label>地點</label>
+                        <input type="text" name="place" placeholder="國家/城市" required id="searchbycountry" class="form-control" />
+
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label>人數</label>
+                        <input type="number" min="1" class="form-control" required name="people" />
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <label>開始日期</label> <input id="fdate" name="fdate" required type="text" class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <label>結束日期</label><input id="edate" name="edate" required type="text" class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-2" style="text-align:center;padding-top:15px">
+                        <input class="btnsearch1" type="submit" value="" />
+                    </div>
+
+                </div>
+            }
+        </div>
+        <div class="row">
+        @{ 
+            if (Model != null)
+            {
+                if (Model.Count() > 0)
+                {
+                    foreach (var items in Model)
+                    {
+            <div class="col-lg-6">
+                <div class="hovertest" style="border:4px solid #97caef;padding:10px;margin-top:10px" >
+                    <a href="@Url.Action("houseDetails", "JustForUser", new { area = "Accomodation", id = items.HouseKey })">
+                        <div class="owl-carousel">
+                            @{
+                                IRepository<ImageForRoom> imgrepo = new Repository<ImageForRoom>();
+                                List<ImageForRoom> imglists = imgrepo.GetAll().AsEnumerable().Where(n => n.HouseKey == items.HouseKey).ToList();
+                                foreach (var itemss in imglists)
+                                {
+                                    string srcs = Convert.ToBase64String(itemss.ImageByte);
+
+
+                                    <div style="height:200px">
+                                        <img class="img-thumbnail" style="height:100%" src="@String.Format("data:img/jpeg;base64,{0}", srcs)" />
+                                    </div>
+
+
+                                }
+                            }
+
+                        </div>
+                    </a>
+                    
+                        <div class="discript">
+                            <p class="housekey" data-id="@items.HouseKey"><span class="glyphicon glyphicon-home"></span>@Html.DisplayFor(n => items.HouseName)</p>
+                            <p class="price" data-p="@String.Format("{0:c0}", items.Price)">@Html.DisplayFor(n => items.Price) TW</p>
+                            <p><span class="glyphicon glyphicon-log-in"></span>可容納 @Html.DisplayFor(n => items.PeopleAllowed) 人</p>
+                            <p><span class=""></span>可使用 @Html.DisplayFor(n => items.BedAvailableNum) 房間</p>
+                            <p class="adres" data-ad="@items.Adress"><span class="glyphicon glyphicon-globe"></span>@Html.DisplayFor(n => items.Adress)</p>
+                            
+                        </div>
+                        
+                    
+                </div>
+               </div>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <h1>沒有符合您需求的房源</h1>
+                                    }
+                                }
+                                else {
+                                    <h1>沒有符合您需求的房源</h1>
+                                }
+                                }
+        </div>
+
+
+
+
+
+    </div>
+    <div class="col-lg-6">
+        <div id="map">
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+@section script{
+@*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
+    <script>
+       var divs = $('.adres');
+       var adarray = [];
+       var adarrayy = [];
+       var hkeyarray = [];
+
+       divs.each(function (index, ob) {
+           adarray.push($(this).data("ad"))
+       })
+       
+       var divss=$('.price');
+
+       divss.each(function (index, ob) {
+           
+           
+           adarrayy.push($(this).data("p"))
+       
+       })
+
+       //var hkeys = $('.housekey');
+       //hkeys.each(function (index, ob) {
+       //    hkeyarray.push($(this).data("id"))
+       //});
+
+
+       $(function () {
+           var dateFormat = "mm/dd/yy",
+             from = $('#fdate')
+               .datepicker({
+                   defaultDate: "+1w",
+                   changeMonth: true,
+                   numberOfMonths: 2
+               })
+               .on("change", function () {
+                   to.datepicker("option", "minDate", getDate(this));
+               }),
+             to = $('#edate').datepicker({
+                 defaultDate: "+1w",
+                 changeMonth: true,
+                 numberOfMonths: 2
+             })
+             .on("change", function () {
+                 from.datepicker("option", "maxDate", getDate(this));
+             });
+
+           function getDate(element) {
+               var date;
+               try {
+                   date = $.datepicker.parseDate(dateFormat, element.value);
+               } catch (error) {
+                   date = null;
+               }
+
+               return date;
+           }
+       });
+
+        $('.owl-carousel').owlCarousel(
+            {
+                loop: true,
+                margin: 2,
+                nav: false,
+                items: 1,
+                stagePadding: 25,
+
+
+            }
+            );
+            
+        function initMap() {
+                        
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 8,
+                        center:{lat:23.77,lng:120.58}
+                        });
+
+                        var img = '@Url.Content("~/img/houseor.png")'
+
+                var markerss, i;
+
+                if (adarray.length > 0) {
+                        for (let i = 0; i < adarray.length; i++) {
+                            var encoder = new google.maps.Geocoder();
+
+                            encoder.geocode({'address':adarray[i]}, function (results,status) {
+                                
+                                var labe1 = adarrayy[i]
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    markerss= new google.maps.Marker({
+                                        position: results[0].geometry.location,
+                                        map: map,
+                                        label:labe1,
+                                        icon:img
+                                    }
+
+
+                                        )
+                                    google.maps.event.addListener(markerss, 'mouseout', function () {
+                                        $('.discript>p[data-p="' + adarrayy[i] + '"]').parent().removeClass('customer');
+                                    })
+                                    google.maps.event.addListener(markerss, 'mouseover', function () {
+                                        $('.discript>p[data-p="' + adarrayy[i] + '"]').parent().addClass('customer');
+                                    })
+                                    google.maps.event.addListener(markerss, 'click', function () {
+                                        map.setZoom(15);
+                                        map.setCenter(markerss.getPosition());
+                                        
+                                    })
+                                }
+                            })
+                    
+                        }
+                }
+               
+                
+
+                
+                
+
+
+
+
+
+                }
+                        
+
+      
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeBrTeSIi8jK5DklEoFrkghJhw8-CeUwY&callback=initMap"></script>
+
+
+
+
+}

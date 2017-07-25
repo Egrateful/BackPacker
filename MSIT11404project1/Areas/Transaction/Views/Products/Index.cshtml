@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "拍賣清單";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<MSIT11404project1.Models.Products>
+@section style{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <style>
+        .namelink {
+            color: black;
+        }
+
+            .namelink:hover {
+                text-decoration: none;
+                color: black;
+            }
+             .list-inline {height:50px
+        }
+             
+
+        .list {
+        height:400px;
+        }
+        .title {
+        font-size:20px;
+        }
+    </style>
+}
+
+@{
+    ViewBag.Title = "產品瀏覽";
+}
+<div class="panel panel-warning THome">
+    <div class="panel-heading">
+
+
+        <ul class="list-inline ">
+            <li ><h3><strong>@ViewBag.Products</strong></h3></li>
+            <li >@Html.Action("MenuLink")</li>
+            <li> @Html.ActionLink("價位排序", "Index", new { sortBy = ViewBag.SortUnitPrice }, new { @class = "label label-default" })
+</li>
+            
+        </ul>
+
+
+       
+
+    </div>
+    <div class="panel-body">
+        <div class="col-md-2">
+            <h1>@ViewBag.m</h1>
+            @Html.Action("Categorys")
+        </div>
+
+        <div class="col-md-10">
+
+            <div class="row">
+              
+             
+
+
+              @foreach (var product in Model)
+              {
+                  using (Html.BeginForm("Add", "Products", new { id = product.ProductID }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                  {
+
+                        <div class="col-sm-2 col-md-2" data-productID="@product.UnitPrice">
+                            <div class="thumbnail list">
+
+
+                                <a href=@Url.Action("ProductsDetailed", "Products", new { area = "Transaction", id = product.ProductID,@class="namelink"})><img src="@Url.Action("GetImage", new { id = product.ProductID })" class="img-rounded" /></a>
+                                <div class="caption">
+                                    @Html.HiddenFor(c=>product.CategoryID)
+                                    @Html.HiddenFor(c => product.ProductID)
+                                    @Html.HiddenFor(c => product.ProductContent)
+                                    @Html.HiddenFor(c => product.MemberID)
+                             
+                                    <strong class="strong"> <a class="namelink" href=@Url.Action("ProductsDetailed", "Products", new { area = "Transaction", id = product.ProductID })> @Html.DisplayFor(c => product.ProductName)</a></strong>
+                                    <p> @Html.DisplayNameFor(c => product.MemberID) @Html.DisplayFor(c => product.Members.UserName)</p>
+                                    <p>@Html.DisplayNameFor(c => product.UnitPrice)   @Html.DisplayFor(c => product.UnitPrice)</p>
+                                    <p> @Html.ActionLink("詳細資料", "ProductsDetailed", "Products", new { area = "Transaction", id = product.ProductID }, null)</p>
+                                
+                                   
+                                     @*對應產品數量選擇dropdown*@
+                                    @{
+
+                                        if (product.Quantity != 0)
+                                        {  <div class="row">
+                                        <text>
+                                            <div class="col-lg-3">@*_@product.ProductID*@
+                                               <select class="selectpicker" id="Quantity" name="Quantity">
+                                                    @{
+                                                        int i = 1;
+                                                        if (product.UnitPrice >= 10000)
+                                                        {
+                                                            for (i = 1; i <= product.Quantity; i++)
+                                                            {
+                                                                if (i <= 2)
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            }
+                                                        }
+                                                        else if (product.UnitPrice >= 5000)
+                                                        {
+                                                            for (i = 1; i <= product.Quantity; i++)
+                                                            {
+                                                                if (i <= 6)
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            }
+                                                        }
+                                                        else if (product.UnitPrice >= 1000)
+                                                        {
+                                                            for (i = 1; i <= product.Quantity; i++)
+                                                            {
+                                                                if (i <=8)
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            for (i = 1; i <= product.Quantity; i++)
+                                                            {
+                                                                if (i <= 10)
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </text>
+                                        <div class="col-lg-9">
+                                            <button type="submit" class = "btn btn-primary  btn-xs glyphicon glyphicon-shopping-cart">加入購物車</button>
+                                                  </div>
+                                    </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <strong class="line-height" style="color:white;background-color:red ">
+                                                                已完售
+                                                            </strong>
+                                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                                                            }
+                }
+                                                        
+
+            </div>
+
+
+            @Html.PagedListPager(Model, page => Url.Action("index", new { page = page, sortBy = Request["sortBy"] }), PagedListRenderOptions.Classic)
+        </div>
+
+    </div>
+</div>
+@section script{
+<script>
+
+$(function(){
+    var len = 25; // 超過30個字以"..."取代
+    $(".strong").each(function (i) {
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+});
+</script>
+}

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+
+@section style{
+    <meta http-equiv="refresh" content="3;@Url.Action("MyBlog")" />
+}
+<div class="text-center" style="width:auto;margin:50px auto">
+    <h1 id="word">沒有相關資訊，3秒後跳轉回我的管理頁面</h1>
+    @Html.ActionLink("[或按此連結回去首頁]", "MyBlog")
+</div>
+
+@section script{
+    <script>
+        timego = setInterval(thetime, 1000);
+         x = 3;
+        function thetime() {
+            word = document.getElementById("word")
+            if (x >0) {
+                x -= 1;
+            }
+            else {
+                x=3
+            }
+            switch (x) {
+                case 5:
+                    word.innerHTML = "沒有相關資訊，5秒後跳轉回我的管理頁面"
+                    break;
+                case 4:
+                    word.innerHTML = "沒有相關資訊，4秒後跳轉回我的管理頁面"
+                    break;
+                case 3:
+                    word.innerHTML = "沒有相關資訊，3秒後跳轉回我的管理頁面"
+                    break;
+                case 2:
+                    word.innerHTML = "沒有相關資訊，2秒後跳轉回我的管理頁面"
+                    break;
+                case 1:
+                    word.innerHTML = "沒有相關資訊，1秒後跳轉回我的管理頁面"
+                    break;
+                case 0:
+                    word.innerHTML = "沒有相關資訊，0秒後跳轉回我的管理頁面"
+                    break;
+            }
+        }
+
+    </script>
+
+
+
+}

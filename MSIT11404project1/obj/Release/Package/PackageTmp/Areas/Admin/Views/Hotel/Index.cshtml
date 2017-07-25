@@ -1,0 +1,198 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<MSIT11404project1.Models.Hotels>
+@{
+    ViewBag.Title = "住宿檢視";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDestination.cshtml";
+}
+<div class="row">
+    <div class="col-lg-3">
+        <label for="namesearch">名稱搜尋:</label>
+        <input id="namesearch" name="namesearch" type="text" />
+    </div>
+    <div class="col-lg-3">
+        <label for="addrsearch">地址搜尋:</label>
+        <input id="addrsearch" name="addrsearch" type="text" />
+    </div>
+    <div class="col-lg-3">
+        <label for="citysearch">城市搜尋:</label>
+        <input id="citysearch" name="citysearch" type="text" />
+    </div>
+    <div class="col-lg-3">
+        <label for="allsearch">關鍵字搜尋:</label>
+        <input id="allsearch" name="allsearch" type="text" />
+        <a id="search" class="btn btn-primary">查詢</a>
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
+
+
+<div class="row">
+    <div class="col-lg-7">
+        <table id="restaurantTable" class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th><a href="@Url.Action("Index","Hotel",new {Area="Admin",sortby=ViewBag.SortByID,page = Request.QueryString["page"],allsearch=Request.QueryString["allsearch"],namesearch=Request.QueryString["namesearch"], addrsearch = Request.QueryString["addrsearch"], citysearch = Request.QueryString["citysearch"] })">@Html.DisplayNameFor(h => h.First().HotelID)</a></th>
+                    <th><a href="@Url.Action("Index","Hotel",new {Area="Admin",sortby=ViewBag.SortByName,page = Request.QueryString["page"],allsearch=Request.QueryString["allsearch"],namesearch=Request.QueryString["namesearch"], addrsearch = Request.QueryString["addrsearch"], citysearch = Request.QueryString["citysearch"] })">@Html.DisplayNameFor(h => h.First().Name)</a></th>
+                    <th><a href="@Url.Action("Index","Hotel",new {Area="Admin",sortby=ViewBag.SortByAddress,page = Request.QueryString["page"],allsearch=Request.QueryString["allsearch"],namesearch=Request.QueryString["namesearch"], addrsearch = Request.QueryString["addrsearch"], citysearch = Request.QueryString["citysearch"] })">@Html.DisplayNameFor(h => h.First().Address)</a></th>
+                    <th><a href="@Url.Action("Index","Hotel",new {Area="Admin",sortby=ViewBag.SortByCity,page = Request.QueryString["page"],allsearch=Request.QueryString["allsearch"],namesearch=Request.QueryString["namesearch"], addrsearch = Request.QueryString["addrsearch"], citysearch = Request.QueryString["citysearch"] })">@Html.DisplayFor(h => h.First().Cities.CityName )</a></th>
+                    <th>編輯</th>
+                    <th>刪除</th>
+                </tr>
+            </thead>
+            <tbody id="body">
+                @{
+                    foreach (var hotel in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(h => hotel.HotelID)</td>
+                            <td>@Html.DisplayFor(h => hotel.Name)</td>
+                            <td>@Html.DisplayFor(h => hotel.Address)</td>
+                            <td>@Html.DisplayFor(h => hotel.Cities.CityName)</td>
+                            <td><a id="modify" class="btn btn-primary" href="@Url.Action("Edit","Hotel",new {Area="Admin",id=hotel.HotelID , sortby = Request.QueryString["sortby"], page = Request.QueryString["page"], allsearch = Request.QueryString["allsearch"], namesearch = Request.QueryString["namesearch"], addrsearch = Request.QueryString["addrsearch"], citysearch = Request.QueryString["citysearch"] }) ">編輯</a></td>
+                            <td><a name="delete" class="btn btn-danger">刪除</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-5" id="showdetail">
+
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        @{
+            string allsearch = Request.QueryString["allsearch"] == null ? "" : Request.QueryString["allsearch"].ToString();
+            string namesearch = Request.QueryString["namesearch"] == null ? "nothing" : Request.QueryString["namesearch"].ToString();
+            string addrsearch = Request.QueryString["addrsearch"] == null ? "nothing" : Request.QueryString["addrsearch"].ToString();
+            string citysearch = Request.QueryString["citysearch"] == null ? "nothing" : Request.QueryString["citysearch"].ToString();
+            @Html.PagedListPager(Model, p => Url.Action("Index", "Hotel", new { sortby = Request.QueryString["sortby"], page = p, Area = "Admin", allsearch = allsearch, namesearch = namesearch, addrsearch = addrsearch, citysearch = citysearch }), PagedListRenderOptions.ClassicPlusFirstAndLast);
+        }
+    </div>
+    <div class="col-lg-6">
+        <a class="btn btn-primary" href="@Url.Action("Create","Hotel",new {Area="Admin" })">新增</a>
+    </div>
+
+</div>
+
+@section script{
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+    <script src="~/js-url-2.5.0/url.min.js"></script>
+    <script>
+        //url()是url.js的方法
+        $(document).ready(function () {
+            $('#search').click(function () {
+                //var page = url('?page') == undefined ? '1' : url('?page');
+
+                var allsearch = $('#allsearch').val() == "" ? "" : $('#allsearch').val();
+                var namesearch = $('#namesearch').val() == "" ? "nothing" : $('#namesearch').val();
+                var addrsearch = $('#addrsearch').val() == "" ? "nothing" : $('#addrsearch').val();
+                var citysearch = $('#citysearch').val() == "" ? "nothing" : $('#citysearch').val();
+                var querystring = '?allsearch=' + allsearch + '&namesearch=' + namesearch + '&addrsearch=' + addrsearch + '&citysearch=' + citysearch;
+                $(this).attr('href', '@Url.RouteUrl("Default", new { action="Index" ,controller = "Hotel" })' + querystring)
+            })
+            $("a[name='delete']").click(function () {
+                var a = $(this);
+                var id = a.parent().parent().children('td:eq(0)').html();
+                var apiurl = '@Url.RouteUrl("DefaultApi",new { httproute="",controller= "HotelApi" })';
+                var geturl = apiurl + '/' + id;
+                $.ajaxSettings.async = false;
+                $.getJSON(geturl, function (data){
+                    $.ajax({
+                        'url': apiurl,
+                        'data': data,
+                        'type': 'Delete',
+                        'dataType': 'Json',
+                        'async':false
+                    })
+                })
+                $.ajaxSettings.async = true;
+                var tempurl = '@Url.Action("Index", "Hotel", new {Area="Admin"})';
+                var page = url('?page')==undefined ? '1':url('?page');
+                var sortby = url('?sortby')==undefined?'':url('?sortby');
+                var allsearch = url('?allsearch')==undefined ? '':url('?allsearch');
+                var namesearch = url('?namesearch')==undefined ? 'nothing':url('?namesearch');
+                var addrsearch = url('?addrsearch') == undefined ? 'nothing' : url('?addrsearch');
+                var citysearch = url('?citysearch') == undefined ? 'nothing' : url('?citysearch');
+                tempurl += "?page=" + page + "&sortby=" + sortby + "&allsearch=" + allsearch + "&namesearch=" + namesearch + "&addrsearch=" + addrsearch + "&citysearch=" + citysearch;
+                a.attr('href', tempurl);
+
+            })
+            $('#body>tr').mouseenter(function () {
+
+                $('#showdetail').html('<div id="detailpanel" class="panel panel-info"><div class="panel-heading">詳細資料</div></div>');
+
+
+                var id = $(this).children('td:eq(0)').html();
+                var geturl = '@Url.RouteUrl("DefaultApi",new { httproute="",controller="HotelApi"})' + '/' + id;
+                var docFrag = $(document.createDocumentFragment());
+                $.ajaxSettings.async = false;
+                $.getJSON(geturl, function (data) {
+
+                    var imgcell;
+                    if (data['ImageWebSite'] != null)
+                    {
+                        imgcell = $('<div></div>').addClass('panel-body').append($('<img />').width('600').height('300').attr('src', data['ImageWebSite']));
+                    }
+                    else if (data['Image'] != null) {
+                        imgcell = $('<div></div>').addClass('panel-body').append($('<img />').width('600').height('300').attr('src', "data:image/jpeg;base64," + data['Image']));
+                    }
+                    else
+                    {
+                        imgcell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('查無照片'));
+                    }
+                    var Name = (data['Name'] == null) ? '' : data['Name'];
+                    var namecell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('餐廳名稱:' + Name));
+
+                    var Address = (data['Address'] == null) ? '' : data['Address'];
+                    var addrcell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('餐廳地址:' + Address));
+
+
+
+                    var CityID = (data['CityID'] == null) ? '0' : data['CityID'];
+                    var CityName = "";
+                    if (data['CityID'] != '0') {
+                        var getcityurl = '@Url.RouteUrl("DefaultApi",new { httproute="",controller="CityApi"})' + '/' + CityID + '?n=""';
+                        $.ajaxSettings.async = false;
+                        $.getJSON(getcityurl, function (name) {
+                            CityName = name;
+                        })
+                        $.ajaxSettings.async = true;
+                    }
+
+                    var citycell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('所在城市:' + CityName));
+
+
+                    var ArrivalWay = (data['ArrivalWay'] == null) ? '' : data['ArrivalWay'];
+                    var arrivalwaycell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('抵達方式:' + ArrivalWay));
+
+                    var AvgPrice = (data['AvgPrice'] == null) ? '' : data['AvgPrice'];
+                    var avgpricecell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('平均價位:' + AvgPrice));
+
+                    var Description = (data['Description'] == null) ? '' : data['Description'];
+                    var descriptioncell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('餐廳描述:' + Description));
+
+                    var ServiceInfo = (data['ServiceInfo'] == null) ? '' : data['ServiceInfo'];
+                    var serviceInfocell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('服務資訊:' + ServiceInfo));
+
+                    var Phone = (data['Phone'] == null) ? '' : data['Phone'];
+                    var phonecell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('連絡電話:' + Phone));
+
+
+                    docFrag.append([imgcell,namecell,addrcell,citycell ,arrivalwaycell,avgpricecell,descriptioncell,serviceInfocell,phonecell]);
+                })
+                $.ajaxSettings.async = true;
+                $('#detailpanel').append(docFrag);
+            })
+            $('#body>tr').mouseleave(function () {
+                $('#showdetail').empty();
+            })
+        })
+    </script>
+
+}
+

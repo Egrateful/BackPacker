@@ -1,0 +1,166 @@
+﻿@model  MSIT11404project1.Areas.Transaction.ViewModel.OrderAdd
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <style>
+        .list-inline {
+            height: 50px;
+        }
+        .w {
+       white-space:nowrap;
+             }
+    </style>
+}
+<div class="panel panel-warning THome">
+    <div class="panel-heading">
+        <ul class="list-inline ">
+            <li><h3><strong>結帳</strong></h3></li>
+            <li>@Html.Action("MenuLink", "Products")</li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-2">
+            <h1>  @ViewBag.Buycount</h1>
+            @Html.Action("ListLink", "Products")
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+
+
+            </div>
+            @using (Html.BeginForm("OrderIndex", "Order", new { area = "Transaction" }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+            {
+                
+                <table class="table table-bordered" id="pay">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                購買人資料
+                            </th>
+                            <th >
+                                                           收件者資料
+                            </th>
+                            <th>
+                                <input type="checkbox" id="buy" name="buy"/>收件者同購買者可勾選此項目
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                購買人
+                            </th>
+                            <th> @Html.DisplayFor(p => p.CartsProducts.First().Members.UserName, new { htmlAttributes = new { @class = "form-control" } })</th>
+                            <th>
+                            收件人    
+                           </th>
+                            <th>
+                                @Html.EditorFor(p => p.Purchaser, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(p => p.Purchaser, "", new { @class = "text-danger" })
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                電話
+                            </th>
+                            <th>@Html.DisplayFor(p => p.CartsProducts.First().Members.Phone, new { htmlAttributes = new { @class = "form-control" } })</th>
+                            <th>
+                                電話
+                                 </th>
+                            <th>
+                                @Html.EditorFor(p => p.PurchaserPhon, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(p => p.PurchaserPhon, "", new { @class = "text-danger" })
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                地址
+                            </th>
+                            <th>@Html.DisplayFor(p => p.CartsProducts.First().Members.Address, new { htmlAttributes = new { @class = "form-control" } })</th>
+                            <th>
+                                地址
+                               </th>
+                            <th>
+                                @Html.EditorFor(p => p.PurchaserAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(p => p.PurchaserAddress, "", new { @class = "text-danger" })
+                             </th>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                      
+                            <th>@Html.DisplayNameFor(p => p.CartsProducts.First().Products.ProductName)</th>
+                            <th>@Html.DisplayNameFor(p => p.CartsProducts.First().Products.UnitPrice)</th>
+                            <th>@Html.DisplayNameFor(p => p.CartsProducts.First().Quantity)</th>
+                            <th>@Html.DisplayNameFor(p => p.CartsProducts.First().Subtotal)</th>
+                            <th>詳細資料</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var shoppingcarts in Model.CartsProducts)
+                        {
+                            <tr>
+                                <th>@Html.DisplayFor(p => shoppingcarts.Products.ProductName)
+                                                                               
+                                </th>
+                                <th>@Html.DisplayFor(p => shoppingcarts.Products.UnitPrice)</th>
+                                <th> @Html.DisplayFor(p => shoppingcarts.Quantity)   </th>
+                                <th>@Html.DisplayFor(p => shoppingcarts.Subtotal)</th>
+                                <th> @Html.ActionLink("詳細資料", "OrderDetailed", "Order", new { area = "Transaction", id = shoppingcarts.ProductID }, null)</th>
+                            </tr>
+                        }
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>
+                                總金額:@ViewBag.all
+                            </th>
+                            <th>
+                                <button type="submit" class="btn btn-default">結帳</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+        $(document).ready(function () {
+          
+
+
+            $("#buy").click(function () {
+                if ($("#buy").prop("checked")) {
+                    $("#Purchaser").val($("#pay>tbody>tr:eq(0)>th:eq(1)").text());
+                    $("#PurchaserPhon").val($("#pay>tbody>tr:eq(1)>th:eq(1)").text());
+                    $("#PurchaserAddress").val($("#pay>tbody>tr:eq(2)>th:eq(1)").text());
+                }
+                else {
+
+                    $("#Purchaser").val("");
+                    $("#PurchaserPhon").val("");
+                    $("#PurchaserAddress").val("");
+
+                }
+
+                            })
+
+
+
+        })
+        
+
+
+
+    </script>
+}

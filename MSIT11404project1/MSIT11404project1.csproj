@@ -1,0 +1,1273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FD4CE667-244A-4789-90C3-5A0EFF0A5B40}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MSIT11404project1</RootNamespace>
+    <AssemblyName>MSIT11404project1</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="MSIT11404Entities 部署" Order="1">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28LocalDB%29\MSSQLLocalDB%3bAttachDbFilename=|DataDirectory|\MSIT11404.mdf%3bIntegrated Security=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\MSIT11404Entities 部署_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="MSIT11404Entities1 部署" Order="2">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28LocalDB%29\MSSQLLocalDB%3bAttachDbFilename=|DataDirectory|\MSIT11404.mdf%3bIntegrated Security=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\MSIT11404Entities1 部署_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\MSIT11404.mdf" />
+    <Content Include="App_Data\MSIT11404_log.ldf">
+      <DependentUpon>MSIT11404.mdf</DependentUpon>
+    </Content>
+    <Content Include="Areas\Blog\hover-min.css" />
+    <Content Include="Areas\Blog\PicForBlog\DFHeadPic.png" />
+    <Content Include="Areas\Blog\PicForBlog\new.gif" />
+    <Content Include="Areas\Blog\tinymce\jquery.tinymce.min.js" />
+    <Content Include="Areas\Blog\tinymce\langs\zh_TW.js" />
+    <Content Include="Areas\Blog\tinymce\license.txt" />
+    <Content Include="Areas\Blog\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\autoresize\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\autosave\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\bbcode\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\codesample\css\prism.css" />
+    <Content Include="Areas\Blog\tinymce\plugins\codesample\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <Content Include="Areas\Blog\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\fullpage\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\help\img\logo.png" />
+    <Content Include="Areas\Blog\tinymce\plugins\help\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\imagetools\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\importcss\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\noneditable\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\tabfocus\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\textpattern\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\toc\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Areas\Blog\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\img\anchor.gif" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\img\loader.gif" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\img\object.gif" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\img\trans.gif" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="Areas\Blog\tinymce\themes\inlite\theme.min.js" />
+    <Content Include="Areas\Blog\tinymce\themes\modern\theme.min.js" />
+    <Content Include="Areas\Blog\tinymce\tinymce.min.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\css\smoothDivScroll.css" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\blacksmith.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\cabin.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\charlesDickens.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\mrPip.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\tombstone.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\victorianCastle.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\victorianLady.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\ajaxDemo\victorianMan.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\arrow_left.gif" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\arrow_left.png" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\arrow_right.gif" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\arrow_right.png" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\big_transparent.gif" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\cursors\cursor_arrow_left.cur" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\cursors\cursor_arrow_left.gif" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\cursors\cursor_arrow_left.png" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\cursors\cursor_arrow_right.cur" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\cursors\cursor_arrow_right.gif" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\cursors\cursor_arrow_right.png" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\dog.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\field.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\gnome.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\golf.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\leaf.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\pencils.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\river.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\images\demo\train.jpg" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\jquery-ui-1.8.23.custom.min.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\jquery.kinetic.min.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\jquery.mousewheel.min.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\jquery.smoothdivscroll-1.3-min.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\source\jquery-ui-1.10.3.custom.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\source\jquery.kinetic.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\source\jquery.mousewheel.js" />
+    <Content Include="Areas\Blog\tkahn-Smooth-Div-Scroll-1c3b3a6\js\source\jquery.smoothDivScroll-1.3.js" />
+    <Content Include="Areas\Transaction\image\20.jpg" />
+    <Content Include="Areas\Transaction\image\21.jpg" />
+    <Content Include="Areas\Transaction\image\22.jpg" />
+    <Content Include="Areas\Transaction\image\23.jpg" />
+    <Content Include="Areas\Transaction\image\24.jpg" />
+    <Content Include="Areas\Transaction\image\25.jpg" />
+    <Content Include="Areas\Transaction\image\26.jpg" />
+    <Content Include="Areas\Transaction\image\27.jpg" />
+    <Content Include="Areas\Transaction\image\28.jpg" />
+    <Content Include="Areas\Transaction\image\29.jpg" />
+    <Content Include="Areas\Transaction\image\30.jpg" />
+    <Content Include="Areas\Transaction\image\32.jpg" />
+    <Content Include="Areas\Transaction\image\33.jpg" />
+    <Content Include="Areas\Transaction\image\34.jpg" />
+    <Content Include="Areas\Transaction\image\35.jpg" />
+    <Content Include="Areas\Transaction\image\36.jpg" />
+    <Content Include="Areas\Transaction\image\37.jpg" />
+    <Content Include="Areas\Transaction\image\38.jpg" />
+    <Content Include="Areas\Transaction\image\39.jpg" />
+    <Content Include="Areas\Transaction\image\40.jpg" />
+    <Content Include="Areas\Transaction\image\41.jpg" />
+    <Content Include="Areas\Transaction\image\42.jpg" />
+    <Content Include="Areas\Transaction\image\43.jpg" />
+    <Content Include="Areas\Transaction\image\44.jpg" />
+    <Content Include="Areas\Transaction\image\45.jpg" />
+    <Content Include="Areas\Transaction\image\47.jpg" />
+    <Content Include="Areas\Transaction\image\48.jpg" />
+    <Content Include="Areas\Transaction\image\49.jpg" />
+    <Content Include="Areas\Transaction\image\51.jpg" />
+    <Content Include="Content\AdminMain.css" />
+    <Content Include="Content\AdminPage.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ButtonsCus.css" />
+    <Content Include="Content\css_36869e7a_min_12.css" />
+    <Content Include="Content\flight-main.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\member-main.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\searchcontrols-refresh-dp.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fullcalendar-3.4.0\CHANGELOG.txt" />
+    <Content Include="fullcalendar-3.4.0\CONTRIBUTING.txt" />
+    <Content Include="fullcalendar-3.4.0\demos\agenda-views.html" />
+    <Content Include="fullcalendar-3.4.0\demos\background-events.html" />
+    <Content Include="fullcalendar-3.4.0\demos\basic-views.html" />
+    <Content Include="fullcalendar-3.4.0\demos\default.html" />
+    <Content Include="fullcalendar-3.4.0\demos\external-dragging.html" />
+    <Content Include="fullcalendar-3.4.0\demos\gcal.html" />
+    <Content Include="fullcalendar-3.4.0\demos\json.html" />
+    <Content Include="fullcalendar-3.4.0\demos\list-views.html" />
+    <Content Include="fullcalendar-3.4.0\demos\locales.html" />
+    <Content Include="fullcalendar-3.4.0\demos\selectable.html" />
+    <Content Include="fullcalendar-3.4.0\demos\theme.html" />
+    <Content Include="fullcalendar-3.4.0\demos\timezones.html" />
+    <Content Include="fullcalendar-3.4.0\demos\week-numbers.html" />
+    <Content Include="fullcalendar-3.4.0\fullcalendar.css" />
+    <Content Include="fullcalendar-3.4.0\fullcalendar.js" />
+    <Content Include="fullcalendar-3.4.0\fullcalendar.min.css" />
+    <Content Include="fullcalendar-3.4.0\fullcalendar.min.js" />
+    <Content Include="fullcalendar-3.4.0\fullcalendar.print.css" />
+    <Content Include="fullcalendar-3.4.0\fullcalendar.print.min.css" />
+    <Content Include="fullcalendar-3.4.0\gcal.js" />
+    <Content Include="fullcalendar-3.4.0\gcal.min.js" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="fullcalendar-3.4.0\lib\cupertino\jquery-ui.min.css" />
+    <Content Include="fullcalendar-3.4.0\lib\jquery-ui.min.js" />
+    <Content Include="fullcalendar-3.4.0\lib\jquery.min.js" />
+    <Content Include="fullcalendar-3.4.0\lib\moment.min.js" />
+    <Content Include="fullcalendar-3.4.0\LICENSE.txt" />
+    <Content Include="fullcalendar-3.4.0\locale-all.js" />
+    <Content Include="fullcalendar-3.4.0\locale\af.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ar-dz.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ar-kw.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ar-ly.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ar-ma.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ar-sa.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ar-tn.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ar.js" />
+    <Content Include="fullcalendar-3.4.0\locale\bg.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ca.js" />
+    <Content Include="fullcalendar-3.4.0\locale\cs.js" />
+    <Content Include="fullcalendar-3.4.0\locale\da.js" />
+    <Content Include="fullcalendar-3.4.0\locale\de-at.js" />
+    <Content Include="fullcalendar-3.4.0\locale\de-ch.js" />
+    <Content Include="fullcalendar-3.4.0\locale\de.js" />
+    <Content Include="fullcalendar-3.4.0\locale\el.js" />
+    <Content Include="fullcalendar-3.4.0\locale\en-au.js" />
+    <Content Include="fullcalendar-3.4.0\locale\en-ca.js" />
+    <Content Include="fullcalendar-3.4.0\locale\en-gb.js" />
+    <Content Include="fullcalendar-3.4.0\locale\en-ie.js" />
+    <Content Include="fullcalendar-3.4.0\locale\en-nz.js" />
+    <Content Include="fullcalendar-3.4.0\locale\es-do.js" />
+    <Content Include="fullcalendar-3.4.0\locale\es.js" />
+    <Content Include="fullcalendar-3.4.0\locale\et.js" />
+    <Content Include="fullcalendar-3.4.0\locale\eu.js" />
+    <Content Include="fullcalendar-3.4.0\locale\fa.js" />
+    <Content Include="fullcalendar-3.4.0\locale\fi.js" />
+    <Content Include="fullcalendar-3.4.0\locale\fr-ca.js" />
+    <Content Include="fullcalendar-3.4.0\locale\fr-ch.js" />
+    <Content Include="fullcalendar-3.4.0\locale\fr.js" />
+    <Content Include="fullcalendar-3.4.0\locale\gl.js" />
+    <Content Include="fullcalendar-3.4.0\locale\he.js" />
+    <Content Include="fullcalendar-3.4.0\locale\hi.js" />
+    <Content Include="fullcalendar-3.4.0\locale\hr.js" />
+    <Content Include="fullcalendar-3.4.0\locale\hu.js" />
+    <Content Include="fullcalendar-3.4.0\locale\id.js" />
+    <Content Include="fullcalendar-3.4.0\locale\is.js" />
+    <Content Include="fullcalendar-3.4.0\locale\it.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ja.js" />
+    <Content Include="fullcalendar-3.4.0\locale\kk.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ko.js" />
+    <Content Include="fullcalendar-3.4.0\locale\lb.js" />
+    <Content Include="fullcalendar-3.4.0\locale\lt.js" />
+    <Content Include="fullcalendar-3.4.0\locale\lv.js" />
+    <Content Include="fullcalendar-3.4.0\locale\mk.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ms-my.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ms.js" />
+    <Content Include="fullcalendar-3.4.0\locale\nb.js" />
+    <Content Include="fullcalendar-3.4.0\locale\nl-be.js" />
+    <Content Include="fullcalendar-3.4.0\locale\nl.js" />
+    <Content Include="fullcalendar-3.4.0\locale\nn.js" />
+    <Content Include="fullcalendar-3.4.0\locale\pl.js" />
+    <Content Include="fullcalendar-3.4.0\locale\pt-br.js" />
+    <Content Include="fullcalendar-3.4.0\locale\pt.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ro.js" />
+    <Content Include="fullcalendar-3.4.0\locale\ru.js" />
+    <Content Include="fullcalendar-3.4.0\locale\sk.js" />
+    <Content Include="fullcalendar-3.4.0\locale\sl.js" />
+    <Content Include="fullcalendar-3.4.0\locale\sr-cyrl.js" />
+    <Content Include="fullcalendar-3.4.0\locale\sr.js" />
+    <Content Include="fullcalendar-3.4.0\locale\sv.js" />
+    <Content Include="fullcalendar-3.4.0\locale\th.js" />
+    <Content Include="fullcalendar-3.4.0\locale\tr.js" />
+    <Content Include="fullcalendar-3.4.0\locale\uk.js" />
+    <Content Include="fullcalendar-3.4.0\locale\vi.js" />
+    <Content Include="fullcalendar-3.4.0\locale\zh-cn.js" />
+    <Content Include="fullcalendar-3.4.0\locale\zh-tw.js" />
+    <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutRooms.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutPageFirst.cshtml" />
+    <Content Include="img\01-fabric-shirt.png" />
+    <Content Include="img\05-white-brick.png" />
+    <Content Include="img\68680990-wood-wallpapers.jpg" />
+    <Content Include="img\aaa.gif" />
+    <Content Include="img\aaa.png" />
+    <Content Include="img\airplane.png" />
+    <Content Include="img\becomelan.png" />
+    <Content Include="img\bedcarttom.png" />
+    <Content Include="img\cus.png" />
+    <Content Include="img\delete.png" />
+    <Content Include="img\dia2.png" />
+    <Content Include="img\diary.png" />
+    <Content Include="img\edit.png" />
+    <Content Include="img\house122.png" />
+    <Content Include="img\housebro.png" />
+    <Content Include="img\houseor.png" />
+    <Content Include="img\icon_login.png" />
+    <Content Include="img\inputbackground.jpg" />
+    <Content Include="img\login_fail.png" />
+    <Content Include="img\noimage.png" />
+    <Content Include="img\plus.png" />
+    <Content Include="img\save.png" />
+    <Content Include="img\search.png" />
+    <Content Include="img\shower.png" />
+    <Content Include="img\signfo.png" />
+    <Content Include="img\signse.png" />
+    <Content Include="img\signstart.png" />
+    <Content Include="img\signth.png" />
+    <Content Include="img\stars.png" />
+    <Content Include="img\thubnail.jpg" />
+    <Content Include="img\thubvack.jpg" />
+    <Content Include="img\travel-tools-button.jpg" />
+    <Content Include="img\travelcost.jpg" />
+    <Content Include="img\traveldays.gif" />
+    <Content Include="img\TravelHomePage.jpg" />
+    <Content Include="img\TravelHomePage2.png" />
+    <Content Include="img\TravelHomePage3.png" />
+    <Content Include="jquery-cookie-master\Gruntfile.js" />
+    <Content Include="jquery-cookie-master\MIT-LICENSE.txt" />
+    <Content Include="jquery-cookie-master\src\jquery.cookie.js" />
+    <Content Include="jquery-cookie-master\test\index.html" />
+    <Content Include="jquery-cookie-master\test\malformed_cookie.html" />
+    <Content Include="jquery-cookie-master\test\tests.js" />
+    <Content Include="jquery-ui-1.12.1.custom\AUTHORS.txt" />
+    <Content Include="jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_diagonal-maze_20_6e4f1c_10x10.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_diagonal-maze_40_000000_10x10.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_fine-grain_10_eceadf_60x60.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_fine-grain_10_f8f7f6_60x60.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_fine-grain_15_eceadf_60x60.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_fine-grain_15_f7f3de_60x60.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_fine-grain_15_ffffff_60x60.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_fine-grain_65_654b24_60x60.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-bg_fine-grain_68_b83400_60x60.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-icons_222222_256x240.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-icons_3572ac_256x240.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-icons_8c291d_256x240.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-icons_b83400_256x240.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-icons_fbdb93_256x240.png" />
+    <Content Include="jquery-ui-1.12.1.custom\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="jquery-ui-1.12.1.custom\index.html" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.css" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.js" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.min.css" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.min.js" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.theme.css" />
+    <Content Include="jquery-ui-1.12.1.custom\jquery-ui.theme.min.css" />
+    <Content Include="jquery-ui-1.12.1.custom\LICENSE.txt" />
+    <Content Include="js-url-2.5.0\.gitignore" />
+    <Content Include="js-url-2.5.0\gruntfile.js" />
+    <Content Include="js-url-2.5.0\index.html" />
+    <Content Include="js-url-2.5.0\lib\jquery-1.10.1.min.js" />
+    <Content Include="js-url-2.5.0\lib\qunit\qunit.css" />
+    <Content Include="js-url-2.5.0\lib\qunit\qunit.js" />
+    <Content Include="js-url-2.5.0\tests.js" />
+    <Content Include="js-url-2.5.0\url-tld.min.js" />
+    <Content Include="js-url-2.5.0\url.js" />
+    <Content Include="js-url-2.5.0\url.min.js" />
+    <Content Include="Models\MSIT11404EnitityModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MSIT11404EnitityModel.edmx</DependentUpon>
+      <LastGenOutput>MSIT11404EnitityModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MSIT11404EnitityModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MSIT11404EnitityModel.edmx</DependentUpon>
+      <LastGenOutput>MSIT11404EnitityModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="OwlCarousel2-2.2.1\.gitattributes" />
+    <Content Include="OwlCarousel2-2.2.1\.gitignore" />
+    <Content Include="OwlCarousel2-2.2.1\.travis.yml" />
+    <Content Include="OwlCarousel2-2.2.1\bower.json" />
+    <Content Include="OwlCarousel2-2.2.1\CONTRIBUTING.md" />
+    <Content Include="OwlCarousel2-2.2.1\dist\LICENSE" />
+    <Content Include="OwlCarousel2-2.2.1\dist\README.md" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\README.md" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\vendors\jquery.min.map" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\scss\custom.scss" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\scss\demos.scss" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\scss\docs.scss" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\scss\docs.theme.scss" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\scss\highlight.scss" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\scss\_settings.scss" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\vendors\jquery.min.map" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\data\classes.json" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\data\events.json" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\data\features.json" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\data\options.json" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\layouts\demos.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\layouts\docs.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\layouts\home.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\animate.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\autoheight.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\autoplay.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\autowidth.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\basic.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\center.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\demos.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\events.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\lazyLoad.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\merge.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\mousewheel.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\responsive.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\rtl.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\stagepadding.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\test.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\urlhashnav.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\demos\video.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\api-classes.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\api-events.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\api-options.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\dev-buildin-plugins.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\dev-external.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\dev-plugin-api.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\dev-styles.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\started-faq.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\started-installation.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\started-welcome.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\support-changelog.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\support-contact.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\docs\support-contributing.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\pages\index.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\footer.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\head.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\header.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\home-carousel.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\home-features.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\home-hero.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\home-teaser-text.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\javascripts.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\releated-docs.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\sidenav-docs.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\title.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\templates\partials\vendors.hbs" />
+    <Content Include="OwlCarousel2-2.2.1\LICENSE" />
+    <Content Include="OwlCarousel2-2.2.1\package.json" />
+    <Content Include="OwlCarousel2-2.2.1\README.md" />
+    <Content Include="OwlCarousel2-2.2.1\ROADMAP.md" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\.jscsrc" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\.jshintrc" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\owl.carousel.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\owl.theme.default.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\owl.theme.green.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_animate.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_autoheight.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_core.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_lazyload.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_theme.default.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_theme.green.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_theme.scss" />
+    <Content Include="OwlCarousel2-2.2.1\src\scss\_video.scss" />
+    <Content Include="OwlCarousel2-2.2.1\_config.json" />
+    <Content Include="Areas\Admin\Views\AboutHouse\Insert.cshtml" />
+    <Content Include="Areas\Accomodation\Views\LandLord\ManageCalendar.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Shared\ForUser.cshtml" />
+    <Content Include="Areas\Accomodation\Views\LandLord\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutDestination.cshtml" />
+    <Content Include="Areas\Admin\Views\Place\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Place\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Place\Create.cshtml" />
+    <Content Include="img\714020 2-01.jpg" />
+    <Content Include="img\acoom.png" />
+    <Content Include="img\adminback1.jpeg" />
+    <Content Include="img\adminback3.jpg" />
+    <Content Include="img\adminbackgroung2.jpg" />
+    <Content Include="img\blue.jpg" />
+    <Content Include="img\cool.jpg" />
+    <Content Include="img\erth.jpg" />
+    <Content Include="img\forum.png" />
+    <Content Include="img\headbackground.jpg" />
+    <Content Include="img\hi.png" />
+    <Content Include="img\hi2.png" />
+    <Content Include="img\house.png" />
+    <Content Include="img\icon1.png" />
+    <Content Include="img\jobbb.jpg" />
+    <Content Include="img\journy.jpg" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\members.png" />
+    <Content Include="img\ok.jpg" />
+    <Content Include="img\plan.jpg" />
+    <Content Include="img\real.jpg" />
+    <Content Include="img\regist.png" />
+    <Content Include="img\shopppp.png" />
+    <Content Include="img\sign.png" />
+    <Content Include="img\transport.png" />
+    <Content Include="img\travel.jpg" />
+    <Content Include="img\travel2.jpg" />
+    <Content Include="img\travel27.jpg" />
+    <Content Include="img\travel4444.jpg" />
+    <Content Include="img\weather.png" />
+    <Content Include="img\wood.jpg" />
+    <Content Include="img\下載.jpg" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\ajax-loader.gif" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\owl.carousel.css" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\owl.carousel.min.css" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\owl.theme.default.css" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\owl.theme.default.min.css" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\owl.theme.green.css" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\owl.theme.green.min.css" />
+    <Content Include="OwlCarousel2-2.2.1\dist\assets\owl.video.play.png" />
+    <Content Include="OwlCarousel2-2.2.1\dist\owl.carousel.js" />
+    <Content Include="OwlCarousel2-2.2.1\dist\owl.carousel.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\css\animate.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\css\docs.theme.min.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\bird_blue_32.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\download.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\feature-drag.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\feature-modern.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\feature-module.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\feature-options.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\feature-responsive.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\feature-zombie.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\owl-logo.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\img\twitter_25.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\js\app.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\js\foundation.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\ajax-loader.gif" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\owl.carousel.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\owl.carousel.min.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\owl.theme.default.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\owl.theme.default.min.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\owl.theme.green.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\owl.theme.green.min.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\assets\owl.video.play.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\owl.carousel.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\owlcarousel\owl.carousel.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\vendors\foundation.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\vendors\highlight.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\vendors\jquery.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\assets\vendors\jquery.mousewheel.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\api-classes.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\api-events.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\api-options.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\dev-buildin-plugins.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\dev-external.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\dev-plugin-api.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\dev-styles.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\started-faq.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\started-installation.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\started-welcome.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\support-changelog.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\support-contact.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\docs\support-contributing.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs\index.html" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\css\animate.css" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\bird_blue_32.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\download.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\feature-drag.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\feature-modern.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\feature-module.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\feature-options.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\feature-responsive.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\feature-zombie.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\owl-logo.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\img\twitter_25.png" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\js\app.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\js\foundation.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\vendors\foundation.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\vendors\highlight.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\vendors\jquery.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\assets\vendors\jquery.mousewheel.min.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\helpers\modulo.js" />
+    <Content Include="OwlCarousel2-2.2.1\docs_src\helpers\test.js" />
+    <Content Include="OwlCarousel2-2.2.1\Gruntfile.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\img\ajax-loader.gif" />
+    <Content Include="OwlCarousel2-2.2.1\src\img\owl.video.play.png" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.animate.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.autoheight.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.autoplay.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.autorefresh.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.carousel.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.hash.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.lazyload.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.navigation.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.support.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.support.modernizr.js" />
+    <Content Include="OwlCarousel2-2.2.1\src\js\owl.video.js" />
+    <Content Include="OwlCarousel2-2.2.1\test\index.html" />
+    <Content Include="OwlCarousel2-2.2.1\test\unit\core.js" />
+    <Content Include="CityHandler.ashx" />
+    <Content Include="Areas\Admin\Views\Restaurant\Index.cshtml" />
+    <Content Include="Areas\Accomodation\Views\JustForUser\bookingtest.cshtml" />
+    <Content Include="Areas\Accomodation\Views\JustForUser\houseDetails.cshtml" />
+    <Content Include="Areas\Accomodation\Views\JustForUser\Index.cshtml" />
+    <Content Include="Areas\Accomodation\Views\JustForUser\searchRoom.cshtml" />
+    <Content Include="fullcalendar-3.4.0\demos\json\events.json" />
+    <Content Include="fullcalendar-3.4.0\demos\php\get-events.php" />
+    <Content Include="fullcalendar-3.4.0\demos\php\get-timezones.php" />
+    <Content Include="fullcalendar-3.4.0\demos\php\utils.php" />
+    <Content Include="jquery-ui-1.12.1.custom\package.json" />
+    <Content Include="Areas\Admin\Views\AboutHouse\Edit2.cshtml" />
+    <Content Include="Areas\Blog\tinymce\langs\readme.md" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Areas\Blog\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Areas\Blog\Views\Main\BlogFunc.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\BlogHome.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\BlogOne.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\GetMsg.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\MyBlog.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\PoDoc.cshtml" />
+    <Content Include="Areas\Blog\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Blog\Views\web.config" />
+    <Content Include="Areas\Blog\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Member\Views\Member\MemberJoin.cshtml" />
+    <Content Include="Areas\Member\Views\Shared\_LayoutMember1.cshtml" />
+    <Content Include="Areas\Member\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Member\GetAllMember.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\MemberEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\MemberInsert.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutMembers.cshtml" />
+    <Content Include="Areas\Member\Views\Member\Login.cshtml" />
+    <Content Include="Areas\Member\Views\Member\MemberEdit.cshtml" />
+    <Content Include="img\Thumbs.db" />
+    <Content Include="jquery-ui-1.12.1.custom\._Thumbs.db" />
+    <Content Include="Areas\Member\Views\Member\LoginOK.cshtml" />
+    <Content Include="Areas\Member\Views\Shared\_LayoutMember.cshtml" />
+    <Content Include="Areas\HomeIndex\Views\web.config" />
+    <Content Include="Areas\HomeIndex\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Accomodation\Views\tryapi\Index.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Shared\belandlord.cshtml" />
+    <Content Include="Areas\Accomodation\Views\LandLord\BasicInfoFirst.cshtml" />
+    <Content Include="Areas\Accomodation\Views\LandLord\BasicInfoTwo.cshtml" />
+    <Content Include="Areas\Accomodation\Views\LandLord\BasicInfoThree.cshtml" />
+    <Content Include="Areas\Accomodation\Views\LandLord\BasicInfoFour.cshtml" />
+    <Content Include="Areas\Accomodation\Views\LandLord\theveryfirst.cshtml" />
+    <Content Include="Areas\Accomodation\Views\JustForUser\CheckReservation.cshtml" />
+    <Content Include="Areas\Travel\Views\Travel\Index.cshtml" />
+    <Content Include="Areas\Travel\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Hotel\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Hotel\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Hotel\Index.cshtml" />
+    <Content Include="Areas\Transaction\Views\Account\Loging.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\Categorys.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\Create.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\ListLink.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\MenuLink.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\ProductsDetailed.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\ProductsList.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\ProductsListDetailed.cshtml" />
+    <Content Include="Areas\Transaction\Views\Products\Update.cshtml" />
+    <Content Include="Areas\Transaction\Views\put\Index.cshtml" />
+    <Content Include="Areas\Transaction\Views\web.config" />
+    <Content Include="Areas\Admin\Views\AboutHouse\Index2.cshtml" />
+    <Content Include="Areas\FlightSearch\Views\Flight\FlightList.cshtml" />
+    <Content Include="Areas\FlightSearch\Views\Flight\SearchFlight.cshtml" />
+    <Content Include="Areas\FlightSearch\Views\Shared\_LayoutFlight.cshtml" />
+    <Content Include="Areas\FlightSearch\Views\web.config" />
+    <Content Include="Areas\Admin\Views\AboutHouse\Critics.cshtml" />
+    <Content Include="Areas\Accomodation\Views\JustForUser\aboutbadcomment.cshtml" />
+    <Content Include="Areas\Travel\Views\Shared\_LayoutTravel.cshtml" />
+    <Content Include="js-url-2.5.0\.editorconfig" />
+    <Content Include="js-url-2.5.0\bower.json" />
+    <Content Include="js-url-2.5.0\package.json" />
+    <Content Include="js-url-2.5.0\README.md" />
+    <Content Include="js-url-2.5.0\url.jquery.json" />
+    <Content Include="Areas\Travel\Views\Travel\TravelDetail.cshtml" />
+    <Content Include="Areas\Travel\Views\Travel\Edit.cshtml" />
+    <Content Include="Areas\Travel\Views\Travel\CreateDetail.cshtml" />
+    <Content Include="Areas\Travel\Views\Travel\Create.cshtml" />
+    <Content Include="Areas\Member\Views\Member\MemberJoinDone.cshtml" />
+    <Content Include="Areas\Transaction\Views\Order\AddOrderDetailed.cshtml" />
+    <Content Include="Areas\Transaction\Views\Order\OrderDetailed.cshtml" />
+    <Content Include="Areas\Transaction\Views\Order\OrderIndex.cshtml" />
+    <Content Include="Areas\Transaction\Views\ShoppingCart\CartIDetailes.cshtml" />
+    <Content Include="Areas\Transaction\Views\ShoppingCart\CartIndex.cshtml" />
+    <Content Include="Areas\Blog\Views\PM\Index.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\EditDoc.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\EditMsg.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\EditPic.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\NoData.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\NoValue.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\PoMsg.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\SchDoc.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\TurnToHtml.cshtml" />
+    <Content Include="Areas\Blog\Views\Main\Up5Pic.cshtml" />
+    <Content Include="Areas\Admin\Views\Restaurant\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Restaurant\Edit.cshtml" />
+    <Content Include="jquery-cookie-master\.gitignore" />
+    <Content Include="jquery-cookie-master\.jshintignore" />
+    <Content Include="jquery-cookie-master\.jshintrc" />
+    <Content Include="jquery-cookie-master\.tm_properties" />
+    <Content Include="jquery-cookie-master\.travis.yml" />
+    <Content Include="jquery-cookie-master\bower.json" />
+    <Content Include="jquery-cookie-master\CHANGELOG.md" />
+    <Content Include="jquery-cookie-master\component.json" />
+    <Content Include="jquery-cookie-master\CONTRIBUTING.md" />
+    <Content Include="jquery-cookie-master\cookie.jquery.json" />
+    <Content Include="jquery-cookie-master\package.json" />
+    <Content Include="jquery-cookie-master\README.md" />
+    <Content Include="jquery-cookie-master\src\.jshintrc" />
+    <Content Include="jquery-cookie-master\test\.jshintrc" />
+    <Content Include="Areas\Travel\Views\Travel\UserTravels.cshtml" />
+    <Content Include="Areas\Transaction\Views\Categorys\CategorysIndex.cshtml" />
+    <Content Include="Areas\Transaction\Views\Categorys\Create.cshtml" />
+    <Content Include="Areas\Transaction\Views\Categorys\Products.cshtml" />
+    <Content Include="Areas\Transaction\Views\Categorys\ProductsDetailed.cshtml" />
+    <Content Include="Areas\Transaction\Views\Categorys\PUpdate.cshtml" />
+    <Content Include="Areas\Transaction\Views\Categorys\Update.cshtml" />
+    <Content Include="Areas\Transaction\Views\OrderList\List.cshtml" />
+    <EntityDeploy Include="Models\MSIT11404EnitityModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MSIT11404EnitityModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MSIT11404EnitityModel.edmx.diagram">
+      <DependentUpon>MSIT11404EnitityModel.edmx</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\FlightSearch\Views\Flight\OriginByWidget.cshtml" />
+    <Content Include="Areas\Job\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Job\Views\JobLists\Create.cshtml" />
+    <Content Include="Areas\Job\Views\JobLists\Delete.cshtml" />
+    <Content Include="Areas\Job\Views\JobLists\Details.cshtml" />
+    <Content Include="Areas\Job\Views\JobLists\Edit.cshtml" />
+    <Content Include="Areas\Job\Views\JobLists\Index.cshtml" />
+    <Content Include="Areas\Job\Views\LookingForJobs\Index.cshtml" />
+    <Content Include="Areas\Job\Views\web.config" />
+    <None Include="Properties\PublishProfiles\MSIT11404project120170622083329 - Web Deploy.pubxml" />
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.googlemap.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\searchcontrols.js" />
+    <Content Include="Sortable-master\Gruntfile.js" />
+    <Content Include="Sortable-master\index.html" />
+    <Content Include="Sortable-master\jquery.binding.js" />
+    <Content Include="Sortable-master\Sortable.js" />
+    <Content Include="Sortable-master\Sortable.min.js" />
+    <Content Include="Sortable-master\st\app.css" />
+    <Content Include="Sortable-master\st\app.js" />
+    <Content Include="Sortable-master\st\face-01.jpg" />
+    <Content Include="Sortable-master\st\face-02.jpg" />
+    <Content Include="Sortable-master\st\face-03.jpg" />
+    <Content Include="Sortable-master\st\face-04.jpg" />
+    <Content Include="Sortable-master\st\face-05.jpg" />
+    <Content Include="Sortable-master\st\face-06.jpg" />
+    <Content Include="Sortable-master\st\face-07.jpg" />
+    <Content Include="Sortable-master\st\face-08.jpg" />
+    <Content Include="Sortable-master\st\face-09.jpg" />
+    <Content Include="Sortable-master\st\iframe\frame.html" />
+    <Content Include="Sortable-master\st\iframe\index.html" />
+    <Content Include="Sortable-master\st\logo.png" />
+    <Content Include="Sortable-master\st\og-image.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Accomodation\AccomodationAreaRegistration.cs" />
+    <Compile Include="Areas\Accomodation\Controllers\JustForUserController.cs" />
+    <Compile Include="Areas\Accomodation\Controllers\LandLordController.cs" />
+    <Compile Include="Areas\Accomodation\Controllers\tryapiController.cs" />
+    <Compile Include="Areas\Accomodation\Models\BedDetailsRepository.cs" />
+    <Compile Include="Areas\Accomodation\Models\BookingRepository.cs" />
+    <Compile Include="Areas\Accomodation\Models\CalendarRepository.cs" />
+    <Compile Include="Areas\Accomodation\Models\HouseMainRepository.cs" />
+    <Compile Include="Areas\Accomodation\Models\HouseQualityRepository.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\AdminBedView.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\basicviewmodel.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\CalendarM.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\CheckReView.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\housedetailsview.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\ManageCalendar.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\SearchResualtView.cs" />
+    <Compile Include="Areas\Accomodation\ViewModel\theFirst.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AboutHouseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FlightController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HotelController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MemberController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PlaceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
+    <Compile Include="Areas\Admin\Models\HouseSearchModel.cs" />
+    <Compile Include="Areas\Admin\ViewModel\HouseSearchView.cs" />
+    <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
+    <Compile Include="Areas\Blog\BlogViewModel\HomePageVM.cs" />
+    <Compile Include="Areas\Blog\BlogViewModel\PM.cs" />
+    <Compile Include="Areas\Blog\Controllers\MainController.cs" />
+    <Compile Include="Areas\Blog\Controllers\PMController.cs" />
+    <Compile Include="Areas\FlightSearch\Controllers\FlightController.cs" />
+    <Compile Include="Areas\FlightSearch\FlightSearchAreaRegistration.cs" />
+    <Compile Include="Areas\FlightSearch\ViewModel\DisplayFlightViewModel.cs" />
+    <Compile Include="Areas\FlightSearch\ViewModel\SearchFlightViewModel.cs" />
+    <Compile Include="Areas\HomeIndex\Controllers\HomeController.cs" />
+    <Compile Include="Areas\HomeIndex\HomeIndexAreaRegistration.cs" />
+    <Compile Include="Areas\Job\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Job\Controllers\JobListsController.cs" />
+    <Compile Include="Areas\Job\Controllers\LookingForJobsController.cs" />
+    <Compile Include="Areas\Job\JobAreaRegistration.cs" />
+    <Compile Include="Areas\Member\Controllers\MemberController.cs" />
+    <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
+    <Compile Include="Areas\Member\ViewModel\LoginViewModel.cs" />
+    <Compile Include="Areas\Transaction\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\AddCartsController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\CategorysController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\OrderListController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\putController.cs" />
+    <Compile Include="Areas\Transaction\Controllers\putpic.cs" />
+    <Compile Include="Areas\Transaction\Controllers\ShoppingCartController.cs" />
+    <Compile Include="Areas\Transaction\TransactionAreaRegistration.cs" />
+    <Compile Include="Areas\Transaction\ViewModel\LogingViewModel.cs" />
+    <Compile Include="Areas\Transaction\ViewModel\OrderAdd.cs" />
+    <Compile Include="Areas\Transaction\ViewModel\OrderDetailsViewModel.cs" />
+    <Compile Include="Areas\Travel\Controllers\TravelController.cs" />
+    <Compile Include="Areas\Travel\TravelAreaRegistration.cs" />
+    <Compile Include="Controllers\BadCommentsController.cs" />
+    <Compile Include="Controllers\BadDetailsApiController.cs" />
+    <Compile Include="Controllers\BasiscWebapiController.cs" />
+    <Compile Include="Controllers\bookingapiController.cs" />
+    <Compile Include="Controllers\CityApiController.cs" />
+    <Compile Include="Controllers\HotelApiController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
+    <Compile Include="Controllers\PlaceApiController.cs" />
+    <Compile Include="Controllers\RestApiController.cs" />
+    <Compile Include="Controllers\TravelMessageApiController.cs" />
+    <Compile Include="Models\Airlines.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BedDtails.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BedSpaceCode.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BedType.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Booking.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Calendar.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CartsProducts.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categorys.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cities.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Doc.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Flights.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Hotels.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HouseMain.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HouseQuality.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HouseSourceType.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HouseSpace.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImageForRoom.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\JobList.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoginRecord.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Members.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mood.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Msg.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MSIT11404EnitityModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MSIT11404EnitityModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MSIT11404EnitityModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MSIT11404EnitityModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MSIT11404EnitityModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetails.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Orders.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartialClass\Airlines.cs" />
+    <Compile Include="Models\PartialClass\BedDtails.cs" />
+    <Compile Include="Models\PartialClass\BlogUser.cs" />
+    <Compile Include="Models\PartialClass\Booking.cs" />
+    <Compile Include="Models\PartialClass\CartsProducts.cs" />
+    <Compile Include="Models\PartialClass\Cities.cs" />
+    <Compile Include="Models\PartialClass\Doc.cs" />
+    <Compile Include="Models\PartialClass\Flight.cs" />
+    <Compile Include="Models\PartialClass\GJDoc.cs" />
+    <Compile Include="Models\PartialClass\Hotels.cs" />
+    <Compile Include="Models\PartialClass\JobList.cs" />
+    <Compile Include="Models\PartialClass\Member.cs" />
+    <Compile Include="Models\PartialClass\Mood.cs" />
+    <Compile Include="Models\PartialClass\Msg.cs" />
+    <Compile Include="Models\PartialClass\OrderDetailsPartial.cs" />
+    <Compile Include="Models\PartialClass\OrdersPartial.cs" />
+    <Compile Include="Models\PartialClass\Pic.cs" />
+    <Compile Include="Models\PartialClass\PlaceForBlog.cs" />
+    <Compile Include="Models\PartialClass\ProductsPartial.cs" />
+    <Compile Include="Models\PartialClass\Restaurants.cs" />
+    <Compile Include="Models\PartialClass\ScheduleDetails.cs" />
+    <Compile Include="Models\PartialClass\TicketInfo.cs" />
+    <Compile Include="Models\PartialClass\Travels.cs" />
+    <Compile Include="Models\Pic.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlaceForBlog.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Places.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Products.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Areas\ViewModel\InsertHouse.cs" />
+    <Compile Include="CityHandler.ashx.cs">
+      <DependentUpon>CityHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ACalendarController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartialClass\Calendar.cs" />
+    <Compile Include="Models\PartialClass\HouseMain.cs" />
+    <Compile Include="Models\PartialClass\ImageForRoom.cs" />
+    <Compile Include="Models\PartialClass\Places.cs" />
+    <Compile Include="Models\Restaurants.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScheduleDetails.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TicketInfo.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Travels.cs">
+      <DependentUpon>MSIT11404EnitityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Accomodation\Views\web.config" />
+    <Content Include="Areas\Accomodation\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutPro.cshtml" />
+    <Content Include="Sortable-master\.editorconfig" />
+    <Content Include="Sortable-master\.gitignore" />
+    <Content Include="Sortable-master\.jshintrc" />
+    <Content Include="Sortable-master\bower.json" />
+    <Content Include="Sortable-master\component.json" />
+    <Content Include="Sortable-master\CONTRIBUTING.md" />
+    <Content Include="Sortable-master\ISSUE_TEMPLATE.md" />
+    <Content Include="Sortable-master\package.json" />
+    <Content Include="Sortable-master\README.md" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Flight\" />
+    <Folder Include="Areas\Blog\Models\" />
+    <Folder Include="Areas\FlightSearch\Models\" />
+    <Folder Include="Areas\HomeIndex\Models\" />
+    <Folder Include="Areas\HomeIndex\Views\Shared\" />
+    <Folder Include="Areas\Job\Models\" />
+    <Folder Include="Areas\Job\Views\Shared\" />
+    <Folder Include="Areas\Member\Models\" />
+    <Folder Include="Areas\Transaction\Views\Shared\" />
+    <Folder Include="Areas\Travel\Models\" />
+    <Folder Include="image\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49925</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49925/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 封裝。請啟用 NuGet 封裝還原，以下載該封裝。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

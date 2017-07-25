@@ -1,0 +1,272 @@
+﻿@model MSIT11404project1.Areas.ViewModel.InsertHouse
+@using MSIT11404project1.Models
+
+@{
+    ViewBag.Title = "Edit2";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutRooms.cshtml";
+}
+@section style{
+    <style>
+        .row {
+        padding:15px;
+        }
+        form {
+            background-color: rgba(128, 128, 128,0.6);
+        }
+
+        .largediv {
+            flex: auto;
+        }
+
+        .form-group {
+            width: 400px;
+            padding-left:15px;
+        }
+
+        .form-control {
+            margin-left: 40px;
+        }
+
+        .form-group input {
+            font-size: 20px;
+            margin-top: 3px;
+            width: 250px;
+        }
+
+        .form-group label {
+            font-size: 20px;
+            width: 200px;
+            padding: 3px;
+            text-shadow: 3px 3px 2px rgba(128, 128, 128,0.6);
+        }
+
+        #btndiv input {
+            width: 100px;
+            margin-left: 50%;
+        }
+
+        .btnedit, .btndelete {
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+        }
+    </style>
+}
+<div class="largediv">
+    @using (Html.BeginForm("Edit2", "AboutHouse", new { area = "Admin", id = Model.EntityHouseMain.HouseKey,page=Convert.ToInt32(Request.QueryString["page"]) }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="row">
+            <div class="col-lg-6 ">
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.MemberID)
+                    @Html.TextBoxFor(n => n.EntityHouseMain.MemberID, new { @readonly = "true", @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n=>n.EntityHouseMain.HouseName)
+                    @Html.EditorFor(n=>n.EntityHouseMain.HouseName, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.HouseSpaceTypeID)
+                    @{
+                        IRepository<HouseSpace> housespaces = new Repository<HouseSpace>();   
+                        var housespace = new SelectList(housespaces.GetAll(), "HouseSpaceID", "HouseSpaceDescript");
+                        if (Model.EntityHouseMain.HouseSpaceTypeID != null)
+                        {
+
+                            var item = housespace.Where(n => n.Value == Convert.ToString(Model.EntityHouseMain.HouseSpaceTypeID)).First();
+                            item.Selected = true;
+                        }
+                    }
+                    @Html.DropDownListFor(n => n.EntityHouseMain.HouseSpaceTypeID, housespace, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.HouseSourceID)
+                    @{
+
+                        IRepository<HouseSourceType> housesources = new Repository<HouseSourceType>();
+                        var housesource = new SelectList(housesources.GetAll(), "HouseSourceID", "HouseSource");
+                        if (Model.EntityHouseMain.HouseSourceID != null)
+                        {
+
+                            var item = housesource.Where(n => n.Value == Convert.ToString(Model.EntityHouseMain.HouseSourceID)).First();
+                            item.Selected = true;
+                        }
+                    }
+                    @Html.DropDownListFor(n => n.EntityHouseMain.HouseSourceID, housesource, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.State)
+                    @Html.EditorFor(n => n.EntityHouseMain.State, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.Country)
+                    @Html.EditorFor(n => n.EntityHouseMain.Country, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.Adress)
+                    @Html.EditorFor(n => n.EntityHouseMain.Adress, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BathroomNum)
+                    @Html.EditorFor(n => n.EntityHouseMain.BathroomNum, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BedroomNum)
+                    @Html.EditorFor(n => n.EntityHouseMain.BedroomNum, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BedAvailableNum)
+                    @Html.EditorFor(n => n.EntityHouseMain.BedAvailableNum, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.IsOwnerHome)
+                    @Html.EditorFor(n => n.EntityHouseMain.IsOwnerHome, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.PeopleAllowed)
+                    @Html.EditorFor(n => n.EntityHouseMain.PeopleAllowed, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.IsActive)
+                    @Html.EditorFor(n => n.EntityHouseMain.IsActive, new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.Price)
+                    @Html.EditorFor(n => n.EntityHouseMain.Price,new { htmlattributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.CreateDate)
+                    @Html.EditorFor(n =>n.EntityHouseMain.CreateDate, new {htmlattributes=  new{ @readonly="true" } })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(n => n.EntityHouseMain.BadComment)
+                    @Html.EditorFor(n => n.EntityHouseMain.BadComment, new { htmlattributes = new { @class = "form-control",@readonly="true" } })
+                </div>
+                <div>
+                    @Html.LabelFor(n => n.Images)
+                    <div class="row" id="imagerow">
+
+                        @if (Model.EntityImages.Count() > 0)
+                {
+                    foreach (var item in Model.EntityImages)
+                    {
+                        var base64 = Convert.ToBase64String(item.ImageByte);
+                        var src1 = String.Format("data:img/jpeg;base64,{0}", base64);
+                                <div class="col-lg-5" data-imgkey="@item.ImageKey">
+
+                                    <input type="checkbox" />
+                                    <img src="@src1" style="width:200px;height:200px;" data-imgkey="@item.ImageKey" />
+
+                                </div>
+                            }
+
+                        }
+
+                    </div>
+                    <div id="hideimage" class="row">
+
+                    </div>
+                    <div>
+                        <a id="as" class="btn btndelete"></a><input type="file" class="btn btn-info " name="Images" multiple="multiple" id="Images" />
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div id="btndiv">
+            <input type="submit" id="Subbtn" value="確認" class="btn btn-default form-control" />
+        </div>
+
+
+                        }
+</div>
+@section script{
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script>
+        //var housekey =$('#housekey').val();
+
+        var imgrow = $('#imagerow');
+        var fragss=$(document.createDocumentFragment());
+
+
+        $('#Images').change(function () {
+            $('#hideimage').empty();
+            for (var i = 0; i < this.files.length; i++) {
+                var filereader =new FileReader();
+
+
+                filereader.addEventListener("load",function(){
+
+
+                    var imgs =$('<img/>').attr({ 'src':this.result,'data-housekey':@Model.EntityHouseMain.HouseKey }).css({ 'width': '200px', 'height': '200px' }).addClass("col-lg-5 img-thumbnail");
+
+
+                $('#hideimage').append(imgs);
+
+                })
+
+                filereader.readAsDataURL(this.files[i]);
+
+
+
+            }
+
+
+
+        })
+
+
+
+
+        $('#as').click(function () {
+            var idarry = [];
+            //event.preventdefault();
+            $('#imagerow input[type="checkbox"]').each(function () {
+                if ($(this).prop('checked')) {
+
+                    var ids = $(this).siblings('img').data("imgkey");
+                    idarry.push(ids);
+
+                }
+
+            })
+
+            var urlstr ="@Url.RouteUrl("DefaultApi",new { httproute = "", controller = "Images" })"
+            $.ajax({
+                "url": urlstr+"/"+idarry.toString(),
+                "type": "Delete",
+
+
+            }).done(
+            function(){
+
+                for (var i =0;i<idarry.length;i++){
+                    var divs =$('div[data-imgkey="'+idarry[i]+'"]');
+
+                    divs.remove();
+
+
+                }
+
+            }
+
+            )
+
+
+
+
+        })
+
+
+    </script>
+
+}
+

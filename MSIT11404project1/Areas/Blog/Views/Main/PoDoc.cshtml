@@ -1,0 +1,269 @@
+﻿@model MSIT11404project1.Models.Doc
+@{
+    ViewBag.Title = "PoDoc";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Blog/hover-min.css" rel="stylesheet" />
+      <style>
+        .a-upload {
+    height: 180px;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+
+
+
+    overflow: hidden; 
+    display: inline-block;
+     position: relative;
+}
+            .a-upload img {
+            width:250px;
+            height:180px;
+            
+            }
+.a-upload  input {
+    cursor: pointer;
+
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    width:100%;
+    height:100%;
+}
+
+.a-upload:hover {
+    color: #444;
+    background: #ccc;
+    border-color: #ccc;
+    text-decoration: none
+}
+        .picLable {
+        position:absolute;
+        top:4px;
+        left:2px;
+        
+        }
+
+        .SeePics {
+        margin-bottom:10px;
+        }
+
+        textarea
+        {
+            height:500px;
+        }
+       
+     
+    </style>
+    }
+
+<h2>發表文章</h2>
+<div>
+
+
+</div>
+
+
+<form action="PoDoc" method="post" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-sm-2 SeePics "  id="imgdiv1">
+            <a class="a-upload hvr-bob">
+                <div >
+                    <p class="picLable">上傳封面</p> 
+                    <input id="uploadImage" name="myPhoto" type="file" onchange="PreviewImage();" />
+                    <img   id="uploadPreview"/>
+                </div>
+            </a>
+        </div>
+     
+        <div class="col-sm-2 SeePics"   id="imgdiv2" hidden>
+            <a class="a-upload hvr-bob">
+                <div>
+                    <p class="picLable">
+                        照片1
+                    </p> 
+                        <input id="uploadImage2" name="myPhoto2" width="200" type="file" onchange="PreviewImage2();" />
+                        <img id="uploadPreview2"  />
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-2 SeePics "  id="imgdiv3" hidden>
+            <a class="a-upload hvr-bob">
+                <div >
+                    <p class="picLable">
+                        照片2
+                    </p> 
+                    <input id="uploadImage3" name="myPhoto3" width="200" type="file" onchange="PreviewImage3();" />
+                    <img id="uploadPreview3"  />
+                </div>
+            </a>
+        </div>
+           
+
+        <div class="col-sm-2 SeePics"  id="imgdiv4" hidden>
+            <a class="a-upload hvr-bob">
+                <div >
+                    <p class="picLable">
+                        照片3
+                    </p> 
+                    <input id="uploadImage4" name="myPhoto4" width="200" type="file" onchange="PreviewImage4();" />
+                    <img id="uploadPreview4"  />
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-xs-2 SeePics "  id="imgdiv5" hidden>
+            <a class="a-upload hvr-bob">
+                <div >
+                    <p class="picLable">
+                        照片4
+                    </p> 
+                    <input id="uploadImage5" name="myPhoto5" width="200" type="file" onchange="PreviewImage5();" />
+                    <img id="uploadPreview5" />
+                </div>
+            </a>
+        </div>
+
+          
+    </div>
+
+
+    <div class="row" style="margin-bottom:35px">
+        <div class="col-sm-4">
+            <div>
+                  <h4>文章標題：</h4>
+                    @Html.EditorFor(p => p.Title, new { htmlattributes = new { @class = "form-control" } })
+                    <h4>地點選擇：</h4>
+                    @{var PlaceSource = new SelectList(ViewBag.Place, "PlaceID", "PlaceName");}
+                    @Html.DropDownListFor(p => p.PlaceID, PlaceSource, "選擇地點", new { @class = "form-control" })
+                    <h4>分類選擇：</h4>
+                    @{var MoodSource = new SelectList(ViewBag.Mood, "MoodID", "MoodName");}
+                    @Html.DropDownListFor(p => p.MoodID, MoodSource, "選擇分類", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+    <textarea id="TheDOC">
+    </textarea>
+
+    <input name="Article" id="Article" type="hidden" />
+  
+
+    <div class="text-right">
+        <input id="submitB" class="btn btn-info" type="submit" value="送出文章"  style="margin:15px 0 15px 0; height:70px;width:230px;font-size:2em"/>
+    </div>
+</form>
+
+
+
+@section script{
+<script src="~/Areas/Blog/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Areas/Blog/tinymce/tinymce.min.js"></script>
+    <script>
+        //抓到Textarea裡面的內容存到隱藏的input===>>
+        function GoUpload() {
+
+            if ($('#PlaceID').val()==0) {
+                alert(0)
+            }
+
+
+
+
+            var theArtical = document.getElementById("Article");
+            theArtical.value = tinyMCE.get('TheDOC').getContent()
+        };
+        document.getElementById("submitB").addEventListener("click", GoUpload)
+        //抓到Textarea裡面的內容存到隱藏的input======
+
+        //初始化textarea變成編輯器===>>>>>>>>>
+        tinymce.init({
+        selector: '#TheDOC',
+        language: 'zh_TW',
+
+        //theme: "advanced",
+        //plugins: "emotions,spellchecker,advhr,insertdatetime,preview",
+        //theme_advanced_buttons1: "newdocument,|,bold,italic,underline,|,justifyleft,justifycenter,justifyright,fontselect,fontsizeselect,formatselect",
+        //theme_advanced_buttons2: "cut,copy,paste,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink,anchor,image,|,code,preview,|,forecolor,backcolor",
+        //theme_advanced_buttons3: "insertdate,inserttime,|,spellchecker,advhr,,removeformat,|,sub,sup,|,charmap,emotions",
+        //theme_advanced_toolbar_location: "top",
+        //theme_advanced_toolbar_align: "left",
+        //theme_advanced_statusbar_location: "bottom",
+        //theme_advanced_resizing: true
+
+        });
+        //初始化textarea變成編輯器============
+
+
+        //var imgSizeLimit = 819200;  // 相當於800KB
+        //var re = /\.(jpg|gif)$/i;
+        //function CheckFile() {
+        //    var f = document.FileForm;
+        //}
+        
+
+
+        //即時顯示圖片===>>
+        function PreviewImage() {
+            $("#imgdiv2").removeAttr("hidden")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview").src = oFREvent.target.result;
+            };
+            
+        };
+        
+        function PreviewImage2() {
+            $("#imgdiv3").removeAttr("hidden")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage2").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview2").src = oFREvent.target.result;
+            };
+        };
+     
+        function PreviewImage3() {
+            $("#imgdiv4").removeAttr("hidden")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage3").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview3").src = oFREvent.target.result;
+            };
+        };
+
+        function PreviewImage4() {
+            $("#imgdiv5").removeAttr("hidden")
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage4").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview4").src = oFREvent.target.result;
+            };
+        };
+
+        function PreviewImage5() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage5").files[0]);
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview5").src = oFREvent.target.result;
+            };
+        };
+        //即時顯示圖片=====
+
+</script>
+    }
+
+

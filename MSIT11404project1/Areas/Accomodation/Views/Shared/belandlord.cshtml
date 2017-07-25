@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    
+
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="~/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+   
+     <link href="~/Content/ButtonsCus.css" rel="stylesheet" />
+    <style>
+          @@import url("https://fonts.googleapis.com/css?family=Amatic+SC");
+        body {
+            background-image: url('@Url.Content("~/img/05-white-brick.png")');
+        }
+        *{
+            font-family:Microsoft JhengHei;
+        }
+        .nav>li {
+            border-right:3px solid #808080;
+            border-bottom:3px solid #808080;
+        }
+            .nav > li:last-child {
+            border-right:none;
+            }
+        .nav {
+        
+        font-size:35px;
+        font-weight:700;
+        } 
+    </style> 
+    @RenderSection("style", false)
+</head>
+<body>
+    <ul class="nav nav-tabs nav-justified">
+      
+        
+            
+        <li>@Html.ActionLink("第一步", "BasicInfoFirst", "LandLord", new { area = "Accomodation" }, new { id = "first" })</li>
+         
+         
+        <li>@Html.ActionLink("第二步", "BasicInfoTwo", "LandLord", new { area = "Accomodation" }, new { id = "second" })</li>
+        <li>@Html.ActionLink("第三步", "BasicInfoThree", "LandLord", new { area = "Accomodation" }, new { id = "third" })</li>
+        <li>@Html.ActionLink("第四步", "BasicInfoFour", "LandLord", new { area = "Accomodation" }, new { id = "forth" })</li>
+       
+    </ul>
+    
+    <div>
+        @RenderBody()
+    </div>
+
+
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+   
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+      var strurl = $(location).attr('href')
+      if (strurl.indexOf('BasicInfoFirst') > -1) {
+          $('#first').css('backgroundColor', 'white');
+      }
+      else if (strurl.indexOf('BasicInfoTwo') > -1) {
+          $('#second').css('backgroundColor', 'white');
+      }
+      else if (strurl.indexOf('BasicInfoThree') > -1) {
+          $('#third').css('backgroundColor', 'white');
+      }
+
+      
+     
+      
+
+    </script>
+    @RenderSection("script",false)
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section Style{
+    <style>
+        th {
+            width: 1000px;
+        }
+
+        .job {
+            width: 550px;
+            padding: 5px;
+            margin: 10px;
+            border: solid #808080 1px;
+            border-radius: 5px;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        h3 {
+            width: 110px;
+            padding: 5px;
+            margin: 10px;
+            border: solid #808080 1px;
+            border-radius: 5px;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+}
+
+<table>
+    <tr>
+        <th align="right">
+            <a class="btn btn-primary" href="@Url.Action("Index","LookingForJobs",new {Area="Job" })">尋找工作</a>
+        </th>
+        <th align="left">
+            <a class="btn btn-primary" href="@Url.Action("Index","JobLists",new {Area="Job" })">提供工作</a>
+        </th>
+    </tr>
+</table>
+<br />
+<br />

@@ -1,0 +1,9 @@
+﻿<div class="list-group">
+    @Html.ActionLink("新增拍賣品", "Create", "Products", new { area = "Transaction", @class = "list-group-item" })
+    <a class="list-group-item" href="@Url.Action( "ProductsList", "Products", new { area = "Transaction" })">拍賣清單(@ViewBag.Sellcount)</a>
+    <a class="list-group-item" href="@Url.Action("CartIndex", "ShoppingCart", new { area = "Transaction" })">購物車(@ViewBag.Buycount)</a>
+    <a class="list-group-item" href="@Url.Action("List", "OrderList", new { area = "Transaction" })">購買紀錄</a>
+
+
+
+</div>

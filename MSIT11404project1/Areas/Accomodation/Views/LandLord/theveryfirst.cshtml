@@ -1,0 +1,107 @@
+﻿@model MSIT11404project1.Areas.Accomodation.ViewModel.theFirst
+@{
+    ViewBag.Title = "theveryfirst";
+    Layout = "~/Areas/Accomodation/Views/Shared/ForUser.cshtml";
+}
+
+
+
+@section style{ 
+    <style>
+        .row {
+        margin-top:10px;
+        }
+         .editcontent {
+        font-size:20px;
+        font-weight:600;
+        }
+        .table {
+        white-space:nowrap;
+        width:100%;
+        }
+    </style>
+}
+<div class="container">   
+        <div class="editcontent">
+            <div class="page-header">
+                <h1>HELLO!!! @Html.DisplayFor(n => n.Mems.UserName)</h1>
+            </div>
+            @{
+                if (Model.housesEnties.Count != 0)
+                {
+                    int count = 0;
+                    <div class="row">
+                        <p>目前屬於您的房源</p>
+                    </div>
+                    foreach (var hs in Model.housesEnties)
+                    {
+                        count += 1;
+                        if (Convert.ToBoolean(hs.IsActive))
+                        {
+                                    <div class="row table table-bordered">
+                                        <div class="col-lg-3">
+                                         @count   @Html.DisplayFor(n => hs.HouseName)
+                                        </div>
+                                        <div class="col-lg-3">
+                                            @Html.DisplayFor(n => hs.Adress)
+                                        </div>
+                                        <div class="col-lg-3">
+                                            @Html.DisplayFor(n => hs.CreateDate)
+                                        </div>
+                                        <div class="col-lg-3">
+                                            @Html.ActionLink("修改", "BasicInfoFirst","LandLord",new {area="Accomodation",id=hs.HouseKey,notactive="yes",@class="btn btn-info" },"")
+                                        </div>
+                                    </div>
+
+                        }
+
+
+
+
+                    }
+                    if (Model.housesEnties.Where(n => n.IsActive == false).Count() == 0)
+                    {
+
+                        <div>@Html.ActionLink("建立新房源", "BasicInfoFirst", "LandLord", new { area = "Accomodation", id = "0" ,@class="btn btn-info"}, "")</div>
+                    }
+                    foreach (var hs in Model.housesEnties)
+                    {
+                        if (Convert.ToBoolean(hs.IsActive) != true)
+                        {
+                            <div class="row"><p>以下房源尚未發布</p></div>
+                            <div class="row table table-striped">
+                                <div class="col-lg-3">
+                                   
+                                   @Html.DisplayFor(n => hs.HouseName)
+                                </div>
+                                <div class="col-lg-3">
+                                   @Html.DisplayFor(n => hs.Adress)
+                                </div>
+                                <div class="col-lg-3">
+                                    @Html.DisplayFor(n => hs.CreateDate)
+                                </div>
+                                <div class="col-lg-3">
+                                    @Html.ActionLink("繼續編輯", "BasicInfoFirst","LandLord",new {area="Accomodation",id=hs.HouseKey,@class="btn btn-danger"},"")
+                                </div>
+                            </div>
+
+                        }
+
+                    }
+
+                }
+
+                else
+                {
+                    @Html.ActionLink("建立房源","BasicInfoFirst","LandLord",new {area="Accomodation",id="0",@class="btn btn-info" },"")
+
+                }
+
+            }
+                
+        
+        </div>
+        
+
+</div>
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f2d34688ba324d378485298ac2db69fa" Name="Diagram1">
+        <EntityTypeShape EntityType="MSIT11404Entities1.BedDtails" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.BedSpaceCode" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.BedType" Width="1.5" PointX="1.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Booking" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Calendar" Width="1.5" PointX="3.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.HouseQuality" Width="1.5" PointX="6" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.HouseSourceType" Width="1.5" PointX="1.5" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.HouseSpace" Width="1.5" PointX="1.5" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.ImageForRoom" Width="1.5" PointX="3.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Doc" Width="1.5" PointX="6" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Mood" Width="1.5" PointX="3.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Msg" Width="1.5" PointX="8.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Pic" Width="1.5" PointX="8.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.PlaceForBlog" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.JobList" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.sysdiagrams" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Airlines" Width="1.5" PointX="13" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Flights" Width="1.5" PointX="15.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.ScheduleDetails" Width="1.5" PointX="13" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.TicketInfo" Width="1.5" PointX="10.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.LoginRecord" Width="1.5" PointX="3" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.CartsProducts" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Categorys" Width="1.5" PointX="3.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.OrderDetails" Width="1.5" PointX="5.25" PointY="32.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Orders" Width="1.5" PointX="3" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Products" Width="1.5" PointX="6" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Cities" Width="1.5" PointX="10.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Hotels" Width="1.5" PointX="13" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Message" Width="1.5" PointX="5.25" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Places" Width="1.5" PointX="13" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Restaurants" Width="1.5" PointX="13" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Travels" Width="1.5" PointX="3" PointY="40.625" IsExpanded="true" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_BedDtails_BedType" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Booking_BedDtails" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Doc_Mood" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Doc_PlaceForBlog" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Msg_Doc" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Pic_Doc" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Flights_Airlines" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Flights_ScheduleDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Flights_TicketInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_ScheduleDetails_TicketInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_CartsProducts_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Products_Categorys" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_OrderDetails_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Hotels_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Places_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Restaurants_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Message_Travels" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.HouseMain" Width="1.5" PointX="8.75" PointY="21.375" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_BedDtails_HouseMain" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Booking_HouseMain" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Booking_HouseMain1" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Calendar_HouseMain" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_HouseMain_HouseSourceType" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_HouseMain_HouseSpace" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_HouseQuality_HouseMain" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_ImageForRoom_HouseMain" />
+        <EntityTypeShape EntityType="MSIT11404Entities1.Members" Width="1.5" PointX="0.75" PointY="24.375" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Booking_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_HouseMain_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_HouseQuality_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Doc_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Msg_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_LoginRecord_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_CartsProducts_Member" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Orders_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Products_Members" />
+        <AssociationConnector Association="MSIT11404Entities1.FK_Travels_Members" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

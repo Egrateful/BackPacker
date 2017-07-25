@@ -1,0 +1,121 @@
+﻿@model   MSIT11404project1.Areas.ViewModel.LogingViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPro.cshtml";
+}
+
+@section style{
+    <style>
+        body {
+            /*padding-top: 15px;
+        font-size: 12px*/
+        }
+
+        .Logingcontainer {
+            background-color: rgba(200,200,200,0.7);
+        }
+
+        .main {
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .login-or {
+            position: relative;
+            font-size: 18px;
+            color: #aaa;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .span-or {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: -2px;
+            margin-left: -25px;
+            background-color: #fff;
+            width: 50px;
+            text-align: center;
+        }
+
+        .hr-or {
+            background-color: #cdcdcd;
+            height: 1px;
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+
+        h3 {
+            text-align: center;
+            line-height: 300%;
+        }
+    </style>
+
+}
+<div class="Logingcontainer">
+    <div class="row">
+        <div class="main">
+            <h3>請登入，或<a href="#">註冊</a></h3>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <a href="#" class="btn btn-lg btn-info btn-block">Google</a>
+                </div>
+            </div>
+            <div class="login-or">
+                <hr class="hr-or">
+                <span class="span-or">or</span>
+            </div>
+            @using (Html.BeginForm("Loging", "Account", FormMethod.Post, new { novalidate = "novalidate" }))
+            {
+               
+                <div class="form-group">
+                   
+                    @Html.LabelFor(u => u.Email)
+                    @Html.EditorFor(u => u.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(u => u.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <a class="pull-right" href="#">忘記密碼?</a>
+                    @Html.LabelFor(u => u.Password)
+                    @Html.EditorFor(u => u.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(u => u.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="checkbox pull-right">
+                    <label>
+                        @Html.EditorFor(u => u.RememberMe)
+                        @Html.DisplayNameFor(u => u.RememberMe)
+                    </label>
+                </div>
+                <button type="submit" class="btn btn btn-primary">
+                    登入
+                </button>
+                @Html.ValidationSummary();
+            }
+
+            <div>@ViewBag.message</div>
+        </div>
+        <button id="A" class="btn btn-primary">會員A</button>
+        <button id="B"  class="btn btn-primary">會員B</button>
+        <button id="C"  class="btn btn-primary">會員C</button>
+    </div>
+</div>
+
+@section script{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#A").click(function () { $("#Email").val("Chiling@gmail.com"); $("#Password").val("123456") })
+            $("#B").click(function () { $("#Email").val("Jerry@yahoo.com.tw"); $("#Password").val("789012") })
+            $("#C").click(function () { $("#Email").val("Kim@hotmail.com"); $("#Password").val("000000") })
+
+        })
+</script>
+    }

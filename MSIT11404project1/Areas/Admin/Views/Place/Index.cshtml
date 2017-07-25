@@ -1,0 +1,159 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<MSIT11404project1.Models.Places>
+@{
+    ViewBag.Title = "景點檢視";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutDestination.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-3">
+        <label for="namesearch">名稱搜尋:</label>
+        <input id="namesearch" name="namesearch" type="text" />
+    </div>
+    <div class="col-lg-3">
+        <label for="addrsearch">地址搜尋:</label>
+        <input id="addrsearch" name="addrsearch" type="text" />
+    </div>
+    <div class="col-lg-3">
+        <label for="citysearch">城市搜尋:</label>
+        <input id="citysearch" name="citysearch" type="text" />
+    </div>
+    <div class="col-lg-3">
+        <label for="allsearch">關鍵字搜尋:</label>
+        <input id="allsearch" name="allsearch" type="text" />
+        <a id="search" class="btn btn-primary">查詢</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
+        <table id="placeTable" class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.ActionLink(@Html.DisplayNameFor(m => m.First().PlaceID).ToHtmlString(), "Index", "Place", new { sortby = ViewBag.SortByID, allsearch = ViewBag.SearchByAll, namesearch = ViewBag.SearchByName, addrsearch = ViewBag.SearchByAddr, citysearch = ViewBag.SearchByCity }, null)</th>
+                    <th>@Html.ActionLink(@Html.DisplayNameFor(m => m.First().Name).ToHtmlString(), "Index", "Place", new { sortby = ViewBag.SortByName, allsearch = ViewBag.SearchByAll, namesearch = ViewBag.SearchByName, addrsearch = ViewBag.SearchByAddr, citysearch = ViewBag.SearchByCity }, null)</th>
+                    <th>@Html.ActionLink(@Html.DisplayNameFor(m => m.First().Address).ToHtmlString(), "Index", "Place", new { sortby = ViewBag.SortByAddress, allsearch = ViewBag.SearchByAll, namesearch = ViewBag.SearchByName, addrsearch = ViewBag.SearchByAddr, citysearch = ViewBag.SearchByCity }, null)</th>
+                    <th>@Html.ActionLink("城市名稱", "Index", "Place", new { sortby = ViewBag.SortByCity, allsearch = ViewBag.SearchByAll, namesearch = ViewBag.SearchByName, addrsearch = ViewBag.SearchByAddr, citysearch = ViewBag.SearchByCity }, null)</th>
+                    <th>編輯</th>
+                    <th>刪除</th>
+                </tr>
+            </thead>
+            <tbody id="body">
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => p.PlaceID)</td>
+                        <td>@Html.DisplayFor(m => p.Name)</td>
+                        <td>@Html.DisplayFor(m => p.Address)</td>
+                        <td>@Html.DisplayFor(m => p.Cities.CityName)</td>
+                        <td><a href="@Url.Action("Edit","Place",new {Area="Admin",sortby=Request.QueryString["sortby"] , id = p.PlaceID ,page=Request.QueryString["page"], allsearch = ViewBag.SearchByAll, namesearch = ViewBag.SearchByName, addrsearch = ViewBag.SearchByAddr, citysearch = ViewBag.SearchByCity  })" class="btn btn-primary">編輯</a></td>
+                        <td><a href="@Url.Action("Delete","Place",new { Area = "Admin",sortby=Request.QueryString["sortby"], id = p.PlaceID ,page=Request.QueryString["page"],allsearch = ViewBag.SearchByAll, namesearch = ViewBag.SearchByName, addrsearch = ViewBag.SearchByAddr, citysearch = ViewBag.SearchByCity  })" class="btn btn-danger">刪除</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-5" id="showdetail">
+
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        @Html.PagedListPager(Model, p => Url.Action("Index", new { page = p, sortby = Request.QueryString["sortby"], allsearch = ViewBag.SearchByAll, namesearch = ViewBag.SearchByName, addrsearch = ViewBag.SearchByAddr, citysearch = ViewBag.SearchByCity }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+    <div class="col-lg-6">
+        <a class="btn btn-primary" href="@Url.Action("Create","Place",new {Area="Admin" })">新增</a>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+@section script{
+    <script>
+        $('#search').click(function () {
+            var strlink = "@Url.Action("Index", "Place", new { Area = "Admin" })";
+            strlink += "?namesearch=" + $('#namesearch').val();
+            strlink += "&addrsearch=" + $('#addrsearch').val();
+            strlink += "&citysearch=" + $('#citysearch').val();
+            strlink += "&allsearch=" + $('#allsearch').val();
+            $(this).attr('href', strlink);
+        })
+
+        $('#body>tr').mouseenter(function () {
+
+            $('#showdetail').html('<div id="detailpanel" class="panel panel-info"><div class="panel-heading">詳細資料</div></div>');
+
+
+            var id = $(this).children('td:eq(0)').html();
+            var geturl = '@Url.RouteUrl("DefaultApi",new { httproute="",controller="PlaceApi"})' + '/' + id;
+            var docFrag = $(document.createDocumentFragment());
+            $.ajaxSettings.async = false;
+            $.getJSON(geturl, function (data) {
+
+                var imgcell;
+                if (data['ImageWebSite'] != null) {
+                    imgcell = $('<div></div>').addClass('panel-body').append($('<img />').width('600').height('300').attr('src', data['ImageWebSite']));
+                }
+                else if (data['Image'] != null) {
+                    imgcell = $('<div></div>').addClass('panel-body').append($('<img />').width('600').height('300').attr('src', "data:image/jpeg;base64," + data['Image']));
+                }
+                else {
+                    imgcell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('查無照片'));
+                }
+                var Name = (data['Name'] == null) ? '' : data['Name'];
+                var namecell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('餐廳名稱:' + Name));
+
+                var Address = (data['Address'] == null) ? '' : data['Address'];
+                var addrcell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('餐廳地址:' + Address));
+
+
+
+                var City = (data['City'] == null) ? '' : data['City'];
+                var citycell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('所在城市:' + City));
+
+
+                var CityID = (data['CityID'] == null) ? '0' : data['CityID'];
+                var CityName = "";
+                if (data['CityID'] != '0') {
+                    var getcityurl = '@Url.RouteUrl("DefaultApi",new { httproute="",controller="CityApi"})' + '/' + CityID + '?n=""';
+                    $.ajaxSettings.async = false;
+                    $.getJSON(getcityurl, function (name) {
+                        CityName = name;
+                    })
+                    $.ajaxSettings.async = true;
+                }
+
+                var citycell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('所在城市:' + CityName));
+
+
+
+
+                var ArrivalWay = (data['ArrivalWay'] == null) ? '' : data['ArrivalWay'];
+                var arrivalwaycell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('抵達方式:' + ArrivalWay));
+
+                var Notice = (data['Notice'] == null) ? '' : data['Notice'];
+                var noticecell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('注意事項:' + Notice));
+
+                var Description = (data['Description'] == null) ? '' : data['Description'];
+                var descriptioncell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('餐廳描述:' + Description));
+
+               
+
+                var Phone = (data['Phone'] == null) ? '' : data['Phone'];
+                var phonecell = $('<div></div>').addClass('panel-body').append($('<h5></h5>').text('連絡電話:' + Phone));
+
+
+                docFrag.append([imgcell, namecell, addrcell, citycell, arrivalwaycell, noticecell, descriptioncell, phonecell]);
+            })
+            $.ajaxSettings.async = true;
+            $('#detailpanel').append(docFrag);
+        })
+        $('#body>tr').mouseleave(function () {
+            $('#showdetail').empty();
+        })
+
+    </script>
+}

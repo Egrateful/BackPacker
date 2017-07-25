@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "OriginByWidget";
+    Layout = "~/Areas/FlightSearch/Views/Shared/_LayoutFlight.cshtml";
+}
+
+@*<meta name="originLocation" content="New York" />*@
+
+
+@section style{
+    <style>
+        .form-flightsearch {
+            max-width: 420px;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            background-color: #c5e673;
+            border-radius: 10px;
+            border: 10px solid #73AD21;
+            padding-top: 20px;
+            padding-right: 30px;
+            padding-left: 30px;
+            padding-bottom: 20px;
+        }
+    </style>
+
+}
+
+@using (Html.BeginForm("OringinByWidget", "Flight", new { area = "FlightSearch" }, FormMethod.Post))
+{
+
+    <div class="form-flightsearch">
+
+        <div data-locale="zh-TW" data-skyscanner-widget="SearchWidget">
+
+        </div>
+    </div>
+
+}
+
+@*@using (Html.BeginForm("SkyScanner", "Flight", new { area = "FlightSearch" }, FormMethod.Post))
+{
+    <div class="form-flightsearch">
+
+        <div data-locale="zh-TW" data-skyscanner-widget="SearchWidget">
+
+        </div>
+    </div>
+
+}*@
+
+@*@using (Html.BeginForm("Index", "Flight", new { area = "FlightSearch" }, FormMethod.Post))
+    {
+
+        <div class="form-flightsearch">
+
+            <div data-locale="zh-TW" data-skyscanner-widget="SearchWidget"  style="font-size:30px;"
+                 data-origin-name="document.querySelector('meta[name=originLocation]').content" data-destination-name="'Taipei'">
+
+            </div>
+        </div>
+
+    }*@
+
+
+
+@*<script type="text/javascript" src="//api.skyscanner.net/api.ashx?key="></script>
+<script type="text/javascript">
+    skyscanner.load("snippets", "2");
+    function main() {
+        var snippet = new skyscanner.snippets.SearchPanelControl();
+        snippet.setShape("skyscraper");
+        snippet.setCulture("zh-TW");
+        snippet.setCurrency("TWD");
+        snippet.setProduct("flights", "1");
+
+        snippet.draw(document.getElementById("snippet_searchpanel"));
+    }
+    skyscanner.setOnLoadCallback(main);
+</script>
+
+<div id="snippet_searchpanel" data-skyscanner-widget="SearchWidget" style="width: auto; height:320px;"></div>*@
+
+@section script{
+
+    <script src="https://widgets.skyscanner.net/widget-server/js/loader.js" async></script>
+}
+
+
+
+
+
